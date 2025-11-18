@@ -1,0 +1,233 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "comment": "Draft Bizcap design tokens inferred from https://www.bizcap.com.au homepage HTML + computed styles. Must be validated against official brand guidelines/Figma before production.",
+  "meta": {
+    "source": "https://www.bizcap.com.au",
+    "extractedFrom": "assets/bizcap/html/homepage-bizcap-com-au.html",
+    "status": "draft",
+    "lastUpdated": "2025-11-18T13:12:00Z"
+  },
+  "tokens": {
+    "color": {
+      "base": {
+        "background": {
+          "value": "#FFFFFF",
+          "type": "color",
+          "description": "Page background (body background-color)"
+        },
+        "text": {
+          "value": "#1A191E",
+          "type": "color",
+          "description": "Primary body text color (rgb(26,25,30))"
+        }
+      },
+      "neutral": {
+        "0": {
+          "value": "#FFFFFF",
+          "type": "color",
+          "description": "White"
+        },
+        "900": {
+          "value": "#1A191E",
+          "type": "color",
+          "description": "Dark neutral used for text and navbar"
+        }
+      },
+      "accent": {
+        "sliderDot": {
+          "default": {
+            "value": "#97D6FF",
+            "type": "color",
+            "description": ".w-slider-dot background from inline CSS"
+          },
+          "active": {
+            "value": "#0C79C1",
+            "type": "color",
+            "description": ".w-slider-dot.w-active background from inline CSS (likely primary brand blue)"
+          }
+        }
+      }
+    },
+    "font": {
+      "family": {
+        "heading": {
+          "value": "\"DM Sans\", system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+          "type": "fontFamily",
+          "description": "Inferred heading font from computed styles (DM Sans)."
+        },
+        "body": {
+          "value": "\"Open Sans\", system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+          "type": "fontFamily",
+          "description": "Body font from WebFont loader (Open Sans)."
+        }
+      },
+      "size": {
+        "h1": {
+          "value": "clamp(32px, 4vw, 48px)",
+          "type": "fontSize",
+          "description": "Approximate hero H1 size range (to be refined from Figma)."
+        },
+        "h2": {
+          "value": "32px",
+          "type": "fontSize",
+          "description": "Section heading size (e.g. 'Where small business grows big')."
+        },
+        "h3": {
+          "value": "24px",
+          "type": "fontSize",
+          "description": "Card headings such as feature titles."
+        },
+        "body": {
+          "value": "16px",
+          "type": "fontSize",
+          "description": "Default paragraph text size."
+        },
+        "small": {
+          "value": "14px",
+          "type": "fontSize",
+          "description": "Small helper text and captions."
+        }
+      },
+      "weight": {
+        "regular": {
+          "value": 400,
+          "type": "fontWeight"
+        },
+        "medium": {
+          "value": 500,
+          "type": "fontWeight"
+        },
+        "semibold": {
+          "value": 600,
+          "type": "fontWeight"
+        },
+        "bold": {
+          "value": 700,
+          "type": "fontWeight"
+        }
+      },
+      "lineHeight": {
+        "tight": {
+          "value": 1.1,
+          "type": "lineHeight",
+          "description": "Hero headings / large display"
+        },
+        "normal": {
+          "value": 1.4,
+          "type": "lineHeight",
+          "description": "Standard body copy"
+        },
+        "relaxed": {
+          "value": 1.6,
+          "type": "lineHeight",
+          "description": "FAQ paragraphs and long-form text"
+        }
+      }
+    },
+    "spacing": {
+      "xs": { "value": "4px",  "type": "dimension" },
+      "sm": { "value": "8px",  "type": "dimension" },
+      "md": { "value": "16px", "type": "dimension" },
+      "lg": { "value": "24px", "type": "dimension" },
+      "xl": { "value": "32px", "type": "dimension" },
+      "xxl": { "value": "48px", "type": "dimension" }
+    },
+    "radius": {
+      "sm": { "value": "4px",  "type": "borderRadius" },
+      "md": { "value": "8px",  "type": "borderRadius" },
+      "lg": { "value": "12px", "type": "borderRadius" },
+      "pill": { "value": "999px", "type": "borderRadius", "description": "For badges and pill buttons." }
+    },
+    "shadow": {
+      "card": {
+        "value": "0 12px 30px rgba(0, 0, 0, 0.06)",
+        "type": "boxShadow",
+        "description": "Generic card shadow for elements like .card-2, .card-7 (approximation)."
+      }
+    },
+    "component": {
+      "button": {
+        "primary": {
+          "backgroundColor": { "value": "{color.accent.sliderDot.active}", "type": "color" },
+          "textColor": { "value": "#FFFFFF", "type": "color" },
+          "borderRadius": { "value": "{radius.pill}", "type": "borderRadius" },
+          "paddingY": { "value": "{spacing.sm}", "type": "dimension" },
+          "paddingX": { "value": "{spacing.lg}", "type": "dimension" },
+          "fontFamily": { "value": "{font.family.heading}", "type": "fontFamily" },
+          "fontWeight": { "value": "{font.weight.semibold}", "type": "fontWeight" },
+          "fontSize": { "value": "{font.size.body}", "type": "fontSize" },
+          "description": "Matches .button.primary and .headerbutton primary styles."
+        },
+        "text": {
+          "textColor": { "value": "{color.neutral.900}", "type": "color" },
+          "paddingY": { "value": "{spacing.xs}", "type": "dimension" },
+          "paddingX": { "value": "{spacing.sm}", "type": "dimension" },
+          "fontFamily": { "value": "{font.family.heading}", "type": "fontFamily" },
+          "fontWeight": { "value": "{font.weight.medium}", "type": "fontWeight" },
+          "fontSize": { "value": "{font.size.body}", "type": "fontSize" },
+          "description": "For link-style buttons such as .button-text-3, .link-10."
+        }
+      },
+      "badge": {
+        "primary": {
+          "backgroundColor": { "value": "rgba(12, 121, 193, 0.1)", "type": "color", "description": "Approximate primary-light badge background" },
+          "textColor": { "value": "{color.neutral.900}", "type": "color" },
+          "borderRadius": { "value": "{radius.pill}", "type": "borderRadius" },
+          "paddingY": { "value": "{spacing.xs}", "type": "dimension" },
+          "paddingX": { "value": "{spacing.sm}", "type": "dimension" }
+        }
+      },
+      "card": {
+        "surface": {
+          "backgroundColor": { "value": "#FFFFFF", "type": "color" },
+          "borderRadius": { "value": "{radius.lg}", "type": "borderRadius" },
+          "shadow": { "value": "{shadow.card}", "type": "boxShadow" },
+          "padding": { "value": "{spacing.lg}", "type": "dimension" },
+          "description": "Generic card style (e.g. .card-2, .card-7, product cards)."
+        }
+      },
+      "typography": {
+        "h1": {
+          "fontFamily": { "value": "{font.family.heading}", "type": "fontFamily" },
+          "fontWeight": { "value": "{font.weight.bold}", "type": "fontWeight" },
+          "fontSize": { "value": "{font.size.h1}", "type": "fontSize" },
+          "lineHeight": { "value": "{font.lineHeight.tight}", "type": "lineHeight" },
+          "color": { "value": "{color.neutral.900}", "type": "color" },
+          "description": "Hero heading style (e.g. 'Get a Business Loan for ...')."
+        },
+        "h2": {
+          "fontFamily": { "value": "{font.family.heading}", "type": "fontFamily" },
+          "fontWeight": { "value": "{font.weight.bold}", "type": "fontWeight" },
+          "fontSize": { "value": "{font.size.h2}", "type": "fontSize" },
+          "lineHeight": { "value": "{font.lineHeight.normal}", "type": "lineHeight" },
+          "color": { "value": "{color.neutral.900}", "type": "color" },
+          "description": "Section headings like 'Business loans made simple'."
+        },
+        "h3": {
+          "fontFamily": { "value": "{font.family.heading}", "type": "fontFamily" },
+          "fontWeight": { "value": "{font.weight.semibold}", "type": "fontWeight" },
+          "fontSize": { "value": "{font.size.h3}", "type": "fontSize" },
+          "lineHeight": { "value": "{font.lineHeight.normal}", "type": "lineHeight" },
+          "color": { "value": "{color.neutral.900}", "type": "color" },
+          "description": "Card titles and subheadings."
+        },
+        "body": {
+          "fontFamily": { "value": "{font.family.body}", "type": "fontFamily" },
+          "fontWeight": { "value": "{font.weight.regular}", "type": "fontWeight" },
+          "fontSize": { "value": "{font.size.body}", "type": "fontSize" },
+          "lineHeight": { "value": "{font.lineHeight.normal}", "type": "lineHeight" },
+          "color": { "value": "{color.base.text}", "type": "color" },
+          "description": "Default paragraph text."
+        },
+        "caption": {
+          "fontFamily": { "value": "{font.family.body}", "type": "fontFamily" },
+          "fontWeight": { "value": "{font.weight.regular}", "type": "fontWeight" },
+          "fontSize": { "value": "{font.size.small}", "type": "fontSize" },
+          "lineHeight": { "value": "{font.lineHeight.relaxed}", "type": "lineHeight" },
+          "color": { "value": "{color.neutral.900}", "type": "color" },
+          "description": "Small supporting text, e.g. labels under metrics."
+        }
+      }
+    }
+  }
+}

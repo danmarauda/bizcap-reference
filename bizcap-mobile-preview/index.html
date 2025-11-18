@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bizcap – SME Funding Companion</title>
+
+    <!-- Bizcap fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Bizcap design tokens (same as wanderlux mock) */
+      :root {
+        --color-base-background: #ffffff;
+        --color-base-text: #1a191e;
+        --color-neutral-0: #ffffff;
+        --color-neutral-50: #f5f7fb;
+        --color-neutral-100: #e5e7f0;
+        --color-neutral-200: #d3d7e4;
+        --color-neutral-700: #4b4a54;
+        --color-neutral-900: #1a191e;
+        --color-accent-primary: #0c79c1;
+        --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+
+        --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-size-h1: 28px;
+        --font-size-h2: 20px;
+        --font-size-h3: 16px;
+        --font-size-body: 14px;
+        --font-size-caption: 11px;
+
+        --line-height-tight: 1.1;
+        --line-height-normal: 1.4;
+        --line-height-relaxed: 1.6;
+
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 12px;
+        --space-lg: 16px;
+        --space-xl: 24px;
+        --space-2xl: 32px;
+
+        --radius-lg: 20px;
+        --radius-xl: 32px;
+        --radius-pill: 999px;
+
+        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
+        --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #f3f8ff 0, #ffffff 55%);
+        color: var(--color-base-text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .phone-shell {
+        width: 393px;
+        height: 852px;
+        max-width: 100%;
+        border-radius: 46px;
+        border: 1px solid var(--color-neutral-100);
+        overflow: hidden;
+        background: var(--color-neutral-0);
+        box-shadow: var(--shadow-shell);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        animation: scaleIn 0.7s ease-out both;
+      }
+
+      .status-bar {
+        padding: 18px 24px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        animation: slideDown 0.6s ease-out 0.1s both;
+      }
+
+      .status-icons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .app-header {
+        padding: 0 24px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: slideDown 0.6s ease-out 0.2s both;
+      }
+
+      .app-header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .app-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .app-title-block h1 {
+        font-family: var(--font-heading);
+        font-size: 22px;
+        line-height: 1.1;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .app-title-block p {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        margin-top: 2px;
+      }
+
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.15s ease, border-color 0.15s ease;
+      }
+
+      .icon-btn:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+      }
+
+      .screen-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 24px 80px;
+        scroll-behavior: smooth;
+      }
+
+      .search-block {
+        margin-bottom: var(--space-lg);
+        animation: slideUp 0.6s ease-out 0.25s both;
+      }
+
+      .search-inner {
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        border-radius: 999px;
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-50);
+        padding: 10px 44px 10px 40px;
+        font-size: 13px;
+        color: var(--color-base-text);
+        outline: none;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .search-input::placeholder {
+        color: #9ca3b5;
+      }
+
+      .search-input:focus {
+        border-color: var(--color-accent-primary);
+        background: #f1f7ff;
+      }
+
+      .search-icon,
+      .search-cta {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .search-icon {
+        left: 14px;
+        font-size: 14px;
+        color: #9ca3b5;
+      }
+
+      .search-cta {
+        right: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--color-accent-primary);
+        color: #ffffff;
+        font-size: 11px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .chip-card {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 16px;
+        background: #f5fbff;
+        border: 1px solid #d5e8f7;
+        animation: slideUp 0.6s ease-out 0.3s both;
+        cursor: pointer;
+      }
+
+      .chip-avatar-row {
+        display: flex;
+        margin-right: 4px;
+      }
+
+      .chip-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        border: 2px solid #ffffff;
+        background-size: cover;
+        background-position: center;
+        margin-left: -8px;
+      }
+
+      .chip-avatar:first-child {
+        margin-left: 0;
+      }
+
+      .chip-copy {
+        flex: 1;
+      }
+
+      .chip-copy h2 {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .chip-copy p {
+        font-size: 11px;
+        color: var(--color-neutral-700);
+      }
+
+      .hero-section-title {
+        margin-top: var(--space-xl);
+        margin-bottom: var(--space-md);
+        font-family: var(--font-heading);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        animation: slideUp 0.6s ease-out 0.35s both;
+      }
+
+      .hero-card {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+        background: #021422;
+        color: #ffffff;
+        animation: fadeIn 0.8s ease-out 0.4s both;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url("https://cdn.prod.website-files.com/6539fceb5fdf6b71748be127/65add75bb9eea4cecb7ec617_658279ccb7d0b22111690309_BIzcap%20Small%20Business%20Loans%20Cafe%201.webp");
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.5);
+      }
+
+      .hero-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.85),
+          rgba(0, 0, 0, 0.3),
+          transparent
+        );
+      }
+
+      .hero-content {
+        position: relative;
+        padding: 18px 18px 16px;
+      }
+
+      .hero-tag-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .hero-tag {
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(6px);
+      }
+
+      .hero-title {
+        font-family: var(--font-heading);
+        font-size: 20px;
+        line-height: var(--line-height-tight);
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      .hero-subtitle {
+        margin-top: 8px;
+        font-size: 12px;
+        line-height: var(--line-height-relaxed);
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .hero-metrics {
+        display: flex;
+        gap: 16px;
+        margin-top: 14px;
+        font-size: 11px;
+      }
+
+      .hero-metric-label {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .hero-metric-value {
+        font-weight: 600;
+      }
+
+      .hero-cta-row {
+        margin-top: 14px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn-primary {
+        flex: 1;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #053556;
+        border: none;
+        padding: 9px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+      }
+
+      .btn-secondary {
+        border-radius: 999px;
+        padding: 9px 12px;
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: rgba(0, 0, 0, 0.25);
+        color: #ffffff;
+        backdrop-filter: blur(6px);
+        cursor: pointer;
+      }
+
+      .section-heading-row {
+        margin-top: var(--space-xl);
+        margin-bottom: var(--space-md);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: slideUp 0.6s ease-out 0.45s both;
+      }
+
+      .section-heading-row h3 {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .section-heading-row button {
+        border: none;
+        background: transparent;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--color-accent-primary);
+        cursor: pointer;
+      }
+
+      .pill-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        animation: slideUp 0.6s ease-out 0.5s both;
+      }
+
+      .pill-card {
+        border-radius: 18px;
+        padding: 12px 8px;
+        text-align: center;
+        font-size: 11px;
+        cursor: pointer;
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-0);
+        color: var(--color-base-text);
+        transition: all 0.15s ease;
+      }
+
+      .pill-card--active {
+        background: var(--color-accent-primary);
+        color: #ffffff;
+        box-shadow: 0 8px 18px rgba(12, 121, 193, 0.25);
+        border-color: transparent;
+      }
+
+      .metrics-strip {
+        margin-top: var(--space-xl);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        padding: 12px 12px;
+        border-radius: 18px;
+        background: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-100);
+        animation: slideUp 0.6s ease-out 0.55s both;
+      }
+
+      .metrics-item {
+        text-align: center;
+      }
+
+      .metrics-number {
+        font-family: var(--font-heading);
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--color-neutral-900);
+      }
+
+      .metrics-label {
+        margin-top: 2px;
+        font-size: 11px;
+        color: var(--color-neutral-700);
+      }
+
+      .tab-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 8px 24px 10px;
+        border-top: 1px solid var(--color-neutral-100);
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(12px);
+        display: flex;
+        justify-content: space-around;
+        animation: slideUp 0.6s ease-out 0.7s both;
+      }
+
+      .tab-btn {
+        border: none;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        cursor: pointer;
+      }
+
+      .tab-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+      }
+
+      .tab-label {
+        font-size: 10px;
+        font-weight: 500;
+      }
+
+      .tab-btn--active .tab-icon {
+        background: var(--color-accent-primary-soft);
+        color: var(--color-accent-primary);
+      }
+
+      .tab-btn--active .tab-label {
+        color: var(--color-accent-primary);
+      }
+
+      .tab-btn:not(.tab-btn--active) .tab-label {
+        color: var(--color-neutral-700);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="phone-shell">
+      <div class="status-bar">
+        <span id="bizcap-time">09:41</span>
+        <div class="status-icons">
+          <span>📶</span>
+          <span>📡</span>
+          <span>🔋</span>
+        </div>
+      </div>
+
+      <header class="app-header">
+        <div class="app-header-left">
+          <div class="app-avatar" style="background: transparent; box-shadow: none; padding: 0;">
+            <img
+              src="/assets/bizcap/logos/bizcap-logo-primary.svg"
+              alt="Bizcap logo"
+              style="height: 22px; width: auto; display: block;"
+            />
+          </div>
+          <div class="app-title-block">
+            <h1>Bizcap</h1>
+            <p>Funding for small business</p>
+          </div>
+        </div>
+        <button class="icon-btn" id="bizcap-notify">🔔</button>
+      </header>
+
+      <div class="screen-scroll">
+        <section class="search-block">
+          <div class="search-inner">
+            <span class="search-icon">🔍</span>
+            <input
+              id="bizcap-search"
+              class="search-input"
+              placeholder="Search use-cases, industries, partners..."
+            />
+            <button class="search-cta" id="bizcap-filter">Filters</button>
+          </div>
+        </section>
+
+        <section class="search-block">
+          <div class="chip-card" id="bizcap-join">
+            <div class="chip-avatar-row">
+              <div
+                class="chip-avatar"
+                style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop');"
+              ></div>
+              <div
+                class="chip-avatar"
+                style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop');"
+              ></div>
+              <div
+                class="chip-avatar"
+                style="background-image: url('https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100&auto=format&fit=crop');"
+              ></div>
+            </div>
+            <div class="chip-copy">
+              <h2>Join 42K+ funded SMEs</h2>
+              <p>Tap to start an obligation-free funding scope</p>
+            </div>
+          </div>
+        </section>
+
+        <h2 class="hero-section-title">Featured funding scenario</h2>
+        <article class="hero-card">
+          <div class="hero-bg"></div>
+          <div class="hero-gradient"></div>
+          <div class="hero-content">
+            <div class="hero-tag-row">
+              <span class="hero-tag">Fast Business Loan</span>
+              <span class="hero-tag">Approvals in ~3 hours</span>
+            </div>
+            <h3 class="hero-title">
+              Get funds today, <br />
+              move on with business
+            </h3>
+            <p class="hero-subtitle">
+              Secure $5K–$7.5M for inventory, payroll, or growth — without
+              up-front credit checks.
+            </p>
+
+            <div class="hero-metrics">
+              <div>
+                <div class="hero-metric-label">Total funded</div>
+                <div class="hero-metric-value">$1.9B+</div>
+              </div>
+              <div>
+                <div class="hero-metric-label">Rating</div>
+                <div class="hero-metric-value">4.9/5</div>
+              </div>
+              <div>
+                <div class="hero-metric-label">Loans</div>
+                <div class="hero-metric-value">42K+</div>
+              </div>
+            </div>
+
+            <div class="hero-cta-row">
+              <button class="btn-primary" id="bizcap-apply">
+                Start application
+              </button>
+              <button class="btn-secondary" id="bizcap-compare">
+                Compare options
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <div class="section-heading-row">
+          <h3>Plan your funding</h3>
+          <button id="bizcap-view-all">View all</button>
+        </div>
+        <div class="pill-grid">
+          <button class="pill-card pill-card--active" data-usecase="cashflow">
+            Cash&nbsp;flow
+          </button>
+          <button class="pill-card" data-usecase="stock">Stock</button>
+          <button class="pill-card" data-usecase="equipment">Equipment</button>
+          <button class="pill-card" data-usecase="marketing">Marketing</button>
+        </div>
+
+        <div class="metrics-strip">
+          <div class="metrics-item">
+            <div class="metrics-number">$1.9B+</div>
+            <div class="metrics-label">in loans funded</div>
+          </div>
+          <div class="metrics-item">
+            <div class="metrics-number">4.9/5</div>
+            <div class="metrics-label">Trustpilot rating</div>
+          </div>
+          <div class="metrics-item">
+            <div class="metrics-number">42K+</div>
+            <div class="metrics-label">SME loans</div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="tab-bar">
+        <button class="tab-btn tab-btn--active" data-tab="home">
+          <div class="tab-icon">🏠</div>
+          <span class="tab-label">Home</span>
+        </button>
+        <button class="tab-btn" data-tab="scopes">
+          <div class="tab-icon">📋</div>
+          <span class="tab-label">Scopes</span>
+        </button>
+        <button class="tab-btn" data-tab="events">
+          <div class="tab-icon">📅</div>
+          <span class="tab-label">Events</span>
+        </button>
+        <button class="tab-btn" data-tab="account">
+          <div class="tab-icon">👤</div>
+          <span class="tab-label">Account</span>
+        </button>
+      </nav>
+    </main>
+
+    <script>
+      function updateBizcapTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        document.getElementById("bizcap-time").textContent = `${h}:${m}`;
+      }
+      updateBizcapTime();
+      setInterval(updateBizcapTime, 60000);
+
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          tabButtons.forEach((b) => b.classList.remove("tab-btn--active"));
+          btn.classList.add("tab-btn--active");
+          console.log("Bizcap tab:", btn.dataset.tab);
+        });
+      });
+
+      const usecasePills = document.querySelectorAll(".pill-card");
+      usecasePills.forEach((pill) => {
+        pill.addEventListener("click", () => {
+          usecasePills.forEach((p) => p.classList.remove("pill-card--active"));
+          pill.classList.add("pill-card--active");
+          console.log("Selected use-case:", pill.dataset.usecase);
+        });
+      });
+
+      document
+        .getElementById("bizcap-apply")
+        .addEventListener("click", () => {
+          alert("Start Bizcap application flow (Fast / Small / Secured, etc.)");
+        });
+
+      document
+        .getElementById("bizcap-compare")
+        .addEventListener("click", () => {
+          alert("Go to Bizcap compare solutions screen.");
+        });
+
+      document.getElementById("bizcap-join").addEventListener("click", () => {
+        alert("Take user to onboarding / pre-qualification flow.");
+      });
+
+      document
+        .getElementById("bizcap-notify")
+        .addEventListener("click", () => {
+          alert("Show recent funding updates, approvals, and reminders.");
+        });
+
+      document
+        .getElementById("bizcap-view-all")
+        .addEventListener("click", () => {
+          alert("View all Bizcap funding use-cases.");
+        });
+
+      document
+        .getElementById("bizcap-filter")
+        .addEventListener("click", () => {
+          alert("Open filters for funding amount, term, and type.");
+        });
+    </script>
+  </body>
+</html>
