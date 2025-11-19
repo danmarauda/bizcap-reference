@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bizcap – SME Funding Companion</title>
+    <title>Bizcap – S-Tier SME Funding Platform</title>
 
     <!-- Bizcap fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,28 +14,34 @@
     />
 
     <style>
-      /* Bizcap design tokens (same as wanderlux mock) */
+      /* Bizcap design tokens with S-Tier enhancements */
       :root {
-        --color-base-background: #ffffff;
-        --color-base-text: #1a191e;
-        --color-neutral-0: #ffffff;
+        /* Bizcap Design Tokens - Aligned with design-tokens.json */
+        --color-base-background: #FFFFFF;
+        --color-base-text: #1A191E;
+        --color-neutral-0: #FFFFFF;
         --color-neutral-50: #f5f7fb;
         --color-neutral-100: #e5e7f0;
         --color-neutral-200: #d3d7e4;
         --color-neutral-700: #4b4a54;
-        --color-neutral-900: #1a191e;
-        --color-accent-primary: #0c79c1;
+        --color-neutral-900: #1A191E;
+        --color-accent-primary: #0C79C1;
         --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+        --color-accent-secondary: #00D4AA;
+        --color-accent-warning: #FF6B35;
+        --color-accent-success: #10B981;
+        --color-accent-danger: #EF4444;
 
         --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
         --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
 
-        --font-size-h1: 28px;
-        --font-size-h2: 20px;
-        --font-size-h3: 16px;
-        --font-size-body: 14px;
+        --font-size-h1: clamp(32px, 4vw, 48px);
+        --font-size-h2: 32px;
+        --font-size-h3: 24px;
+        --font-size-body: 16px;
+        --font-size-small: 14px;
         --font-size-caption: 11px;
 
         --line-height-tight: 1.1;
@@ -44,17 +50,21 @@
 
         --space-xs: 4px;
         --space-sm: 8px;
-        --space-md: 12px;
-        --space-lg: 16px;
-        --space-xl: 24px;
-        --space-2xl: 32px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
 
-        --radius-lg: 20px;
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
         --radius-xl: 32px;
         --radius-pill: 999px;
 
-        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
         --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.06);
+        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
+        --shadow-premium: 0 20px 60px rgba(12, 121, 193, 0.15);
+        --shadow-glow: 0 0 40px rgba(12, 121, 193, 0.2);
       }
 
       * {
@@ -65,7 +75,7 @@
 
       body {
         min-height: 100vh;
-        background: radial-gradient(circle at top, #f3f8ff 0, #ffffff 55%);
+        background: radial-gradient(circle at top, #f0f8ff 0, #ffffff 40%, #fafbff 100%);
         color: var(--color-base-text);
         font-family: var(--font-body);
         -webkit-font-smoothing: antialiased;
@@ -73,23 +83,56 @@
         align-items: center;
         justify-content: center;
         padding: 24px;
+        position: relative;
+        overflow: hidden;
       }
 
+      /* Premium background effects */
+      body::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(12, 121, 193, 0.03) 0%, transparent 70%);
+        animation: float 20s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(30px, -30px) rotate(120deg); }
+        66% { transform: translate(-20px, 20px) rotate(240deg); }
+      }
+
+      /* S-Tier animations */
       @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
       }
       @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(-30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
       }
       @keyframes scaleIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
+        from { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+        to { opacity: 1; transform: scale(1); filter: blur(0px); }
       }
       @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from { opacity: 0; filter: blur(5px); }
+        to { opacity: 1; filter: blur(0px); }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.9; }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+      @keyframes glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(12, 121, 193, 0.3); }
+        50% { box-shadow: 0 0 40px rgba(12, 121, 193, 0.6); }
       }
 
       .phone-shell {
@@ -100,11 +143,30 @@
         border: 1px solid var(--color-neutral-100);
         overflow: hidden;
         background: var(--color-neutral-0);
-        box-shadow: var(--shadow-shell);
+        box-shadow: var(--shadow-premium);
         display: flex;
         flex-direction: column;
         position: relative;
-        animation: scaleIn 0.7s ease-out both;
+        animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .phone-shell::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 46px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(12, 121, 193, 0.3), rgba(0, 212, 170, 0.2));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        animation: glow 3s ease-in-out infinite;
+        animation-delay: 2s;
       }
 
       .status-bar {
@@ -114,7 +176,9 @@
         align-items: center;
         font-size: 12px;
         color: var(--color-neutral-700);
-        animation: slideDown 0.6s ease-out 0.1s both;
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        position: relative;
+        z-index: 10;
       }
 
       .status-icons {
@@ -127,13 +191,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        animation: slideDown 0.6s ease-out 0.2s both;
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        position: relative;
+        z-index: 10;
       }
 
       .app-header-left {
         display: flex;
         align-items: center;
-        gap: 12px;
+        justify-content: center;
+        flex: 1;
       }
 
       .app-avatar {
@@ -143,6 +210,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .app-avatar:hover {
+        transform: scale(1.1);
       }
 
       .app-title-block h1 {
@@ -169,12 +241,38 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: background 0.15s ease, border-color 0.15s ease;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .icon-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(12, 121, 193, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .icon-btn:hover::before {
+        width: 100px;
+        height: 100px;
       }
 
       .icon-btn:hover {
         background: #e9f4ff;
         border-color: var(--color-accent-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(12, 121, 193, 0.2);
+      }
+
+      .icon-btn:active {
+        transform: translateY(0);
       }
 
       .screen-scroll {
@@ -182,11 +280,25 @@
         overflow-y: auto;
         padding: 0 24px 80px;
         scroll-behavior: smooth;
+        position: relative;
+      }
+
+      .screen-scroll::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      .screen-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .screen-scroll::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-200);
+        border-radius: 10px;
       }
 
       .search-block {
         margin-bottom: var(--space-lg);
-        animation: slideUp 0.6s ease-out 0.25s both;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
       }
 
       .search-inner {
@@ -198,20 +310,28 @@
         border-radius: 999px;
         border: 1px solid var(--color-neutral-100);
         background: var(--color-neutral-50);
-        padding: 10px 44px 10px 40px;
-        font-size: 13px;
+        padding: 12px 48px 12px 44px;
+        font-size: 14px;
         color: var(--color-base-text);
         outline: none;
-        transition: border-color 0.2s ease, background 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(10px);
       }
 
       .search-input::placeholder {
         color: #9ca3b5;
+        transition: opacity 0.3s ease;
       }
 
       .search-input:focus {
         border-color: var(--color-accent-primary);
         background: #f1f7ff;
+        box-shadow: 0 0 0 3px rgba(12, 121, 193, 0.1);
+        transform: translateY(-1px);
+      }
+
+      .search-input:focus::placeholder {
+        opacity: 0.7;
       }
 
       .search-icon,
@@ -222,51 +342,93 @@
       }
 
       .search-icon {
-        left: 14px;
-        font-size: 14px;
+        left: 16px;
+        font-size: 16px;
         color: #9ca3b5;
+        transition: color 0.3s ease;
+      }
+
+      .search-input:focus ~ .search-icon {
+        color: var(--color-accent-primary);
       }
 
       .search-cta {
         right: 6px;
-        padding: 6px 10px;
+        padding: 8px 12px;
         border-radius: 999px;
         background: var(--color-accent-primary);
         color: #ffffff;
         font-size: 11px;
         border: none;
         cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        font-weight: 600;
+      }
+
+      .search-cta:hover {
+        background: #0a65a0;
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(12, 121, 193, 0.3);
       }
 
       .chip-card {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        border-radius: 16px;
-        background: #f5fbff;
+        gap: 12px;
+        padding: 14px 18px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #f5fbff 0%, #e8f4fd 100%);
         border: 1px solid #d5e8f7;
-        animation: slideUp 0.6s ease-out 0.3s both;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
         cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chip-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        transition: left 0.6s;
+      }
+
+      .chip-card:hover::before {
+        left: 100%;
+      }
+
+      .chip-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(12, 121, 193, 0.15);
+        border-color: var(--color-accent-primary);
       }
 
       .chip-avatar-row {
         display: flex;
-        margin-right: 4px;
+        margin-right: 6px;
       }
 
       .chip-avatar {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         border-radius: 999px;
         border: 2px solid #ffffff;
         background-size: cover;
         background-position: center;
-        margin-left: -8px;
+        margin-left: -10px;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       .chip-avatar:first-child {
         margin-left: 0;
+      }
+
+      .chip-card:hover .chip-avatar {
+        transform: scale(1.1);
       }
 
       .chip-copy {
@@ -274,43 +436,67 @@
       }
 
       .chip-copy h2 {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         color: var(--color-neutral-900);
       }
 
       .chip-copy p {
-        font-size: 11px;
+        font-size: 12px;
         color: var(--color-neutral-700);
+        margin-top: 2px;
       }
 
       .hero-section-title {
         margin-top: var(--space-xl);
         margin-bottom: var(--space-md);
         font-family: var(--font-heading);
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
         color: var(--color-neutral-900);
-        animation: slideUp 0.6s ease-out 0.35s both;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+        position: relative;
+      }
+
+      .hero-section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+        border-radius: 2px;
       }
 
       .hero-card {
         position: relative;
-        border-radius: 24px;
+        border-radius: 28px;
         overflow: hidden;
-        box-shadow: var(--shadow-card);
+        box-shadow: var(--shadow-premium);
         background: #021422;
         color: #ffffff;
-        animation: fadeIn 0.8s ease-out 0.4s both;
+        animation: fadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .hero-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 30px 80px rgba(12, 121, 193, 0.25);
       }
 
       .hero-bg {
         position: absolute;
         inset: 0;
-        background-image: url("https://cdn.prod.website-files.com/6539fceb5fdf6b71748be127/65add75bb9eea4cecb7ec617_658279ccb7d0b22111690309_BIzcap%20Small%20Business%20Loans%20Cafe%201.webp");
+        background-image: url("/assets/bizcap/illustrations/bizcap-hero-cafe.webp");
         background-size: cover;
         background-position: center;
-        filter: brightness(0.5);
+        filter: brightness(0.4);
+        transition: transform 0.6s ease;
+      }
+
+      .hero-card:hover .hero-bg {
+        transform: scale(1.05);
       }
 
       .hero-gradient {
@@ -318,53 +504,60 @@
         inset: 0;
         background: linear-gradient(
           to top,
-          rgba(0, 0, 0, 0.85),
-          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.9),
+          rgba(0, 0, 0, 0.4),
           transparent
         );
       }
 
       .hero-content {
         position: relative;
-        padding: 18px 18px 16px;
+        padding: 24px 24px 20px;
       }
 
       .hero-tag-row {
         display: flex;
-        gap: 8px;
-        margin-bottom: 8px;
+        gap: 10px;
+        margin-bottom: 12px;
       }
 
       .hero-tag {
-        padding: 4px 10px;
+        padding: 6px 12px;
         border-radius: 999px;
         font-size: 10px;
         font-weight: 600;
         border: 1px solid rgba(255, 255, 255, 0.3);
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(6px);
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .hero-tag:hover {
+        background: rgba(12, 121, 193, 0.3);
+        border-color: rgba(12, 121, 193, 0.5);
+        transform: translateY(-1px);
       }
 
       .hero-title {
         font-family: var(--font-heading);
-        font-size: 20px;
+        font-size: 22px;
         line-height: var(--line-height-tight);
         font-weight: 600;
-        margin-top: 4px;
+        margin-top: 6px;
       }
 
       .hero-subtitle {
-        margin-top: 8px;
-        font-size: 12px;
+        margin-top: 12px;
+        font-size: 13px;
         line-height: var(--line-height-relaxed);
-        color: rgba(255, 255, 255, 0.85);
+        color: rgba(255, 255, 255, 0.9);
       }
 
       .hero-metrics {
         display: flex;
-        gap: 16px;
-        margin-top: 14px;
-        font-size: 11px;
+        gap: 20px;
+        margin-top: 18px;
+        font-size: 12px;
       }
 
       .hero-metric-label {
@@ -373,40 +566,83 @@
 
       .hero-metric-value {
         font-weight: 600;
+        color: var(--color-accent-secondary);
       }
 
       .hero-cta-row {
-        margin-top: 14px;
+        margin-top: 18px;
         display: flex;
-        gap: 10px;
+        gap: 12px;
       }
 
       .btn-primary {
         flex: 1;
         border-radius: 999px;
-        background: #ffffff;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
         color: #053556;
         border: none;
-        padding: 9px 14px;
-        font-size: 13px;
+        padding: 12px 16px;
+        font-size: 14px;
         font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 8px;
         cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(12, 121, 193, 0.1), transparent);
+        transition: left 0.6s;
+      }
+
+      .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(255, 255, 255, 0.3);
+      }
+
+      .btn-primary::before {
+        content: '';
+        width: 18px;
+        height: 18px;
+        background-image: url("/assets/bizcap/icons/bizcap-bolt.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        flex-shrink: 0;
       }
 
       .btn-secondary {
         border-radius: 999px;
-        padding: 9px 12px;
-        font-size: 12px;
+        padding: 12px 14px;
+        font-size: 13px;
         font-weight: 500;
         border: 1px solid rgba(255, 255, 255, 0.4);
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(0, 0, 0, 0.3);
         color: #ffffff;
-        backdrop-filter: blur(6px);
+        backdrop-filter: blur(10px);
         cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(12, 121, 193, 0.3);
+        border-color: rgba(12, 121, 193, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(12, 121, 193, 0.2);
       }
 
       .section-heading-row {
@@ -415,12 +651,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        animation: slideUp 0.6s ease-out 0.45s both;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
       }
 
       .section-heading-row h3 {
         font-family: var(--font-heading);
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 600;
         color: var(--color-neutral-900);
       }
@@ -428,65 +664,139 @@
       .section-heading-row button {
         border: none;
         background: transparent;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 500;
         color: var(--color-accent-primary);
         cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .section-heading-row button::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--color-accent-primary);
+        transition: width 0.3s ease;
+      }
+
+      .section-heading-row button:hover::after {
+        width: 100%;
       }
 
       .pill-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 10px;
-        animation: slideUp 0.6s ease-out 0.5s both;
+        gap: 12px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
       }
 
       .pill-card {
-        border-radius: 18px;
-        padding: 12px 8px;
+        border-radius: 20px;
+        padding: 14px 10px;
         text-align: center;
-        font-size: 11px;
+        font-size: 12px;
         cursor: pointer;
         border: 1px solid var(--color-neutral-100);
         background: var(--color-neutral-0);
         color: var(--color-base-text);
-        transition: all 0.15s ease;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pill-card::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(12, 121, 193, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.4s, height 0.4s;
+      }
+
+      .pill-card:hover::before {
+        width: 80px;
+        height: 80px;
+      }
+
+      .pill-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(12, 121, 193, 0.2);
+        border-color: var(--color-accent-primary);
       }
 
       .pill-card--active {
-        background: var(--color-accent-primary);
+        background: linear-gradient(135deg, var(--color-accent-primary) 0%, #0a65a0 100%);
         color: #ffffff;
-        box-shadow: 0 8px 18px rgba(12, 121, 193, 0.25);
+        box-shadow: 0 10px 30px rgba(12, 121, 193, 0.3);
         border-color: transparent;
+        transform: translateY(-2px);
+      }
+
+      .pill-card--active::before {
+        display: none;
       }
 
       .metrics-strip {
         margin-top: var(--space-xl);
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        padding: 12px 12px;
-        border-radius: 18px;
-        background: var(--color-neutral-50);
+        gap: 16px;
+        padding: 16px 16px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--color-neutral-50) 0%, #f8fafc 100%);
         border: 1px solid var(--color-neutral-100);
-        animation: slideUp 0.6s ease-out 0.55s both;
+        background-image: url("/assets/bizcap/illustrations/bizcap-awards.png");
+        background-size: 70px;
+        background-repeat: no-repeat;
+        background-position: top right 16px;
+        background-blend-mode: overlay;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .metrics-strip::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(12, 121, 193, 0.05), transparent);
+        transition: left 0.8s;
+      }
+
+      .metrics-strip:hover::before {
+        left: 100%;
       }
 
       .metrics-item {
         text-align: center;
+        position: relative;
+        z-index: 1;
       }
 
       .metrics-number {
         font-family: var(--font-heading);
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 700;
         color: var(--color-neutral-900);
+        display: block;
+        margin-bottom: 4px;
       }
 
       .metrics-label {
-        margin-top: 2px;
         font-size: 11px;
         color: var(--color-neutral-700);
+        line-height: 1.3;
       }
 
       .tab-bar {
@@ -494,13 +804,13 @@
         left: 0;
         right: 0;
         bottom: 0;
-        padding: 8px 24px 10px;
+        padding: 10px 24px 12px;
         border-top: 1px solid var(--color-neutral-100);
-        background: rgba(255, 255, 255, 0.96);
-        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
         display: flex;
         justify-content: space-around;
-        animation: slideUp 0.6s ease-out 0.7s both;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
       }
 
       .tab-btn {
@@ -509,36 +819,146 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2px;
+        gap: 4px;
         cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 6px 12px;
+        border-radius: 12px;
+        position: relative;
+      }
+
+      .tab-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: var(--color-accent-primary-soft);
+        transform: translate(-50%, -50%);
+        transition: width 0.4s, height 0.4s;
+        z-index: -1;
+      }
+
+      .tab-btn:hover::before {
+        width: 50px;
+        height: 50px;
       }
 
       .tab-icon {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         border-radius: 999px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
       }
 
       .tab-label {
         font-size: 10px;
         font-weight: 500;
+        transition: all 0.3s ease;
       }
 
       .tab-btn--active .tab-icon {
         background: var(--color-accent-primary-soft);
         color: var(--color-accent-primary);
+        transform: scale(1.1);
       }
 
       .tab-btn--active .tab-label {
         color: var(--color-accent-primary);
+        font-weight: 600;
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-icon {
+        transform: scale(1.15);
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-label {
+        color: var(--color-accent-primary);
+      }
+
+      /* Bizcap Icons */
+      .icon-bolt {
+        background-image: url("/assets/bizcap/icons/bizcap-bolt.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .icon-check {
+        background-image: url("/assets/bizcap/icons/bizcap-check.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* Tab Icons */
+      .tab-icon-home {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' fill='currentColor'/%3e%3cpolyline points='9,22 9,12 15,12 15,22' fill='currentColor'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-scopes {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M15 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M21 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M3 7h18' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-events {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='10' stroke='currentColor' stroke-width='2'/%3e%3cpolyline points='12,6 12,12 16,14' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-account {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2' stroke='currentColor' stroke-width='2'/%3e%3ccircle cx='12' cy='7' r='4' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
       }
 
       .tab-btn:not(.tab-btn--active) .tab-label {
         color: var(--color-neutral-700);
+      }
+
+      /* Navigator tab special styling */
+      #navigator-tab:hover .tab-icon {
+        transform: scale(1.2) rotate(90deg);
+      }
+
+      /* Premium loading animation */
+      .premium-loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(12, 121, 193, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--color-accent-primary);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .phone-shell {
+          width: 100%;
+          height: 100vh;
+          border-radius: 0;
+        }
+        
+        body {
+          padding: 0;
+        }
       }
     </style>
   </head>
@@ -547,39 +967,59 @@
       <div class="status-bar">
         <span id="bizcap-time">09:41</span>
         <div class="status-icons">
-          <span>📶</span>
-          <span>📡</span>
-          <span>🔋</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20h20M6 16h12M10 12h4M14 8h-4M16 4h-8" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 10h2M6 14h6" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
         </div>
       </div>
 
-      <header class="app-header">
-        <div class="app-header-left">
-          <div class="app-avatar" style="background: transparent; box-shadow: none; padding: 0;">
-            <img
-              src="/assets/bizcap/logos/bizcap-logo-primary.svg"
-              alt="Bizcap logo"
-              style="height: 22px; width: auto; display: block;"
-            />
-          </div>
-          <div class="app-title-block">
-            <h1>Bizcap</h1>
-            <p>Funding for small business</p>
-          </div>
-        </div>
-        <button class="icon-btn" id="bizcap-notify">🔔</button>
-      </header>
+       <header class="app-header">
+         <div class="app-header-left">
+           <div class="app-avatar">
+             <img
+               src="/assets/bizcap/logos/bizcap-logo-primary.svg"
+               alt="Bizcap logo"
+               style="height: 32px; width: auto; display: block;"
+             />
+           </div>
+         </div>
+          <button class="icon-btn" id="bizcap-notify">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C10.896 2 10 2.896 10 4V5.586L7.707 8.293C7.512 8.488 7.256 8.584 7 8.584V10H17V8.584C16.744 8.584 16.488 8.488 16.293 8.293L14 5.586V4C14 2.896 13.104 2 12 2Z" fill="currentColor"/>
+              <path d="M5 12C5 10.896 5.896 10 7 10H8.414L10.707 7.707C10.902 7.512 11.158 7.416 11.414 7.416H12.586C12.842 7.416 13.098 7.512 13.293 7.707L15.586 10H17C18.104 10 19 10.896 19 12V20C19 21.104 18.104 22 17 22H7C5.896 22 5 21.104 5 20V12Z" fill="currentColor"/>
+            </svg>
+          </button>
+       </header>
 
       <div class="screen-scroll">
         <section class="search-block">
           <div class="search-inner">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </span>
             <input
               id="bizcap-search"
               class="search-input"
-              placeholder="Search use-cases, industries, partners..."
+              placeholder="Search funding options, industries, partners..."
             />
-            <button class="search-cta" id="bizcap-filter">Filters</button>
+            <button class="search-cta" id="bizcap-filter">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="9" cy="6" r="1" fill="currentColor"/>
+                <circle cx="15" cy="12" r="1" fill="currentColor"/>
+                <circle cx="9" cy="18" r="1" fill="currentColor"/>
+              </svg>
+            </button>
           </div>
         </section>
 
@@ -600,13 +1040,13 @@
               ></div>
             </div>
             <div class="chip-copy">
-              <h2>Join 42K+ funded SMEs</h2>
-              <p>Tap to start an obligation-free funding scope</p>
+              <h2>Join 42K+ successful SMEs</h2>
+              <p>Start your obligation-free funding assessment</p>
             </div>
           </div>
         </section>
 
-        <h2 class="hero-section-title">Featured funding scenario</h2>
+        <h2 class="hero-section-title">Featured funding solution</h2>
         <article class="hero-card">
           <div class="hero-bg"></div>
           <div class="hero-gradient"></div>
@@ -616,12 +1056,11 @@
               <span class="hero-tag">Approvals in ~3 hours</span>
             </div>
             <h3 class="hero-title">
-              Get funds today, <br />
-              move on with business
+              Get funds today,<br />
+              grow your business tomorrow
             </h3>
             <p class="hero-subtitle">
-              Secure $5K–$7.5M for inventory, payroll, or growth — without
-              up-front credit checks.
+              Access $5K–$7.5M for inventory, payroll, or expansion — with no upfront credit checks or hidden fees.
             </p>
 
             <div class="hero-metrics">
@@ -658,9 +1097,15 @@
           <button class="pill-card pill-card--active" data-usecase="cashflow">
             Cash&nbsp;flow
           </button>
-          <button class="pill-card" data-usecase="stock">Stock</button>
-          <button class="pill-card" data-usecase="equipment">Equipment</button>
-          <button class="pill-card" data-usecase="marketing">Marketing</button>
+          <button class="pill-card" data-usecase="stock">
+            Stock
+          </button>
+          <button class="pill-card" data-usecase="equipment">
+            Equipment
+          </button>
+          <button class="pill-card" data-usecase="marketing">
+            Marketing
+          </button>
         </div>
 
         <div class="metrics-strip">
@@ -681,20 +1126,32 @@
 
       <nav class="tab-bar">
         <button class="tab-btn tab-btn--active" data-tab="home">
-          <div class="tab-icon">🏠</div>
+          <div class="tab-icon tab-icon-home"></div>
           <span class="tab-label">Home</span>
         </button>
         <button class="tab-btn" data-tab="scopes">
-          <div class="tab-icon">📋</div>
+          <div class="tab-icon tab-icon-scopes"></div>
           <span class="tab-label">Scopes</span>
         </button>
         <button class="tab-btn" data-tab="events">
-          <div class="tab-icon">📅</div>
+          <div class="tab-icon tab-icon-events"></div>
           <span class="tab-label">Events</span>
         </button>
         <button class="tab-btn" data-tab="account">
-          <div class="tab-icon">👤</div>
+          <div class="tab-icon tab-icon-account"></div>
           <span class="tab-label">Account</span>
+        </button>
+        <button class="tab-btn" data-tab="navigator" id="navigator-tab">
+          <div class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+              <rect x="7" y="7" width="3" height="3" fill="currentColor"/>
+              <rect x="14" y="7" width="3" height="3" fill="currentColor"/>
+              <rect x="7" y="14" width="3" height="3" fill="currentColor"/>
+              <rect x="14" y="14" width="3" height="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="tab-label">Storyboard</span>
         </button>
       </nav>
     </main>
@@ -709,57 +1166,141 @@
       updateBizcapTime();
       setInterval(updateBizcapTime, 60000);
 
+      // Enhanced tab interactions with ripple effects
       const tabButtons = document.querySelectorAll(".tab-btn");
       tabButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", function(e) {
+          // Create ripple effect
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+          
+          ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            border-radius: 50%;
+            background: rgba(12, 121, 193, 0.3);
+            left: ${x}px;
+            top: ${y}px;
+            pointer-events: none;
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+          `;
+          
+          this.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+          
           tabButtons.forEach((b) => b.classList.remove("tab-btn--active"));
-          btn.classList.add("tab-btn--active");
-          console.log("Bizcap tab:", btn.dataset.tab);
+          this.classList.add("tab-btn--active");
+          console.log("Bizcap tab:", this.dataset.tab);
         });
       });
 
+      // Enhanced use case selection with haptic feedback simulation
       const usecasePills = document.querySelectorAll(".pill-card");
       usecasePills.forEach((pill) => {
-        pill.addEventListener("click", () => {
+        pill.addEventListener("click", function() {
+          // Simulate haptic feedback
+          if (navigator.vibrate) {
+            navigator.vibrate(50);
+          }
+          
           usecasePills.forEach((p) => p.classList.remove("pill-card--active"));
-          pill.classList.add("pill-card--active");
-          console.log("Selected use-case:", pill.dataset.usecase);
+          this.classList.add("pill-card--active");
+          console.log("Selected use-case:", this.dataset.usecase);
+          
+          // Add pulse animation
+          this.style.animation = 'pulse 0.3s ease';
+          setTimeout(() => {
+            this.style.animation = '';
+          }, 300);
         });
       });
 
-      document
-        .getElementById("bizcap-apply")
-        .addEventListener("click", () => {
-          alert("Start Bizcap application flow (Fast / Small / Secured, etc.)");
-        });
-
-      document
-        .getElementById("bizcap-compare")
-        .addEventListener("click", () => {
-          alert("Go to Bizcap compare solutions screen.");
-        });
-
-      document.getElementById("bizcap-join").addEventListener("click", () => {
-        alert("Take user to onboarding / pre-qualification flow.");
+      // Premium button interactions
+      document.getElementById("bizcap-apply").addEventListener("click", function() {
+        this.innerHTML = '<span class="premium-loading"></span> Processing...';
+        setTimeout(() => {
+          this.innerHTML = 'Start application';
+          alert("Welcome to your Bizcap funding journey! Let's get you funded in 3 simple steps.");
+        }, 1500);
       });
 
-      document
-        .getElementById("bizcap-notify")
-        .addEventListener("click", () => {
-          alert("Show recent funding updates, approvals, and reminders.");
-        });
+      document.getElementById("bizcap-compare").addEventListener("click", () => {
+        alert("Compare Bizcap's funding solutions: Fast Business Loans, Secured Loans, and Line of Credit.");
+      });
 
-      document
-        .getElementById("bizcap-view-all")
-        .addEventListener("click", () => {
-          alert("View all Bizcap funding use-cases.");
-        });
+      document.getElementById("bizcap-join").addEventListener("click", function() {
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          this.style.transform = '';
+          alert("Welcome! Join thousands of SMEs getting funded with Bizcap. Let's start your assessment!");
+        }, 150);
+      });
 
-      document
-        .getElementById("bizcap-filter")
-        .addEventListener("click", () => {
-          alert("Open filters for funding amount, term, and type.");
-        });
+      document.getElementById("bizcap-notify").addEventListener("click", function() {
+        // Add notification badge animation
+        this.style.animation = 'pulse 0.5s ease';
+        setTimeout(() => {
+          this.style.animation = '';
+          alert("You have 3 funding updates: 1 approval ready, 1 document required, 1 payment due.");
+        }, 500);
+      });
+
+      document.getElementById("bizcap-view-all").addEventListener("click", () => {
+        alert("Explore all Bizcap funding use-cases: Cash Flow, Stock, Equipment, Marketing, Expansion & more.");
+      });
+
+      document.getElementById("bizcap-filter").addEventListener("click", () => {
+        alert("Filter funding options by: Amount ($5K-$7.5M), Industry, Term length, and Funding speed.");
+      });
+
+      // Enhanced search functionality
+      let searchTimeout;
+      document.getElementById("bizcap-search").addEventListener("input", function(e) {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          if (e.target.value.length > 2) {
+            console.log("Searching for:", e.target.value);
+            // Add search loading state
+            this.style.background = '#f1f7ff';
+          } else {
+            this.style.background = '';
+          }
+        }, 300);
+      });
+
+      // Navigator tab with enhanced transition
+      document.getElementById("navigator-tab").addEventListener("click", () => {
+        this.style.animation = 'glow 1s ease';
+        setTimeout(() => {
+          this.style.animation = '';
+          window.open("./bizcap-screen-flow-lanes.html", "_blank");
+        }, 500);
+      });
+
+      // Add ripple animation to styles
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Premium entrance animation
+      setTimeout(() => {
+        document.querySelector('.phone-shell').style.animation = 'glow 2s ease';
+        setTimeout(() => {
+          document.querySelector('.phone-shell').style.animation = '';
+        }, 2000);
+      }, 3000);
     </script>
   </body>
 </html>

@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizcap Mobile App Storyboard & Navigator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #0C79C1;
+            --color-secondary: #10b981;
+            --color-accent: #f59e0b;
+            --color-danger: #ef4444;
+            --color-text: #1A191E;
+            --color-gray: #4b4a54;
+            --color-light: #f5f7fb;
+            --color-white: #FFFFFF;
+            --color-border: #e5e7f0;
+            --font-heading: "DM Sans", sans-serif;
+            --font-body: "Open Sans", sans-serif;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-xl: 0 12px 32px rgba(0,0,0,0.16);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-family: var(--font-heading);
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: var(--color-gray);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .view-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 14px 28px;
+            border: none;
+            background: transparent;
+            color: var(--color-gray);
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            background: var(--color-light);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .content-area {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-2xl);
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-height: 600px;
+        }
+
+        /* Storyboard View */
+        .storyboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .storyboard-card {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .storyboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .storyboard-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .storyboard-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .storyboard-header {
+            padding: 24px;
+            background: linear-gradient(135deg, var(--color-light), var(--color-white));
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .storyboard-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .storyboard-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .storyboard-subtitle {
+            font-size: 14px;
+            color: var(--color-gray);
+        }
+
+        .storyboard-content {
+            padding: 24px;
+        }
+
+        .storyboard-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px;
+            background: var(--color-light);
+            border-radius: var(--radius-md);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--color-gray);
+            margin-top: 4px;
+        }
+
+        .storyboard-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--color-border);
+            background: var(--color-white);
+            color: var(--color-text);
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .action-btn.primary:hover {
+            background: #0a6bb3;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Frame Preview */
+        .mobile-frame {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: var(--shadow-xl);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-white);
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-status-bar {
+            height: 44px;
+            background: var(--color-white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .mobile-content {
+            height: calc(100% - 44px - 80px);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .mobile-tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--color-white);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+
+        .mobile-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-tab:hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-tab.active {
+            color: var(--color-primary);
+        }
+
+        .mobile-tab i {
+            font-size: 20px;
+        }
+
+        .mobile-tab span {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* Flow Diagram */
+        .flow-diagram {
+            background: var(--color-light);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        .flow-node {
+            display: inline-block;
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 16px 24px;
+            margin: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .flow-node:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .flow-node.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .flow-node.start {
+            background: var(--color-secondary);
+            color: white;
+            border-color: var(--color-secondary);
+        }
+
+        .flow-node.end {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+
+        .flow-arrow {
+            display: inline-block;
+            color: var(--color-gray);
+            font-size: 20px;
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        /* User Journey Map */
+        .journey-map {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            height: 700px;
+        }
+
+        .journey-personas {
+            background: var(--color-light);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .persona-card {
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .persona-card:hover {
+            border-color: var(--color-primary);
+            transform: translateX(4px);
+        }
+
+        .persona-card.active {
+            background: rgba(12, 121, 193, 0.1);
+            border-color: var(--color-primary);
+        }
+
+        .persona-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .persona-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .persona-role {
+            font-size: 12px;
+            color: var(--color-gray);
+        }
+
+        .journey-timeline {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-border);
+        }
+
+        .journey-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .step-marker {
+            width: 60px;
+            height: 60px;
+            background: var(--color-white);
+            border: 3px solid var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-right: 20px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-content {
+            flex: 1;
+            background: var(--color-light);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .step-description {
+            color: var(--color-gray);
+            margin-bottom: 12px;
+        }
+
+        .step-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .step-action {
+            padding: 6px 12px;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            color: var(--color-gray);
+        }
+
+        /* Interactive Elements */
+        .demo-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            padding: 12px 24px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .demo-btn:hover {
+            background: #0a6bb3;
+            transform: translateY(-2px);
+        }
+
+        .demo-btn.secondary {
+            background: var(--color-gray);
+        }
+
+        .demo-btn.secondary:hover {
+            background: #3a3944;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .content-area {
+                padding: 20px;
+            }
+            
+            .storyboard-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .journey-map {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .mobile-frame {
+                width: 100%;
+                max-width: 375px;
+                height: auto;
+                aspect-ratio: 375/812;
+            }
+            
+            .view-tabs {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            color: var(--color-gray);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--color-border);
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header fade-in-up">
+            <h1>📱 Bizcap Mobile App Storyboard</h1>
+            <p>Interactive mobile app architecture, user flows, and experience visualization platform</p>
+        </header>
+
+        <div class="view-tabs fade-in-up">
+            <button class="tab-btn active" onclick="showView('storyboard')">
+                <i class="fas fa-th-large"></i>
+                Storyboard
+            </button>
+            <button class="tab-btn" onclick="showView('mobile')">
+                <i class="fas fa-mobile-alt"></i>
+                Mobile Preview
+            </button>
+            <button class="tab-btn" onclick="showView('flows')">
+                <i class="fas fa-project-diagram"></i>
+                User Flows
+            </button>
+            <button class="tab-btn" onclick="showView('journey')">
+                <i class="fas fa-route"></i>
+                User Journeys
+            </button>
+            <button class="tab-btn" onclick="showView('analytics')">
+                <i class="fas fa-chart-line"></i>
+                Analytics
+            </button>
+        </div>
+
+        <div class="content-area" id="content">
+            <!-- Content will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Enhanced screen flow data with storyboard elements
+        const storyboardData = {
+            experiences: [
+                {
+                    id: 'auth',
+                    icon: '🔐',
+                    title: 'Authentication',
+                    subtitle: 'Secure onboarding & access',
+                    screens: 15,
+                    flows: 4,
+                    complexity: 'Medium',
+                    color: '#0C79C1',
+                    description: 'Complete user authentication and onboarding experience',
+                    features: ['Biometric login', 'Social auth', 'Role-based access', 'Multi-factor security'],
+                    userTypes: ['New Users', 'Returning Users', 'Admin Users'],
+                    metrics: { completion: '94%', dropoff: '6%', time: '3.2 min' }
+                },
+                {
+                    id: 'main',
+                    icon: '🏠',
+                    title: 'Main Application',
+                    subtitle: 'Core navigation & dashboard',
+                    screens: 42,
+                    flows: 8,
+                    complexity: 'High',
+                    color: '#10b981',
+                    description: 'Primary app interface with tab navigation and dashboard',
+                    features: ['Personalized dashboard', 'Quick actions', 'Smart search', 'Real-time updates'],
+                    userTypes: ['All Users'],
+                    metrics: { engagement: '87%', features: '12 active', time: '8.5 min' }
+                },
+                {
+                    id: 'funding',
+                    icon: '💼',
+                    title: 'Funding Application',
+                    subtitle: 'Complete application workflow',
+                    screens: 38,
+                    flows: 6,
+                    complexity: 'High',
+                    color: '#f59e0b',
+                    description: 'End-to-end funding application with document management',
+                    features: ['AI assistance', 'Document upload', 'Real-time status', 'Pre-qualification'],
+                    userTypes: ['SME Owners', 'Partners'],
+                    metrics: { conversion: '68%', approval: '42%', time: '15.3 min' }
+                },
+                {
+                    id: 'scopes',
+                    icon: '📊',
+                    title: 'Scope Management',
+                    subtitle: 'Advanced analytics & tracking',
+                    screens: 35,
+                    flows: 5,
+                    complexity: 'High',
+                    color: '#8b5cf6',
+                    description: 'Comprehensive scope lifecycle and portfolio management',
+                    features: ['Performance tracking', 'ROI analytics', 'Predictive insights', 'Collaboration tools'],
+                    userTypes: ['SME Owners', 'Partners', 'Staff'],
+                    metrics: { active_scopes: '2.3K', satisfaction: '91%', roi: '+127%' }
+                },
+                {
+                    id: 'events',
+                    icon: '🎯',
+                    title: 'Events & Learning',
+                    subtitle: 'Educational & networking hub',
+                    screens: 28,
+                    flows: 4,
+                    complexity: 'Medium',
+                    color: '#ef4444',
+                    description: 'Comprehensive event platform with learning resources',
+                    features: ['Live events', 'On-demand content', 'Networking', 'Certifications'],
+                    userTypes: ['All Users'],
+                    metrics: { attendance: '73%', completion: '81%', rating: '4.8/5' }
+                },
+                {
+                    id: 'account',
+                    icon: '👤',
+                    title: 'Account & Settings',
+                    subtitle: 'Profile & preferences hub',
+                    screens: 32,
+                    flows: 6,
+                    complexity: 'Medium',
+                    color: '#06b6d4',
+                    description: 'User profile, financial overview, and app configuration',
+                    features: ['Profile management', 'Financial insights', 'Document center', 'Preferences'],
+                    userTypes: ['All Users'],
+                    metrics: { completion: '89%', security: '98%', satisfaction: '93%' }
+                }
+            ],
+            userPersonas: [
+                {
+                    id: 'sme',
+                    name: 'Sarah Chen',
+                    role: 'SME Business Owner',
+                    avatar: '👩‍💼',
+                    description: 'Restaurant owner seeking growth funding',
+                    goals: ['Quick funding', 'Simple process', 'Business insights'],
+                    painPoints: ['Complex applications', 'Slow approvals', 'Limited options'],
+                    journey: 'Discovery → Application → Approval → Growth'
+                },
+                {
+                    id: 'partner',
+                    name: 'Michael Rodriguez',
+                    role: 'Business Partner',
+                    avatar: '👨‍💼',
+                    description: 'Financial advisor helping multiple clients',
+                    goals: ['Efficient processing', 'Client success', 'Portfolio growth'],
+                    painPoints: ['Manual paperwork', 'Limited visibility', 'Communication gaps'],
+                    journey: 'Client Onboarding → Application Management → Success Tracking'
+                },
+                {
+                    id: 'staff',
+                    name: 'Emily Johnson',
+                    role: 'Operations Staff',
+                    avatar: '👩‍💻',
+                    description: 'Loan processing specialist',
+                    goals: ['Process efficiency', 'Quality assurance', 'Customer satisfaction'],
+                    painPoints: ['Repetitive tasks', 'Missing information', 'Customer complaints'],
+                    journey: 'Queue Management → Review → Decision → Follow-up'
+                }
+            ],
+            mobileScreens: {
+                home: {
+                    title: 'Home Dashboard',
+                    components: ['Welcome header', 'Quick actions', 'Featured funding', 'Metrics strip']
+                },
+                application: {
+                    title: 'Funding Application',
+                    components: ['Progress indicator', 'Form sections', 'Document upload', 'Review & submit']
+                },
+                scopes: {
+                    title: 'Scope Management',
+                    components: ['Active scopes', 'Performance charts', 'Quick actions', 'Analytics']
+                }
+            }
+        };
+
+        let currentView = 'storyboard';
+        let selectedExperience = null;
+        let selectedPersona = 'sme';
+        let currentMobileScreen = 'home';
+
+        // Initialize the application
+        function initApp() {
+            showView('storyboard');
+        }
+
+        // Show different views
+        function showView(view) {
+            currentView = view;
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const content = document.getElementById('content');
+            
+            // Add loading state
+            content.innerHTML = '<div class="loading"><div class="spinner"></div> Loading view...</div>';
+            
+            // Simulate loading and show content
+            setTimeout(() => {
+                switch(view) {
+                    case 'storyboard':
+                        showStoryboardView(content);
+                        break;
+                    case 'mobile':
+                        showMobileView(content);
+                        break;
+                    case 'flows':
+                        showFlowsView(content);
+                        break;
+                    case 'journey':
+                        showJourneyView(content);
+                        break;
+                    case 'analytics':
+                        showAnalyticsView(content);
+                        break;
+                }
+            }, 300);
+        }
+
+        // Show storyboard view
+        function showStoryboardView(content) {
+            content.innerHTML = `
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="animateStoryboard()">
+                        <i class="fas fa-play"></i> Animate Flow
+                    </button>
+                    <button class="demo-btn secondary" onclick="exportStoryboard()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+                <div class="storyboard-grid">
+                    ${storyboardData.experiences.map((exp, index) => `
+                        <div class="storyboard-card fade-in-up" style="animation-delay: ${index * 0.1}s" 
+                             onclick="selectExperience('${exp.id}')">
+                            <div class="storyboard-header">
+                                <div class="storyboard-icon" style="color: ${exp.color}">${exp.icon}</div>
+                                <div class="storyboard-title">${exp.title}</div>
+                                <div class="storyboard-subtitle">${exp.subtitle}</div>
+                            </div>
+                            <div class="storyboard-content">
+                                <div class="storyboard-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-value">${exp.screens}</span>
+                                        <div class="stat-label">Screens</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-value">${exp.flows}</span>
+                                        <div class="stat-label">Flows</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-value">${exp.complexity}</span>
+                                        <div class="stat-label">Complexity</div>
+                                    </div>
+                                </div>
+                                <p style="font-size: 14px; color: var(--color-gray); margin-bottom: 16px;">
+                                    ${exp.description}
+                                </p>
+                                <div class="storyboard-actions">
+                                    <button class="action-btn primary" onclick="event.stopPropagation(); viewDetails('${exp.id}')">
+                                        View Details
+                                    </button>
+                                    <button class="action-btn" onclick="event.stopPropagation(); editExperience('${exp.id}')">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Show mobile preview view
+        function showMobileView(content) {
+            const screen = storyboardData.mobileScreens[currentMobileScreen];
+            content.innerHTML = `
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="switchMobileScreen('home')">Home</button>
+                    <button class="demo-btn" onclick="switchMobileScreen('application')">Application</button>
+                    <button class="demo-btn" onclick="switchMobileScreen('scopes')">Scopes</button>
+                    <button class="demo-btn secondary" onclick="toggleMobileOrientation()">
+                        <i class="fas fa-sync-alt"></i> Rotate
+                    </button>
+                </div>
+                <div class="mobile-frame">
+                    <div class="mobile-screen">
+                        <div class="mobile-status-bar">
+                            <span>9:41</span>
+                            <span>
+                                <i class="fas fa-signal"></i>
+                                <i class="fas fa-wifi"></i>
+                                <i class="fas fa-battery-full"></i>
+                            </span>
+                        </div>
+                        <div class="mobile-content">
+                            <h3 style="margin-bottom: 20px; color: var(--color-primary);">${screen.title}</h3>
+                            ${screen.components.map(comp => `
+                                <div style="background: var(--color-light); padding: 16px; border-radius: var(--radius-md); margin-bottom: 12px;">
+                                    <div style="font-size: 12px; color: var(--color-gray); margin-bottom: 4px;">Component</div>
+                                    <div style="font-weight: 500;">${comp}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="mobile-tab-bar">
+                            <div class="mobile-tab ${currentMobileScreen === 'home' ? 'active' : ''}" onclick="switchMobileScreen('home')">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </div>
+                            <div class="mobile-tab ${currentMobileScreen === 'application' ? 'active' : ''}" onclick="switchMobileScreen('application')">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Apply</span>
+                            </div>
+                            <div class="mobile-tab ${currentMobileScreen === 'scopes' ? 'active' : ''}" onclick="switchMobileScreen('scopes')">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Scopes</span>
+                            </div>
+                            <div class="mobile-tab">
+                                <i class="fas fa-calendar"></i>
+                                <span>Events</span>
+                            </div>
+                            <div class="mobile-tab">
+                                <i class="fas fa-user"></i>
+                                <span>Account</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show user flows view
+        function showFlowsView(content) {
+            content.innerHTML = `
+                <h2 style="margin-bottom: 30px;">User Flow Diagrams</h2>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="showFlow('auth')">Authentication Flow</button>
+                    <button class="demo-btn" onclick="showFlow('funding')">Funding Application</button>
+                    <button class="demo-btn" onclick="showFlow('scopes')">Scope Management</button>
+                </div>
+                <div class="flow-diagram" id="flow-diagram">
+                    <div style="text-align: center; padding: 40px; color: var(--color-gray);">
+                        <i class="fas fa-mouse-pointer" style="font-size: 48px; margin-bottom: 16px;"></i>
+                        <p>Select a flow above to visualize the user journey</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show user journey view
+        function showJourneyView(content) {
+            content.innerHTML = `
+                <div class="journey-map">
+                    <div class="journey-personas">
+                        <h3 style="margin-bottom: 20px;">User Personas</h3>
+                        ${storyboardData.userPersonas.map(persona => `
+                            <div class="persona-card ${selectedPersona === persona.id ? 'active' : ''}" 
+                                 onclick="selectPersona('${persona.id}')">
+                                <div class="persona-avatar">${persona.avatar}</div>
+                                <div class="persona-name">${persona.name}</div>
+                                <div class="persona-role">${persona.role}</div>
+                                <div style="font-size: 12px; color: var(--color-gray); margin-top: 8px;">
+                                    ${persona.description}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="journey-timeline">
+                        <h3 style="margin-bottom: 30px;">User Journey Timeline</h3>
+                        <div id="journey-steps">
+                            ${generateJourneySteps(selectedPersona)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show analytics view
+        function showAnalyticsView(content) {
+            content.innerHTML = `
+                <h2 style="margin-bottom: 30px;">App Analytics & Insights</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div style="background: var(--color-light); padding: 24px; border-radius: var(--radius-lg); text-align: center;">
+                        <div style="font-size: 36px; font-weight: 700; color: var(--color-primary); margin-bottom: 8px;">42K+</div>
+                        <div style="color: var(--color-gray);">Active Users</div>
+                    </div>
+                    <div style="background: var(--color-light); padding: 24px; border-radius: var(--radius-lg); text-align: center;">
+                        <div style="font-size: 36px; font-weight: 700; color: var(--color-secondary); margin-bottom: 8px;">$1.9B</div>
+                        <div style="color: var(--color-gray);">Funds Disbursed</div>
+                    </div>
+                    <div style="background: var(--color-light); padding: 24px; border-radius: var(--radius-lg); text-align: center;">
+                        <div style="font-size: 36px; font-weight: 700; color: var(--color-accent); margin-bottom: 8px;">4.9/5</div>
+                        <div style="color: var(--color-gray);">User Rating</div>
+                    </div>
+                    <div style="background: var(--color-light); padding: 24px; border-radius: var(--radius-lg); text-align: center;">
+                        <div style="font-size: 36px; font-weight: 700; color: var(--color-danger); margin-bottom: 8px;">87%</div>
+                        <div style="color: var(--color-gray);">Satisfaction</div>
+                    </div>
+                </div>
+                <div style="background: var(--color-light); padding: 30px; border-radius: var(--radius-xl);">
+                    <h3 style="margin-bottom: 20px;">Experience Performance</h3>
+                    ${storyboardData.experiences.map(exp => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: var(--color-white); border-radius: var(--radius-md); margin-bottom: 12px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="font-size: 24px;">${exp.icon}</div>
+                                <div>
+                                    <div style="font-weight: 600;">${exp.title}</div>
+                                    <div style="font-size: 12px; color: var(--color-gray);">${exp.screens} screens • ${exp.flows} flows</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 20px;">
+                                ${Object.entries(exp.metrics).map(([key, value]) => `
+                                    <div style="text-align: center;">
+                                        <div style="font-weight: 700; color: var(--color-primary);">${value}</div>
+                                        <div style="font-size: 10px; color: var(--color-gray); text-transform: capitalize;">${key.replace('_', ' ')}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Helper functions
+        function selectExperience(id) {
+            selectedExperience = id;
+            viewDetails(id);
+        }
+
+        function viewDetails(id) {
+            const exp = storyboardData.experiences.find(e => e.id === id);
+            if (!exp) return;
+            
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <button class="demo-btn secondary" onclick="showView('storyboard')" style="margin-bottom: 20px;">
+                    <i class="fas fa-arrow-left"></i> Back to Storyboard
+                </button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <h2 style="margin-bottom: 20px;">${exp.icon} ${exp.title}</h2>
+                        <p style="color: var(--color-gray); margin-bottom: 24px;">${exp.description}</p>
+                        
+                        <h3 style="margin-bottom: 16px;">Key Features</h3>
+                        <ul style="margin-bottom: 24px; padding-left: 20px;">
+                            ${exp.features.map(feature => `<li style="margin-bottom: 8px;">${feature}</li>`).join('')}
+                        </ul>
+                        
+                        <h3 style="margin-bottom: 16px;">Target Users</h3>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            ${exp.userTypes.map(type => `
+                                <span style="padding: 6px 12px; background: var(--color-light); border-radius: var(--radius-sm); font-size: 12px;">
+                                    ${type}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="margin-bottom: 16px;">Performance Metrics</h3>
+                        <div style="background: var(--color-light); padding: 20px; border-radius: var(--radius-lg);">
+                            ${Object.entries(exp.metrics).map(([key, value]) => `
+                                <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--color-border);">
+                                    <span style="text-transform: capitalize; color: var(--color-gray);">${key.replace('_', ' ')}</span>
+                                    <span style="font-weight: 600; color: var(--color-primary);">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="margin-top: 24px;">
+                            <h3 style="margin-bottom: 16px;">Actions</h3>
+                            <div style="display: flex; gap: 12px;">
+                                <button class="demo-btn" onclick="editExperience('${exp.id}')">
+                                    <i class="fas fa-edit"></i> Edit Experience
+                                </button>
+                                <button class="demo-btn secondary" onclick="duplicateExperience('${exp.id}')">
+                                    <i class="fas fa-copy"></i> Duplicate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function switchMobileScreen(screen) {
+            currentMobileScreen = screen;
+            showMobileView(document.getElementById('content'));
+        }
+
+        function selectPersona(id) {
+            selectedPersona = id;
+            showJourneyView(document.getElementById('content'));
+        }
+
+        function generateJourneySteps(personaId) {
+            const persona = storyboardData.userPersonas.find(p => p.id === personaId);
+            if (!persona) return '';
+            
+            const steps = persona.journey.split(' → ');
+            return steps.map((step, index) => `
+                <div class="journey-step fade-in-up" style="animation-delay: ${index * 0.1}s">
+                    <div class="step-marker">${index + 1}</div>
+                    <div class="step-content">
+                        <div class="step-title">${step}</div>
+                        <div class="step-description">Key activities and decisions in this phase</div>
+                        <div class="step-actions">
+                            <span class="step-action">User actions</span>
+                            <span class="step-action">System responses</span>
+                            <span class="step-action">Decision points</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showFlow(flowType) {
+            const flowDiagram = document.getElementById('flow-diagram');
+            const flows = {
+                auth: ['Start', 'Welcome Screen', 'Business Info', 'Identity Verification', 'Role Selection', 'Dashboard'],
+                funding: ['Discovery', 'Pre-Qualification', 'Application Form', 'Document Upload', 'Review', 'Approval', 'Funding'],
+                scopes: ['Dashboard', 'Create Scope', 'Business Assessment', 'Funding Analysis', 'Scope Generation', 'Tracking']
+            };
+            
+            const steps = flows[flowType] || [];
+            flowDiagram.innerHTML = `
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h3>${flowType.charAt(0).toUpperCase() + flowType.slice(1)} Flow</h3>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px;">
+                    ${steps.map((step, index) => `
+                        <div>
+                            <div class="flow-node ${index === 0 ? 'start' : ''} ${index === steps.length - 1 ? 'end' : ''} ${index === 1 ? 'active' : ''}">
+                                ${step}
+                            </div>
+                            ${index < steps.length - 1 ? '<div class="flow-arrow">→</div>' : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function animateStoryboard() {
+            const cards = document.querySelectorAll('.storyboard-card');
+            cards.forEach((card, index) => {
+                card.style.animation = 'none';
+                setTimeout(() => {
+                    card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s`;
+                }, 100);
+            });
+        }
+
+        function exportStoryboard() {
+            const data = JSON.stringify(storyboardData, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'bizcap-storyboard.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function editExperience(id) {
+            alert(`Edit experience: ${id}. This would open the experience editor.`);
+        }
+
+        function duplicateExperience(id) {
+            alert(`Duplicate experience: ${id}. This would create a copy of the experience.`);
+        }
+
+        function toggleMobileOrientation() {
+            const frame = document.querySelector('.mobile-frame');
+            if (frame.style.transform === 'rotate(90deg)') {
+                frame.style.transform = 'rotate(0deg)';
+            } else {
+                frame.style.transform = 'rotate(90deg)';
+                frame.style.margin = '100px auto';
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

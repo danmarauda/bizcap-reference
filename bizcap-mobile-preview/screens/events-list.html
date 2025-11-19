@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Events – Bizcap S-Tier</title>
+
+    <!-- Bizcap fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* S-Tier Bizcap design tokens */
+      :root {
+        --color-base-background: #FFFFFF;
+        --color-base-text: #1A191E;
+        --color-neutral-0: #FFFFFF;
+        --color-neutral-50: #f5f7fb;
+        --color-neutral-100: #e5e7f0;
+        --color-neutral-200: #d3d7e4;
+        --color-neutral-700: #4b4a54;
+        --color-neutral-900: #1A191E;
+        --color-accent-primary: #0C79C1;
+        --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+        --color-accent-secondary: #00D4AA;
+        --color-accent-warning: #FF6B35;
+        --color-accent-success: #10B981;
+        --color-accent-danger: #EF4444;
+
+        --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-size-h1: clamp(32px, 4vw, 48px);
+        --font-size-h2: 32px;
+        --font-size-h3: 24px;
+        --font-size-body: 16px;
+        --font-size-small: 14px;
+        --font-size-caption: 11px;
+
+        --line-height-tight: 1.1;
+        --line-height-normal: 1.4;
+        --line-height-relaxed: 1.6;
+
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
+
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 32px;
+        --radius-pill: 999px;
+
+        --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.06);
+        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
+        --shadow-premium: 0 20px 60px rgba(12, 121, 193, 0.15);
+        --shadow-glow: 0 0 40px rgba(12, 121, 193, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #f0f8ff 0, #ffffff 40%, #fafbff 100%);
+        color: var(--color-base-text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Premium background effects */
+      body::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(12, 121, 193, 0.03) 0%, transparent 70%);
+        animation: float 20s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(30px, -30px) rotate(120deg); }
+        66% { transform: translate(-20px, 20px) rotate(240deg); }
+      }
+
+      /* S-Tier animations */
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+        to { opacity: 1; transform: scale(1); filter: blur(0px); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; filter: blur(5px); }
+        to { opacity: 1; filter: blur(0px); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.9; }
+      }
+
+      .phone-shell {
+        width: 393px;
+        height: 852px;
+        max-width: 100%;
+        border-radius: 46px;
+        border: 1px solid var(--color-neutral-100);
+        overflow: hidden;
+        background: var(--color-neutral-0);
+        box-shadow: var(--shadow-premium);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .phone-shell::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 46px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(12, 121, 193, 0.3), rgba(0, 212, 170, 0.2));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        animation: glow 3s ease-in-out infinite;
+        animation-delay: 2s;
+      }
+
+      .status-bar {
+        padding: 18px 24px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        position: relative;
+        z-index: 10;
+      }
+
+      .status-icons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .app-header {
+        padding: 0 24px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        position: relative;
+        z-index: 10;
+      }
+
+      .header-title {
+        font-family: var(--font-heading);
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .icon-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(12, 121, 193, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .icon-btn:hover::before {
+        width: 100px;
+        height: 100px;
+      }
+
+      .icon-btn:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(12, 121, 193, 0.2);
+      }
+
+      .screen-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 24px 80px;
+        scroll-behavior: smooth;
+        position: relative;
+      }
+
+      .screen-scroll::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      .screen-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .screen-scroll::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-200);
+        border-radius: 10px;
+      }
+
+      .filter-section {
+        margin-bottom: 20px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+      }
+
+      .filter-chips {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+
+      .filter-chips::-webkit-scrollbar {
+        height: 3px;
+      }
+
+      .filter-chips::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .filter-chips::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-200);
+        border-radius: 10px;
+      }
+
+      .filter-chip {
+        flex-shrink: 0;
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-100);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-neutral-700);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        white-space: nowrap;
+      }
+
+      .filter-chip:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        color: var(--color-accent-primary);
+        transform: translateY(-1px);
+      }
+
+      .filter-chip.active {
+        background: var(--color-accent-primary);
+        color: #ffffff;
+        border-color: var(--color-accent-primary);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(12, 121, 193, 0.3);
+      }
+
+      .featured-event {
+        background: linear-gradient(135deg, var(--color-accent-primary) 0%, #0a65a0 100%);
+        border-radius: 24px;
+        padding: 24px;
+        color: #ffffff;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      }
+
+      .featured-event::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: float 15s ease-in-out infinite reverse;
+      }
+
+      .featured-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .featured-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        font-size: 11px;
+        font-weight: 600;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .bookmark-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .bookmark-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+      }
+
+      .featured-title {
+        font-family: var(--font-heading);
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .featured-description {
+        font-size: 13px;
+        opacity: 0.9;
+        margin-bottom: 16px;
+        line-height: 1.4;
+        position: relative;
+        z-index: 1;
+      }
+
+      .featured-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .featured-info {
+        display: flex;
+        gap: 16px;
+        font-size: 12px;
+      }
+
+      .featured-info span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .btn-register {
+        padding: 10px 16px;
+        border-radius: 16px;
+        background: #ffffff;
+        color: var(--color-accent-primary);
+        border: none;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .btn-register:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+      }
+
+      .events-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+      }
+
+      .event-card {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 20px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .event-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(12, 121, 193, 0.05), transparent);
+        transition: left 0.6s;
+      }
+
+      .event-card:hover::before {
+        left: 100%;
+      }
+
+      .event-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(12, 121, 193, 0.15);
+        border-color: var(--color-accent-primary);
+      }
+
+      .event-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .event-date {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: var(--color-accent-primary-soft);
+        border-radius: 12px;
+        padding: 8px 12px;
+        min-width: 60px;
+      }
+
+      .event-date-month {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--color-accent-primary);
+        text-transform: uppercase;
+      }
+
+      .event-date-day {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--color-neutral-900);
+      }
+
+      .event-info {
+        flex: 1;
+        margin-left: 12px;
+      }
+
+      .event-title {
+        font-family: var(--font-heading);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 4px;
+      }
+
+      .event-type {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 8px;
+        border-radius: 12px;
+        background: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-100);
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--color-neutral-700);
+        margin-bottom: 8px;
+      }
+
+      .event-details {
+        display: flex;
+        gap: 12px;
+        font-size: 11px;
+        color: var(--color-neutral-700);
+      }
+
+      .event-details span {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+
+      .event-attendees {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .attendee-avatars {
+        display: flex;
+        margin-right: 4px;
+      }
+
+      .attendee-avatar {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        background-size: cover;
+        background-position: center;
+        margin-left: -6px;
+      }
+
+      .attendee-avatar:first-child {
+        margin-left: 0;
+      }
+
+      .attendee-count {
+        font-size: 10px;
+        color: var(--color-neutral-700);
+      }
+
+      .tab-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 10px 24px 12px;
+        border-top: 1px solid var(--color-neutral-100);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-around;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+      }
+
+      .tab-btn {
+        border: none;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 6px 12px;
+        border-radius: 12px;
+      }
+
+      .tab-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .tab-label {
+        font-size: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .tab-btn--active .tab-icon {
+        background: var(--color-accent-primary-soft);
+        color: var(--color-accent-primary);
+        transform: scale(1.1);
+      }
+
+      .tab-btn--active .tab-label {
+        color: var(--color-accent-primary);
+        font-weight: 600;
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-icon {
+        transform: scale(1.15);
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-label {
+        color: var(--color-accent-primary);
+      }
+
+      .tab-btn:not(.tab-btn--active) .tab-label {
+        color: var(--color-neutral-700);
+      }
+
+      /* Tab Icons */
+      .tab-icon-home {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' fill='currentColor'/%3e%3cpolyline points='9,22 9,12 15,12 15,22' fill='currentColor'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-scopes {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M15 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M21 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M3 7h18' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-events {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='10' stroke='currentColor' stroke-width='2'/%3e%3cpolyline points='12,6 12,12 16,14' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-account {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2' stroke='currentColor' stroke-width='2'/%3e%3ccircle cx='12' cy='7' r='4' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* Premium loading animation */
+      .premium-loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(12, 121, 193, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--color-accent-primary);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .phone-shell {
+          width: 100%;
+          height: 100vh;
+          border-radius: 0;
+        }
+        
+        body {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="phone-shell">
+      <div class="status-bar">
+        <span id="bizcap-time">09:41</span>
+        <div class="status-icons">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20h20M6 16h12M10 12h4M14 8h-4M16 4h-8" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 10h2M6 14h6" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <header class="app-header">
+        <button class="icon-btn" id="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h1 class="header-title">Events & Workshops</h1>
+        <button class="icon-btn" id="filter-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="9" cy="6" r="1" fill="currentColor"/>
+            <circle cx="15" cy="12" r="1" fill="currentColor"/>
+            <circle cx="9" cy="18" r="1" fill="currentColor"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="screen-scroll">
+        <div class="filter-section">
+          <div class="filter-chips">
+            <button class="filter-chip active" data-filter="all">All Events</button>
+            <button class="filter-chip" data-filter="workshop">Workshops</button>
+            <button class="filter-chip" data-filter="business">Business</button>
+            <button class="filter-chip" data-filter="finance">Finance</button>
+            <button class="filter-chip" data-filter="networking">Networking</button>
+          </div>
+        </div>
+
+        <div class="featured-event">
+          <div class="featured-header">
+            <div class="featured-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+              </svg>
+              Featured Event
+            </div>
+            <button class="bookmark-btn" id="featured-bookmark">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h2 class="featured-title">SME Growth Summit 2024</h2>
+          <p class="featured-description">Join industry leaders for the ultimate business growth conference. Learn funding strategies, network with peers, and accelerate your business success.</p>
+          <div class="featured-meta">
+            <div class="featured-info">
+              <span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                  <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+                  <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Sep 15
+              </span>
+              <span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Sydney
+              </span>
+            </div>
+            <button class="btn-register" id="featured-register">Register Now</button>
+          </div>
+        </div>
+
+        <div class="events-list">
+          <div class="event-card" data-event-type="workshop">
+            <div class="event-header">
+              <div class="event-date">
+                <span class="event-date-month">SEP</span>
+                <span class="event-date-day">18</span>
+              </div>
+              <div class="event-info">
+                <h3 class="event-title">Financial Planning Workshop</h3>
+                <div class="event-type">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  Workshop
+                </div>
+                <div class="event-details">
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                      <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    2:00 PM
+                  </span>
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                      <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Online
+                  </span>
+                </div>
+              </div>
+              <div class="event-attendees">
+                <div class="attendee-avatars">
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100&auto=format&fit=crop');"></div>
+                </div>
+                <span class="attendee-count">24 attending</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card" data-event-type="business">
+            <div class="event-header">
+              <div class="event-date">
+                <span class="event-date-month">SEP</span>
+                <span class="event-date-day">22</span>
+              </div>
+              <div class="event-info">
+                <h3 class="event-title">Business Growth Strategies</h3>
+                <div class="event-type">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  Business
+                </div>
+                <div class="event-details">
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                      <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    10:00 AM
+                  </span>
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                      <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Melbourne
+                  </span>
+                </div>
+              </div>
+              <div class="event-attendees">
+                <div class="attendee-avatars">
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=100&auto=format&fit=crop');"></div>
+                </div>
+                <span class="attendee-count">18 attending</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card" data-event-type="finance">
+            <div class="event-header">
+              <div class="event-date">
+                <span class="event-date-month">SEP</span>
+                <span class="event-date-day">25</span>
+              </div>
+              <div class="event-info">
+                <h3 class="event-title">Funding Options Masterclass</h3>
+                <div class="event-type">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  Finance
+                </div>
+                <div class="event-details">
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                      <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    3:30 PM
+                  </span>
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                      <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Online
+                  </span>
+                </div>
+              </div>
+              <div class="event-attendees">
+                <div class="attendee-avatars">
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1580489945781-15a850dca894?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop');"></div>
+                </div>
+                <span class="attendee-count">42 attending</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card" data-event-type="networking">
+            <div class="event-header">
+              <div class="event-date">
+                <span class="event-date-month">SEP</span>
+                <span class="event-date-day">28</span>
+              </div>
+              <div class="event-info">
+                <h3 class="event-title">SME Networking Night</h3>
+                <div class="event-type">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M23 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  Networking
+                </div>
+                <div class="event-details">
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                      <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    6:00 PM
+                  </span>
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                      <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Brisbane
+                  </span>
+                </div>
+              </div>
+              <div class="event-attendees">
+                <div class="attendee-avatars">
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100&auto=format&fit=crop');"></div>
+                  <div class="attendee-avatar" style="background-image: url('https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=100&auto=format&fit=crop');"></div>
+                </div>
+                <span class="attendee-count">67 attending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="tab-bar">
+        <button class="tab-btn" data-tab="home">
+          <div class="tab-icon tab-icon-home"></div>
+          <span class="tab-label">Home</span>
+        </button>
+        <button class="tab-btn" data-tab="scopes">
+          <div class="tab-icon tab-icon-scopes"></div>
+          <span class="tab-label">Scopes</span>
+        </button>
+        <button class="tab-btn tab-btn--active" data-tab="events">
+          <div class="tab-icon tab-icon-events"></div>
+          <span class="tab-label">Events</span>
+        </button>
+        <button class="tab-btn" data-tab="account">
+          <div class="tab-icon tab-icon-account"></div>
+          <span class="tab-label">Account</span>
+        </button>
+      </nav>
+    </main>
+
+    <script>
+      function updateBizcapTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        document.getElementById("bizcap-time").textContent = `${h}:${m}`;
+      }
+      updateBizcapTime();
+      setInterval(updateBizcapTime, 60000);
+
+      // Enhanced tab interactions
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", function() {
+          tabButtons.forEach((b) => b.classList.remove("tab-btn--active"));
+          this.classList.add("tab-btn--active");
+          console.log("Bizcap tab:", this.dataset.tab);
+        });
+      });
+
+      // Back button
+      document.getElementById("back-btn").addEventListener("click", () => {
+        window.history.back();
+      });
+
+      // Filter button
+      document.getElementById("filter-btn").addEventListener("click", function() {
+        this.style.animation = 'pulse 0.5s ease';
+        setTimeout(() => {
+          this.style.animation = '';
+          alert("Filter events by: Date range, Location, Event type, Price (Free/Paid), and Availability.");
+        }, 500);
+      });
+
+      // Filter chip interactions
+      const filterChips = document.querySelectorAll(".filter-chip");
+      filterChips.forEach((chip) => {
+        chip.addEventListener("click", function() {
+          filterChips.forEach((c) => c.classList.remove("active"));
+          this.classList.add("active");
+          
+          const filter = this.dataset.filter;
+          const eventCards = document.querySelectorAll(".event-card");
+          
+          eventCards.forEach((card) => {
+            if (filter === "all" || card.dataset.eventType === filter) {
+              card.style.display = "block";
+              card.style.animation = "slideUp 0.5s ease";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Featured bookmark button
+      document.getElementById("featured-bookmark").addEventListener("click", function(e) {
+        e.stopPropagation();
+        this.style.background = "rgba(255, 255, 255, 0.3)";
+        this.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
+          </svg>
+        `;
+        setTimeout(() => {
+          alert("Event saved to your bookmarks! You'll receive reminders before the event starts.");
+        }, 300);
+      });
+
+      // Featured register button
+      document.getElementById("featured-register").addEventListener("click", function() {
+        this.innerHTML = '<span class="premium-loading"></span>';
+        setTimeout(() => {
+          this.innerHTML = 'Register Now';
+          alert("Registration successful! Check your email for confirmation and event details.");
+        }, 1500);
+      });
+
+      // Event card interactions
+      const eventCards = document.querySelectorAll(".event-card");
+      eventCards.forEach((card) => {
+        card.addEventListener("click", function() {
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = '';
+            const title = this.querySelector(".event-title").textContent;
+            alert(`Event: ${title}\n\nTap to view full details, speaker information, agenda, and registration options.`);
+          }, 150);
+        });
+      });
+
+      // Add ripple animation to styles
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

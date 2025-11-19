@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Management - Bizcap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bizcap-blue': '#0066FF',
+                        'bizcap-dark': '#1A1A2E',
+                        'bizcap-light': '#F8F9FF',
+                        'bizcap-accent': '#00D4FF',
+                        'bizcap-success': '#00C896',
+                        'bizcap-warning': '#FFB800',
+                        'bizcap-danger': '#FF3B30'
+                    },
+                    animation: {
+                        'slideUp': 'slideUp 0.5s ease-out',
+                        'slideDown': 'slideDown 0.5s ease-out',
+                        'scaleIn': 'scaleIn 0.3s ease-out',
+                        'fadeIn': 'fadeIn 0.6s ease-out',
+                        'shimmer': 'shimmer 2s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite',
+                        'slideInRight': 'slideInRight 0.4s ease-out',
+                        'bounce-soft': 'bounceSoft 0.6s ease-out',
+                        'profile-glow': 'profileGlow 3s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        glow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(0, 102, 255, 0.3)' },
+                            '50%': { boxShadow: '0 0 40px rgba(0, 102, 255, 0.6)' }
+                        },
+                        slideInRight: {
+                            '0%': { transform: 'translateX(20px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        bounceSoft: {
+                            '0%, 20%, 50%, 80%, 100%': { transform: 'translateY(0)' },
+                            '40%': { transform: 'translateY(-10px)' },
+                            '60%': { transform: 'translateY(-5px)' }
+                        },
+                        profileGlow: {
+                            '0%, 100%': { 
+                                boxShadow: '0 0 30px rgba(0, 102, 255, 0.3), 0 0 60px rgba(0, 212, 255, 0.2)',
+                                transform: 'scale(1)'
+                            },
+                            '50%': { 
+                                boxShadow: '0 0 50px rgba(0, 102, 255, 0.5), 0 0 80px rgba(0, 212, 255, 0.3)',
+                                transform: 'scale(1.05)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .account-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.95) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,102,255,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .account-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,102,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .account-card:hover::before {
+            left: 100%;
+        }
+        
+        .account-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,102,255,0.2);
+            border-color: rgba(0,102,255,0.3);
+        }
+        
+        .menu-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0,102,255,0.1) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+        
+        .menu-item:active::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .menu-item:hover {
+            background: linear-gradient(135deg, rgba(0,102,255,0.05) 0%, rgba(0,212,255,0.05) 100%);
+            transform: translateX(8px);
+            border-left: 3px solid #0066FF;
+        }
+        
+        .profile-avatar {
+            background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+            position: relative;
+            animation: profileGlow 3s ease-in-out infinite;
+        }
+        
+        .profile-avatar::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #0066FF, #00D4FF, #00C896, #0066FF);
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .verification-badge {
+            background: linear-gradient(135deg, #00C896 0%, #00E5A8 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,200,150,0.4);
+            animation: pulse-slow 2s ease-in-out infinite;
+        }
+        
+        .account-type-badge {
+            background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,102,255,0.4);
+            animation: pulse-slow 2s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #FF3B30 0%, #FF6B60 100%);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255,59,48,0.5);
+        }
+        
+        .quick-action-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quick-action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+        
+        .quick-action-btn:active::before {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .quick-action-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .haptic-feedback {
+            animation: bounceSoft 0.3s ease-out;
+        }
+        
+        .shimmer-loading {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        .nav-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0,102,255,0.2) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+        
+        .nav-item:active::before {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-item.active {
+            color: #0066FF;
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #0066FF;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .stat-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,102,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px) scale(1.05);
+        }
+        
+        .sign-out-btn {
+            background: linear-gradient(135deg, rgba(255,59,48,0.1) 0%, rgba(255,149,0,0.1) 100%);
+            border: 1px solid rgba(255,59,48,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sign-out-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,59,48,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .sign-out-btn:hover::before {
+            left: 100%;
+        }
+        
+        .sign-out-btn:hover {
+            background: linear-gradient(135deg, rgba(255,59,48,0.15) 0%, rgba(255,149,0,0.15) 100%);
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(255,59,48,0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-bizcap-light via-white to-bizcap-light min-h-screen">
+    <!-- Animated Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-bizcap-blue/10 to-bizcap-accent/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-bizcap-success/10 to-bizcap-blue/10 rounded-full blur-3xl animate-float" style="animation-delay: 1s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
+        <div class="max-w-lg mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <button id="backBtn" class="p-3 hover:bg-bizcap-light rounded-2xl transition-all duration-300 group">
+                    <svg class="w-5 h-5 text-gray-600 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <h1 class="text-xl font-bold text-gray-900 bg-gradient-to-r from-bizcap-blue to-bizcap-accent bg-clip-text text-transparent">Account Management</h1>
+                <button id="settingsBtn" class="p-3 hover:bg-bizcap-light rounded-2xl transition-all duration-300 group">
+                    <svg class="w-5 h-5 text-gray-600 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-lg mx-auto px-4 py-6 space-y-6 relative">
+        <!-- Profile Overview -->
+        <section class="account-card rounded-2xl shadow-xl p-6 animate-scaleIn">
+            <div class="flex items-center space-x-4 mb-6">
+                <div class="relative">
+                    <div class="profile-avatar w-24 h-24 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                        JD
+                    </div>
+                    <button id="cameraBtn" class="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full flex items-center justify-center text-bizcap-blue border-2 border-white shadow-lg hover:scale-110 transition-transform">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-1">John Davidson</h2>
+                    <p class="text-sm text-gray-600 mb-3">john.davidson@company.com</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="verification-badge">
+                            <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Verified
+                        </span>
+                        <span class="account-type-badge">
+                            <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.415l.707-.708zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Business Account
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Stats -->
+            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-gray-200">
+                <div class="stat-card text-center p-3 rounded-xl hover:bg-bizcap-light/50 cursor-pointer">
+                    <p class="text-3xl font-bold text-gray-900 mb-1">3</p>
+                    <p class="text-xs text-gray-500 font-medium">Active Loans</p>
+                </div>
+                <div class="stat-card text-center p-3 rounded-xl hover:bg-bizcap-light/50 cursor-pointer">
+                    <p class="text-3xl font-bold text-gray-900 mb-1">$125K</p>
+                    <p class="text-xs text-gray-500 font-medium">Total Borrowed</p>
+                </div>
+                <div class="stat-card text-center p-3 rounded-xl hover:bg-bizcap-light/50 cursor-pointer">
+                    <p class="text-3xl font-bold text-gray-900 mb-1">A+</p>
+                    <p class="text-xs text-gray-500 font-medium">Credit Score</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Information -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 animate-slideUp" style="animation-delay: 0.1s;">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-gray-900">Business Information</h3>
+                <button id="editBusinessBtn" class="text-sm text-bizcap-blue hover:text-bizcap-accent font-bold transition-colors flex items-center space-x-1">
+                    <span>Edit</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-center justify-between py-4 px-4 bg-gray-50 rounded-xl hover:bg-bizcap-light/50 transition-colors cursor-pointer group">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-900">Company Name</p>
+                            <p class="text-sm text-gray-600">Davidson Consulting Pty Ltd</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between py-4 px-4 bg-gray-50 rounded-xl hover:bg-bizcap-light/50 transition-colors cursor-pointer group">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-900">ABN</p>
+                            <p class="text-sm text-gray-600">86 123 456 789</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between py-4 px-4 bg-gray-50 rounded-xl hover:bg-bizcap-light/50 transition-colors cursor-pointer group">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-900">Industry</p>
+                            <p class="text-sm text-gray-600">Professional Services</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between py-4 px-4 bg-gray-50 rounded-xl hover:bg-bizcap-light/50 transition-colors cursor-pointer group">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-900">Business Established</p>
+                            <p class="text-sm text-gray-600">March 2018</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Settings Menu -->
+        <section class="bg-white rounded-2xl shadow-lg animate-slideUp" style="animation-delay: 0.2s;">
+            <div class="p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-6">Account Settings</h3>
+                
+                <div class="space-y-2">
+                    <button class="menu-item w-full flex items-center justify-between p-4 rounded-xl group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900">Personal Information</span>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <button class="menu-item w-full flex items-center justify-between p-4 rounded-xl group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900">Payment Methods</span>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <button class="menu-item w-full flex items-center justify-between p-4 rounded-xl group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900">Documents & Verification</span>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <button class="menu-item w-full flex items-center justify-between p-4 rounded-xl group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-red-50 to-red-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900">Notifications</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="status-indicator"></div>
+                            <svg class="w-4 h-4 text-gray-400 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </button>
+
+                    <button class="menu-item w-full flex items-center justify-between p-4 rounded-xl group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900">Security & Privacy</span>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <button class="menu-item w-full flex items-center justify-between p-4 rounded-xl group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900">Team Members</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-gray-500 font-medium">3 members</span>
+                            <svg class="w-4 h-4 text-gray-400 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </button>
+
+                    <button class="menu-item w-full flex items-center justify-between p-4 rounded-xl group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900">Subscription Plan</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-bizcap-success font-bold">Premium</span>
+                            <svg class="w-4 h-4 text-gray-400 group-hover:text-bizcap-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 animate-slideUp" style="animation-delay: 0.3s;">
+            <h3 class="text-lg font-bold text-gray-900 mb-6">Quick Actions</h3>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <button class="quick-action-btn p-4 bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl hover:from-blue-100 hover:to-blue-200 group">
+                    <svg class="w-6 h-6 text-blue-600 mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <p class="text-sm font-bold text-gray-900">Download Statements</p>
+                </button>
+                
+                <button class="quick-action-btn p-4 bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl hover:from-green-100 hover:to-green-200 group">
+                    <svg class="w-6 h-6 text-green-600 mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                    </svg>
+                    <p class="text-sm font-bold text-gray-900">Export Data</p>
+                </button>
+                
+                <button class="quick-action-btn p-4 bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-xl hover:from-purple-100 hover:to-purple-200 group">
+                    <svg class="w-6 h-6 text-purple-600 mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                    </svg>
+                    <p class="text-sm font-bold text-gray-900">Invite Member</p>
+                </button>
+                
+                <button class="quick-action-btn p-4 bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-xl hover:from-orange-100 hover:to-orange-200 group">
+                    <svg class="w-6 h-6 text-orange-600 mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="text-sm font-bold text-gray-900">Get Help</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Sign Out -->
+        <section class="sign-out-btn rounded-2xl p-6 animate-slideUp" style="animation-delay: 0.4s;">
+            <button id="signOutBtn" class="w-full flex items-center justify-center space-x-3 text-red-600 font-bold hover:text-red-700 transition-all duration-300 py-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                <span>Sign Out</span>
+            </button>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-gray-200/50 z-40">
+        <div class="max-w-lg mx-auto px-4">
+            <div class="flex justify-around py-2">
+                <button class="nav-item flex flex-col items-center p-3 text-gray-600 hover:text-bizcap-blue transition-all duration-300">
+                    <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="text-xs font-medium">Home</span>
+                </button>
+                <button class="nav-item flex flex-col items-center p-3 text-gray-600 hover:text-bizcap-blue transition-all duration-300">
+                    <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <span class="text-xs font-medium">Search</span>
+                </button>
+                <button class="nav-item flex flex-col items-center p-3 text-gray-600 hover:text-bizcap-blue transition-all duration-300">
+                    <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span class="text-xs font-medium">Applications</span>
+                </button>
+                <button class="nav-item flex flex-col items-center p-3 text-gray-600 hover:text-bizcap-blue transition-all duration-300">
+                    <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="text-xs font-medium">Events</span>
+                </button>
+                <button class="nav-item active flex flex-col items-center p-3 text-bizcap-blue transition-all duration-300">
+                    <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span class="text-xs font-medium">Profile</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Haptic feedback simulation
+        function triggerHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        // Camera button
+        document.getElementById('cameraBtn').addEventListener('click', function() {
+            triggerHaptic();
+            this.classList.add('haptic-feedback');
+            setTimeout(() => this.classList.remove('haptic-feedback'), 300);
+            alert('Camera functionality would open here');
+        });
+
+        // Edit business button
+        document.getElementById('editBusinessBtn').addEventListener('click', function() {
+            triggerHaptic();
+            this.classList.add('haptic-feedback');
+            setTimeout(() => this.classList.remove('haptic-feedback'), 300);
+            alert('Business information editor would open here');
+        });
+
+        // Settings button
+        document.getElementById('settingsBtn').addEventListener('click', function() {
+            triggerHaptic();
+            window.location.href = 'settings.html';
+        });
+
+        // Back button
+        document.getElementById('backBtn').addEventListener('click', function() {
+            triggerHaptic();
+            window.history.back();
+        });
+
+        // Menu item interactions with premium animations
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                triggerHaptic();
+                const settingName = this.querySelector('span.text-sm.font-bold').textContent;
+                console.log(`Opening: ${settingName}`);
+                
+                // Visual feedback
+                this.classList.add('haptic-feedback');
+                setTimeout(() => this.classList.remove('haptic-feedback'), 300);
+                
+                // Simulate navigation
+                setTimeout(() => {
+                    console.log(`Navigating to ${settingName}...`);
+                }, 300);
+            });
+        });
+
+        // Quick action buttons with enhanced feedback
+        document.querySelectorAll('.quick-action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                triggerHaptic();
+                const actionName = this.querySelector('p.text-sm.font-bold').textContent;
+                console.log(`Executing: ${actionName}`);
+                
+                // Visual feedback
+                this.classList.add('haptic-feedback');
+                setTimeout(() => this.classList.remove('haptic-feedback'), 300);
+                
+                // Simulate action
+                const originalHTML = this.innerHTML;
+                this.style.transform = 'scale(0.95)';
+                this.innerHTML = '<div class="flex flex-col items-center"><svg class="w-6 h-6 animate-spin text-blue-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><p class="text-sm font-bold text-gray-900">Processing...</p></div>';
+                
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    this.innerHTML = '<div class="flex flex-col items-center"><svg class="w-6 h-6 text-green-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><p class="text-sm font-bold text-gray-900">Complete!</p></div>';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                    }, 1500);
+                }, 2000);
+            });
+        });
+
+        // Sign out button with enhanced confirmation
+        document.getElementById('signOutBtn').addEventListener('click', function() {
+            triggerHaptic();
+            
+            if (confirm('Are you sure you want to sign out?')) {
+                // Visual feedback
+                this.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><span>Signing out...</span>';
+                
+                setTimeout(() => {
+                    alert('You have been signed out successfully');
+                    this.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg><span>Sign Out</span>';
+                }, 1500);
+            }
+        });
+
+        // Stat cards with click interactions
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('click', function() {
+                triggerHaptic();
+                this.classList.add('haptic-feedback');
+                setTimeout(() => this.classList.remove('haptic-feedback'), 300);
+                
+                const statName = this.querySelector('p.text-xs').textContent;
+                console.log(`Viewing details for: ${statName}`);
+            });
+        });
+
+        // Business info items with click interactions
+        document.querySelectorAll('.group.cursor-pointer').forEach(item => {
+            item.addEventListener('click', function() {
+                triggerHaptic();
+                this.classList.add('haptic-feedback');
+                setTimeout(() => this.classList.remove('haptic-feedback'), 300);
+            });
+        });
+
+        // Navigation items
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                triggerHaptic();
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Add entrance animations to cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.account-card, section').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+
+        // Profile avatar hover effect
+        const profileAvatar = document.querySelector('.profile-avatar');
+        profileAvatar.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1) rotate(5deg)';
+        });
+        
+        profileAvatar.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) rotate(0deg)';
+        });
+    </script>
+</body>
+</html>

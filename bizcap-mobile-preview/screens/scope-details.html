@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scope Details – Bizcap S-Tier</title>
+
+    <!-- Bizcap fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* S-Tier Bizcap design tokens */
+      :root {
+        --color-base-background: #FFFFFF;
+        --color-base-text: #1A191E;
+        --color-neutral-0: #FFFFFF;
+        --color-neutral-50: #f5f7fb;
+        --color-neutral-100: #e5e7f0;
+        --color-neutral-200: #d3d7e4;
+        --color-neutral-700: #4b4a54;
+        --color-neutral-900: #1A191E;
+        --color-accent-primary: #0C79C1;
+        --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+        --color-accent-secondary: #00D4AA;
+        --color-accent-warning: #FF6B35;
+        --color-accent-success: #10B981;
+        --color-accent-danger: #EF4444;
+
+        --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-size-h1: clamp(32px, 4vw, 48px);
+        --font-size-h2: 32px;
+        --font-size-h3: 24px;
+        --font-size-body: 16px;
+        --font-size-small: 14px;
+        --font-size-caption: 11px;
+
+        --line-height-tight: 1.1;
+        --line-height-normal: 1.4;
+        --line-height-relaxed: 1.6;
+
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
+
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 32px;
+        --radius-pill: 999px;
+
+        --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.06);
+        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
+        --shadow-premium: 0 20px 60px rgba(12, 121, 193, 0.15);
+        --shadow-glow: 0 0 40px rgba(12, 121, 193, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #f0f8ff 0, #ffffff 40%, #fafbff 100%);
+        color: var(--color-base-text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Premium background effects */
+      body::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(12, 121, 193, 0.03) 0%, transparent 70%);
+        animation: float 20s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(30px, -30px) rotate(120deg); }
+        66% { transform: translate(-20px, 20px) rotate(240deg); }
+      }
+
+      /* S-Tier animations */
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+        to { opacity: 1; transform: scale(1); filter: blur(0px); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; filter: blur(5px); }
+        to { opacity: 1; filter: blur(0px); }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.9; }
+      }
+      @keyframes progress {
+        0% { width: 0%; }
+        100% { width: var(--progress); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+
+      .phone-shell {
+        width: 393px;
+        height: 852px;
+        max-width: 100%;
+        border-radius: 46px;
+        border: 1px solid var(--color-neutral-100);
+        overflow: hidden;
+        background: var(--color-neutral-0);
+        box-shadow: var(--shadow-premium);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .phone-shell::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 46px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(12, 121, 193, 0.3), rgba(0, 212, 170, 0.2));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        animation: glow 3s ease-in-out infinite;
+        animation-delay: 2s;
+      }
+
+      .status-bar {
+        padding: 18px 24px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        position: relative;
+        z-index: 10;
+      }
+
+      .status-icons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .app-header {
+        padding: 0 24px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        position: relative;
+        z-index: 10;
+      }
+
+      .header-title {
+        font-family: var(--font-heading);
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .icon-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(12, 121, 193, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .icon-btn:hover::before {
+        width: 100px;
+        height: 100px;
+      }
+
+      .icon-btn:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(12, 121, 193, 0.2);
+      }
+
+      .screen-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 24px 80px;
+        scroll-behavior: smooth;
+        position: relative;
+      }
+
+      .screen-scroll::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      .screen-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .screen-scroll::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-200);
+        border-radius: 10px;
+      }
+
+      .scope-header {
+        background: linear-gradient(135deg, var(--color-accent-primary) 0%, #0a65a0 100%);
+        border-radius: 24px;
+        padding: 24px;
+        color: #ffffff;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+      }
+
+      .scope-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: float 15s ease-in-out infinite reverse;
+      }
+
+      .scope-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--color-accent-success);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .scope-title {
+        font-family: var(--font-heading);
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .scope-subtitle {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 20px;
+      }
+
+      .scope-amount {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .scope-terms {
+        font-size: 13px;
+        opacity: 0.8;
+      }
+
+      .progress-section {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 16px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .progress-title {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .progress-percentage {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--color-accent-primary);
+      }
+
+      .progress-bar {
+        height: 8px;
+        background: var(--color-neutral-100);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 12px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+        border-radius: 4px;
+        width: 75%;
+        --progress: 75%;
+        animation: progress 1.5s ease-out 0.5s both;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .progress-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shimmer 2s ease-in-out infinite;
+      }
+
+      .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 16px;
+      }
+
+      .progress-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        flex: 1;
+        position: relative;
+      }
+
+      .step-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--color-neutral-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .step-icon.completed {
+        background: var(--color-accent-success);
+        color: #ffffff;
+      }
+
+      .step-icon.active {
+        background: var(--color-accent-primary);
+        color: #ffffff;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .step-label {
+        font-size: 10px;
+        text-align: center;
+        color: var(--color-neutral-700);
+        max-width: 60px;
+      }
+
+      .timeline-section {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 16px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+      }
+
+      .timeline-title {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 16px;
+      }
+
+      .timeline-item {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+        position: relative;
+      }
+
+      .timeline-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 32px;
+        bottom: -16px;
+        width: 2px;
+        background: var(--color-neutral-100);
+      }
+
+      .timeline-item:last-child::before {
+        display: none;
+      }
+
+      .timeline-marker {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--color-neutral-50);
+        border: 2px solid var(--color-neutral-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .timeline-marker.completed {
+        background: var(--color-accent-success);
+        border-color: var(--color-accent-success);
+        color: #ffffff;
+      }
+
+      .timeline-marker.pending {
+        background: var(--color-accent-warning);
+        border-color: var(--color-accent-warning);
+        color: #ffffff;
+      }
+
+      .timeline-content {
+        flex: 1;
+      }
+
+      .timeline-event {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 2px;
+      }
+
+      .timeline-time {
+        font-size: 11px;
+        color: var(--color-neutral-700);
+        margin-bottom: 4px;
+      }
+
+      .timeline-description {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        line-height: 1.4;
+      }
+
+      .action-section {
+        display: flex;
+        gap: 12px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+      }
+
+      .btn-primary {
+        flex: 1;
+        padding: 14px 20px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--color-accent-primary) 0%, #0a65a0 100%);
+        color: #ffffff;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.6s;
+      }
+
+      .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(12, 121, 193, 0.3);
+      }
+
+      .btn-secondary {
+        padding: 14px 20px;
+        border-radius: 20px;
+        background: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-100);
+        color: var(--color-neutral-700);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-secondary:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        color: var(--color-accent-primary);
+        transform: translateY(-1px);
+      }
+
+      .tab-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 10px 24px 12px;
+        border-top: 1px solid var(--color-neutral-100);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-around;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+      }
+
+      .tab-btn {
+        border: none;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 6px 12px;
+        border-radius: 12px;
+      }
+
+      .tab-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .tab-label {
+        font-size: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .tab-btn--active .tab-icon {
+        background: var(--color-accent-primary-soft);
+        color: var(--color-accent-primary);
+        transform: scale(1.1);
+      }
+
+      .tab-btn--active .tab-label {
+        color: var(--color-accent-primary);
+        font-weight: 600;
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-icon {
+        transform: scale(1.15);
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-label {
+        color: var(--color-accent-primary);
+      }
+
+      .tab-btn:not(.tab-btn--active) .tab-label {
+        color: var(--color-neutral-700);
+      }
+
+      /* Tab Icons */
+      .tab-icon-home {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' fill='currentColor'/%3e%3cpolyline points='9,22 9,12 15,12 15,22' fill='currentColor'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-scopes {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M15 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M21 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M3 7h18' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-events {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='10' stroke='currentColor' stroke-width='2'/%3e%3cpolyline points='12,6 12,12 16,14' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-account {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2' stroke='currentColor' stroke-width='2'/%3e%3ccircle cx='12' cy='7' r='4' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* Premium loading animation */
+      .premium-loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(12, 121, 193, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--color-accent-primary);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .phone-shell {
+          width: 100%;
+          height: 100vh;
+          border-radius: 0;
+        }
+        
+        body {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="phone-shell">
+      <div class="status-bar">
+        <span id="bizcap-time">09:41</span>
+        <div class="status-icons">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20h20M6 16h12M10 12h4M14 8h-4M16 4h-8" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 10h2M6 14h6" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <header class="app-header">
+        <button class="icon-btn" id="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h1 class="header-title">Scope Details</h1>
+        <button class="icon-btn" id="share-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="screen-scroll">
+        <div class="scope-header">
+          <div class="scope-status">
+            <span class="status-dot"></span>
+            Under Review
+          </div>
+          <h2 class="scope-title">Fast Business Loan</h2>
+          <p class="scope-subtitle">Equipment financing for Melbourne Restaurant</p>
+          <div class="scope-amount">$85,000</div>
+          <div class="scope-terms">12 months • 1.5% p.m. • No collateral</div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-header">
+            <h3 class="progress-title">Application Progress</h3>
+            <span class="progress-percentage">75%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="progress-steps">
+            <div class="progress-step">
+              <div class="step-icon completed">✓</div>
+              <span class="step-label">Application</span>
+            </div>
+            <div class="progress-step">
+              <div class="step-icon completed">✓</div>
+              <span class="step-label">Documents</span>
+            </div>
+            <div class="progress-step">
+              <div class="step-icon active">R</div>
+              <span class="step-label">Review</span>
+            </div>
+            <div class="progress-step">
+              <div class="step-icon">A</div>
+              <span class="step-label">Approval</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-section">
+          <h3 class="timeline-title">Recent Activity</h3>
+          
+          <div class="timeline-item">
+            <div class="timeline-marker completed">✓</div>
+            <div class="timeline-content">
+              <div class="timeline-event">Application Submitted</div>
+              <div class="timeline-time">Today, 9:15 AM</div>
+              <div class="timeline-description">Your loan application for $85,000 has been successfully submitted and is now under review.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker completed">✓</div>
+            <div class="timeline-content">
+              <div class="timeline-event">Documents Verified</div>
+              <div class="timeline-time">Today, 10:30 AM</div>
+              <div class="timeline-description">All required documents have been verified. Your business financials and bank statements look good.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker pending">R</div>
+            <div class="timeline-content">
+              <div class="timeline-event">Underwriting Review</div>
+              <div class="timeline-time">In Progress</div>
+              <div class="timeline-description">Our underwriting team is reviewing your application. Expected completion within 2-3 hours.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker">D</div>
+            <div class="timeline-content">
+              <div class="timeline-event">Expected Decision</div>
+              <div class="timeline-time">Today, by 3:00 PM</div>
+              <div class="timeline-description">You'll receive a decision on your application via email and SMS.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-section">
+          <button class="btn-primary" id="contact-btn">
+            Contact Support
+          </button>
+          <button class="btn-secondary" id="documents-btn">
+            View Documents
+          </button>
+        </div>
+      </div>
+
+      <nav class="tab-bar">
+        <button class="tab-btn" data-tab="home">
+          <div class="tab-icon tab-icon-home"></div>
+          <span class="tab-label">Home</span>
+        </button>
+        <button class="tab-btn tab-btn--active" data-tab="scopes">
+          <div class="tab-icon tab-icon-scopes"></div>
+          <span class="tab-label">Scopes</span>
+        </button>
+        <button class="tab-btn" data-tab="events">
+          <div class="tab-icon tab-icon-events"></div>
+          <span class="tab-label">Events</span>
+        </button>
+        <button class="tab-btn" data-tab="account">
+          <div class="tab-icon tab-icon-account"></div>
+          <span class="tab-label">Account</span>
+        </button>
+      </nav>
+    </main>
+
+    <script>
+      function updateBizcapTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        document.getElementById("bizcap-time").textContent = `${h}:${m}`;
+      }
+      updateBizcapTime();
+      setInterval(updateBizcapTime, 60000);
+
+      // Enhanced tab interactions
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", function() {
+          tabButtons.forEach((b) => b.classList.remove("tab-btn--active"));
+          this.classList.add("tab-btn--active");
+          console.log("Bizcap tab:", this.dataset.tab);
+        });
+      });
+
+      // Back button
+      document.getElementById("back-btn").addEventListener("click", () => {
+        window.history.back();
+      });
+
+      // Share button
+      document.getElementById("share-btn").addEventListener("click", function() {
+        this.style.animation = 'pulse 0.5s ease';
+        setTimeout(() => {
+          this.style.animation = '';
+          alert("Share your application status: Copy link or send via email/SMS.");
+        }, 500);
+      });
+
+      // Contact support button
+      document.getElementById("contact-btn").addEventListener("click", function() {
+        this.innerHTML = '<span class="premium-loading"></span> Connecting...';
+        setTimeout(() => {
+          this.innerHTML = 'Contact Support';
+          alert("Support team ready! Chat now for instant help or call 1800-BIZCAP.");
+        }, 1500);
+      });
+
+      // View documents button
+      document.getElementById("documents-btn").addEventListener("click", function() {
+        this.style.background = 'var(--color-accent-primary)';
+        this.style.color = '#ffffff';
+        this.style.borderColor = 'var(--color-accent-primary)';
+        setTimeout(() => {
+          this.style.background = '';
+          this.style.color = '';
+          this.style.borderColor = '';
+          alert("Documents uploaded: Business registration, Financial statements, Bank records, ID verification.");
+        }, 2000);
+      });
+
+      // Progress step interactions
+      const progressSteps = document.querySelectorAll(".progress-step");
+      progressSteps.forEach((step) => {
+        step.addEventListener("click", function() {
+          const icon = this.querySelector(".step-icon");
+          if (icon.classList.contains("completed") || icon.classList.contains("active")) {
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+              this.style.transform = '';
+            }, 200);
+          }
+        });
+      });
+
+      // Timeline item interactions
+      const timelineItems = document.querySelectorAll(".timeline-item");
+      timelineItems.forEach((item) => {
+        item.addEventListener("click", function() {
+          this.style.transform = 'translateX(4px)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 200);
+        });
+      });
+
+      // Auto-refresh simulation
+      let refreshCount = 0;
+      setInterval(() => {
+        refreshCount++;
+        if (refreshCount % 30 === 0) { // Every 30 seconds
+          const statusDot = document.querySelector(".status-dot");
+          statusDot.style.animation = 'pulse 1s ease 3';
+          setTimeout(() => {
+            statusDot.style.animation = 'pulse 2s ease-in-out infinite';
+          }, 3000);
+        }
+      }, 1000);
+
+      // Add ripple animation to styles
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

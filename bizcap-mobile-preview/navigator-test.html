@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizcap Navigator Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f7fb;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .nav-btn.active {
+            background: #0C79C1;
+            color: white;
+        }
+        .content {
+            min-height: 400px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .lane-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .lane-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lane-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        .lane-card.active {
+            border-color: #0C79C1;
+            box-shadow: 0 4px 12px rgba(12, 121, 193, 0.25);
+        }
+        .lane-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .lane-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .lane-desc {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .tree-view {
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            white-space: pre;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Bizcap Screen Flow Navigator</h1>
+            <p>Interactive mobile app architecture visualization</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showView('lanes')">🏗️ Lanes</button>
+            <button class="nav-btn" onclick="showView('tree')">🌳 Tree View</button>
+            <button class="nav-btn" onclick="showView('journey')">👥 Journeys</button>
+        </div>
+        
+        <div class="content" id="content">
+            <div id="lanes-view">
+                <div class="lane-grid" id="lane-grid">
+                    <!-- Lanes will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simplified screen flow data
+        const screenFlowData = {
+            lanes: [
+                {
+                    id: 'auth',
+                    icon: '🔐',
+                    title: 'Authentication',
+                    description: 'User onboarding, verification, and role-based access control',
+                    screens: 15,
+                    flows: 4,
+                    tree: `🔐 Authentication Flow
+├── 📱 Splash Screen
+├── 🌟 Welcome & Onboarding
+│   ├── Welcome Screen
+│   ├── Business Information Collection
+│   └── Identity Verification
+├── 🔑 Authentication
+│   ├── Login Screen
+│   ├── Registration Screen
+│   └── Two-Factor Authentication
+└── 🎯 Role Selection & Permissions`
+                },
+                {
+                    id: 'main',
+                    icon: '🏠',
+                    title: 'Main Application',
+                    description: 'Core tab navigation and primary user interface',
+                    screens: 42,
+                    flows: 8,
+                    tree: `🏠 Main App Navigation
+├── 🏠 Home Tab
+│   ├── Dashboard Overview
+│   ├── Search & Discovery
+│   ├── Featured Content
+│   └── Quick Actions Grid
+├── 📊 Scopes Tab
+│   ├── Scope Management Dashboard
+│   ├── Individual Scope Details
+│   └── Create New Scope Flow
+├── 🎯 Events Tab
+│   ├── Event Discovery
+│   ├── Event Details & Registration
+│   └── Event Participation
+└── 👤 Account Tab
+    ├── Profile Management
+    ├── Financial Overview
+    └── Settings & Configuration`
+                },
+                {
+                    id: 'funding',
+                    icon: '💼',
+                    title: 'Funding Application',
+                    description: 'Complete funding application workflow from start to finish',
+                    screens: 38,
+                    flows: 6,
+                    tree: `💼 Funding Application Flow
+├── 🚀 Application Initiation
+├── 📋 Application Form Completion
+├── 📄 Document Collection & Upload
+├── 🔍 Application Review & Submission
+├── ⏳ Application Processing Status
+└── 🎉 Approval & Funding Disbursement`
+                },
+                {
+                    id: 'scopes',
+                    icon: '📊',
+                    title: 'Scope Management',
+                    description: 'Advanced scope lifecycle, analytics, and portfolio management',
+                    screens: 35,
+                    flows: 5,
+                    tree: `📊 Advanced Scope Management
+├── 🎯 Scope Intelligence & Analytics
+├── 🔄 Scope Lifecycle Management
+├── 🤝 Collaboration & Stakeholder Management
+└── 📈 Scope Portfolio Management`
+                },
+                {
+                    id: 'events',
+                    icon: '🎯',
+                    title: 'Events & Engagement',
+                    description: 'Comprehensive event system, community features, and networking',
+                    screens: 28,
+                    flows: 4,
+                    tree: `🎯 Events & Engagement System
+├── 📅 Event Discovery & Personalization
+├── 🎪 Event Experience & Participation
+├── 🤝 Community & Networking Features
+└── 📚 Learning & Development Hub`
+                },
+                {
+                    id: 'account',
+                    icon: '👤',
+                    title: 'Account & Settings',
+                    description: 'User profile, financial management, and app configuration',
+                    screens: 32,
+                    flows: 6,
+                    tree: `👤 Account & Settings Management
+├── 📝 Profile Management
+├── 💰 Financial Overview
+├── 📁 Document Center
+├── ⚙️ Settings & Configuration
+└── 🆘 Help & Support`
+                },
+                {
+                    id: 'support',
+                    icon: '💬',
+                    title: 'Support & Communication',
+                    description: 'Multi-channel support, expert network, and knowledge management',
+                    screens: 24,
+                    flows: 5,
+                    tree: `💬 Support & Communication
+├── 💬 Real-Time Communication
+├── 📧 Asynchronous Communication
+├── 🎓 Self-Service & Knowledge Base
+├── 👥 Expert & Advisor Network
+└── 📊 Support Analytics & Improvement`
+                },
+                {
+                    id: 'notifications',
+                    icon: '🔔',
+                    title: 'Notifications & Alerts',
+                    description: 'Intelligent notification system with multi-channel delivery',
+                    screens: 18,
+                    flows: 4,
+                    tree: `🔔 Notification & Alert System
+├── 📱 Push Notification Management
+├── 📧 Email Communication Hub
+├── 💬 In-App Messaging Center
+└── ⚙️ Notification Preferences & Controls`
+                }
+            ],
+            userJourneys: [
+                {
+                    id: 'sme',
+                    title: 'SME Business Owner',
+                    description: 'Complete funding journey from discovery to repayment',
+                    steps: [
+                        'Onboarding & Setup',
+                        'Dashboard Discovery', 
+                        'Funding Application',
+                        'Underwriting Process',
+                        'Funding Disbursement',
+                        'Scope Management',
+                        'Events & Learning',
+                        'Account Management'
+                    ]
+                },
+                {
+                    id: 'partner',
+                    title: 'Business Partner',
+                    description: 'Client management and application processing workflow',
+                    steps: [
+                        'Partner Authentication',
+                        'Client Dashboard',
+                        'Application Processing', 
+                        'Client Communication',
+                        'Portfolio Analytics',
+                        'Reporting Tools',
+                        'Resource Management',
+                        'Compliance & Audit'
+                    ]
+                }
+            ]
+        };
+
+        let currentView = 'lanes';
+        let selectedLane = null;
+
+        function initApp() {
+            renderLanes();
+            selectLane('auth'); // Select first lane by default
+        }
+
+        function renderLanes() {
+            const laneGrid = document.getElementById('lane-grid');
+            laneGrid.innerHTML = screenFlowData.lanes.map(lane => `
+                <div class="lane-card ${selectedLane === lane.id ? 'active' : ''}" 
+                     onclick="selectLane('${lane.id}')">
+                    <div class="lane-icon">${lane.icon}</div>
+                    <div class="lane-title">${lane.title}</div>
+                    <div class="lane-desc">${lane.description}</div>
+                    <div style="font-size: 11px; color: #888;">
+                        <strong>${lane.screens}</strong> screens • 
+                        <strong>${lane.flows}</strong> flows
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectLane(laneId) {
+            selectedLane = laneId;
+            const lane = screenFlowData.lanes.find(l => l.id === laneId);
+            
+            if (lane) {
+                renderLanes(); // Re-render to update active state
+                showLaneTree(lane);
+            }
+        }
+
+        function showLaneTree(lane) {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <button onclick="showView('lanes')" style="padding: 8px 16px; background: #0C79C1; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        ← Back to Lanes
+                    </button>
+                    <h2 style="margin: 10px 0;">${lane.icon} ${lane.title} Lane</h2>
+                </div>
+                <div class="tree-view">${lane.tree}</div>
+            `;
+        }
+
+        function showView(view) {
+            currentView = view;
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const content = document.getElementById('content');
+            
+            switch(view) {
+                case 'lanes':
+                    content.innerHTML = `
+                        <div id="lanes-view">
+                            <div class="lane-grid" id="lane-grid">
+                                <!-- Lanes will be inserted here -->
+                            </div>
+                        </div>
+                    `;
+                    renderLanes();
+                    selectLane('auth');
+                    break;
+                    
+                case 'tree':
+                    const fullTree = screenFlowData.lanes.map(lane => lane.tree).join('\n\n' + '='.repeat(60) + '\n\n');
+                    content.innerHTML = `
+                        <h2>Complete Screen Flow Tree</h2>
+                        <div class="tree-view">${fullTree}</div>
+                    `;
+                    break;
+                    
+                case 'journey':
+                    content.innerHTML = `
+                        <h2>User Journey Flows</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            ${screenFlowData.userJourneys.map(journey => `
+                                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+                                    <h3>${journey.title}</h3>
+                                    <p style="font-size: 12px; color: #666; margin-bottom: 15px;">${journey.description}</p>
+                                    <ol style="font-size: 13px; line-height: 1.6;">
+                                        ${journey.steps.map(step => `<li>${step}</li>`).join('')}
+                                    </ol>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

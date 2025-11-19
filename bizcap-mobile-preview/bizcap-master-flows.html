@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIZCAP Mobile App - Master Flow Document</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      /* Light mode colors */
+      --bg-primary: #FFFFFF;
+      --bg-secondary: #F8F8F8;
+      --bg-tertiary: #F0F0F0;
+      --text-primary: #0D0D0D;
+      --text-secondary: #666666;
+      --text-tertiary: #999999;
+      --border-color: #E5E5E5;
+      --shadow-color: rgba(0, 0, 0, 0.08);
+      --blue: #1E88E5;
+      --blue-hover: #1565C0;
+      --silver: #BDBDBD;
+      --success: #4CAF50;
+      --error: #F44336;
+      --info: #2196F3;
+      
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-normal: 300ms ease;
+      --transition-slow: 500ms ease;
+    }
+    
+    /* Dark mode variables */
+    body.dark-mode {
+      --bg-primary: #0D0D0D;
+      --bg-secondary: #1A1A1A;
+      --bg-tertiary: #252525;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B0B0B0;
+      --text-tertiary: #808080;
+      --border-color: #333333;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+    }
+    
+    /* Layout Container */
+    .app-container {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 280px;
+      background-color: var(--bg-primary);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-normal);
+    }
+    
+    .sidebar-header {
+      padding: 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .sidebar-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    
+    .theme-toggle {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .theme-toggle button {
+      padding: 0.5rem 1rem;
+      background-color: var(--bg-tertiary);
+      border: none;
+      border-radius: 8px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 0.875rem;
+    }
+    
+    .theme-toggle button:hover {
+      background-color: var(--blue);
+      color: white;
+    }
+    
+    /* Navigation Items */
+    .nav-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 0;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 2rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    
+    .nav-item:hover {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    
+    .nav-item.active {
+      background-color: var(--bg-tertiary);
+      color: var(--blue);
+      font-weight: 600;
+      position: relative;
+    }
+    
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background-color: var(--blue);
+    }
+    
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      background-color: var(--bg-secondary);
+      padding: 2rem;
+    }
+    
+    /* Flow Sections */
+    .flow-section {
+      display: none;
+      animation: fadeIn var(--transition-normal);
+    }
+    
+    .flow-section.active {
+      display: block;
+    }
+    
+    .flow-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+    }
+    
+    /* Tab Navigation */
+    .tab-nav {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0;
+    }
+    
+    .tab-button {
+      padding: 0.75rem 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      position: relative;
+      transition: all var(--transition-fast);
+    }
+    
+    .tab-button:hover {
+      color: var(--text-primary);
+    }
+    
+    .tab-button.active {
+      color: var(--blue);
+    }
+    
+    .tab-button.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--blue);
+    }
+    
+    /* Tab Content Container */
+    .tab-container {
+      position: relative;
+    }
+    
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+    
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+    }
+    
+    /* Mobile Screen Frame */
+    .mobile-screen {
+      width: 375px;
+      height: 812px;
+      background-color: var(--bg-primary);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px var(--shadow-color);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-color);
+    }
+    
+    /* Status Bar */
+    .status-bar {
+      height: 44px;
+      background-color: var(--bg-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .status-icons {
+      display: flex;
+      gap: 4px;
+    }
+    
+    /* App Header */
+    .app-header {
+      height: 56px;
+      background-color: var(--bg-primary);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    
+    .app-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .header-left, .header-right {
+      width: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .icon-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background-color: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      color: var(--text-primary);
+      font-size: 18px;
+      position: relative;
+    }
+    
+    .icon-button:hover {
+      background-color: var(--bg-tertiary);
+    }
+    
+    .icon-button .badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: var(--blue);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 10px;
+      min-width: 16px;
+      text-align: center;
+    }
+    
+    /* Content Area */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+    
+    /* Components Styles */
+    .primary-button {
+      background-color: var(--blue);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .primary-button:hover {
+      background-color: var(--blue-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+    }
+    
+    .primary-button.large {
+      padding: 16px 32px;
+      font-size: 16px;
+      width: 100%;
+    }
+    
+    .primary-button.small {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+    
+    .secondary-button {
+      background-color: transparent;
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    
+    .secondary-button:hover {
+      background-color: rgba(30, 136, 229, 0.1);
+    }
+    
+    .text-button {
+      background: none;
+      border: none;
+      color: var(--blue);
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    
+    .text-button:hover {
+      opacity: 0.8;
+    }
+    
+    /* Cards */
+    .card {
+      background-color: var(--bg-primary);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px var(--shadow-color);
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border-color);
+    }
+    
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      margin-top: 24px;
+    }
+    
+    .section-header h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    /* Loan Card Styles */
+    .loan-card {
+      background-color: var(--bg-primary);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px var(--shadow-color);
+      border: 1px solid var(--border-color);
+      transition: all var(--transition-fast);
+    }
+    
+    .loan-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px var(--shadow-color);
+    }
+    
+    .loan-content {
+      padding: 16px;
+    }
+    
+    .loan-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    
+    .loan-details {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    
+    .loan-meta {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    
+    /* Bottom Nav */
+    .bottom-nav {
+      height: 88px;
+      background-color: var(--bg-primary);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 20px;
+    }
+    
+    .nav-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      color: var(--text-tertiary);
+    }
+    
+    .nav-tab.active {
+      color: var(--blue);
+    }
+    
+    .nav-tab-icon {
+      font-size: 24px;
+    }
+    
+    .nav-tab-label {
+      font-size: 11px;
+      font-weight: 500;
+    }
+    
+    /* Account Card Styles */
+    .account-card {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      min-height: 200px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    
+    .account-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue) 0%, #64B5F6 100%);
+    }
+    
+    .account-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      opacity: 0.3;
+    }
+    
+    .account-tier {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    
+    .account-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .account-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .account-detail {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Quick Actions Grid */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    
+    .quick-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 8px;
+      background-color: var(--bg-tertiary);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    
+    .quick-action:hover {
+      background-color: var(--blue);
+      color: white;
+    }
+    
+    .quick-action-icon {
+      font-size: 28px;
+    }
+    
+    .quick-action-label {
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+    }
+    
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      color: var(--text-primary);
+      transition: all var(--transition-fast);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--blue);
+      background-color: var(--bg-primary);
+    }
+    
+    /* Filter Pills */
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    
+    .filter-pill {
+      padding: 8px 16px;
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    
+    .filter-pill.active {
+      background-color: var(--blue);
+      color: white;
+      border-color: var(--blue);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 240px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+      
+      .main-content {
+        padding: 1rem;
+      }
+      
+      .mobile-screen {
+        width: 100%;
+        height: 600px;
+        border-radius: 0;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <header class="sidebar-header">
+        <h1>BIZCAP</h1>
+        <div class="theme-toggle">
+          <button onclick="document.body.classList.toggle('dark-mode')">Toggle Theme</button>
+        </div>
+      </header>
+      <nav class="nav-list">
+        <button class="nav-item active" data-section="overview">Overview</button>
+        <button class="nav-item" data-section="authentication">Authentication</button>
+        <button class="nav-item" data-section="dashboard">Dashboard</button>
+        <button class="nav-item" data-section="loans">Loans</button>
+        <button class="nav-item" data-section="account">Account</button>
+        <button class="nav-item" data-section="payments">Payments</button>
+        <button class="nav-item" data-section="support">Support</button>
+        <button class="nav-item" data-section="settings">Settings</button>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <section id="overview" class="flow-section active">
+        <h2>App Overview</h2>
+        <div class="mobile-screen">
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="status-icons">📶 🔋</div>
+          </div>
+          <header class="app-header">
+            <div class="header-left">←</div>
+            <h1>Bizcap Overview</h1>
+            <div class="header-right">⚙️</div>
+          </header>
+          <div class="content">
+            <p>Welcome to Bizcap Mobile App Master Flows. This document outlines the key user flows for the Australian fintech platform providing fast business loans to SMEs.</p>
+            <br>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+              <li>Loan applications with instant approvals</li>
+              <li>Real-time account management</li>
+              <li>Payment tracking and scheduling</li>
+              <li>Business credit scoring</li>
+              <li>24/7 customer support</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      
+      <section id="authentication" class="flow-section">
+        <h2>Authentication Flows</h2>
+        <div class="tab-nav">
+          <button class="tab-button active">Login</button>
+          <button class="tab-button">Signup</button>
+          <button class="tab-button">Business Verification</button>
+        </div>
+        <div class="tab-container">
+          <div class="tab-content active">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <h1>Login</h1>
+              </header>
+              <div class="content">
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input class="form-input" type="email" placeholder="Enter business email">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Password</label>
+                  <input class="form-input" type="password" placeholder="Enter password">
+                </div>
+                <button class="primary-button large">Login</button>
+                <button class="text-button">Forgot password?</button>
+                <br><br>
+                <button class="secondary-button large">Sign up for Bizcap</button>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <h1>Business Signup</h1>
+              </header>
+              <div class="content">
+                <div class="form-group">
+                  <label class="form-label">Business Name</label>
+                  <input class="form-input" type="text" placeholder="Enter business name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">ABN/ACN</label>
+                  <input class="form-input" type="text" placeholder="Australian Business Number">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input class="form-input" type="email" placeholder="Business email">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Password</label>
+                  <input class="form-input" type="password" placeholder="Create password">
+                </div>
+                <button class="primary-button large">Create Account</button>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Business Verification</h1>
+              </header>
+              <div class="content">
+                <div class="card">
+                  <h3>Document Upload</h3>
+                  <p>Please upload the following documents to verify your business:</p>
+                  <br>
+                  <button class="secondary-button">Upload Bank Statements</button>
+                  <button class="secondary-button">Upload Tax Returns</button>
+                  <button class="secondary-button">Upload Business License</button>
+                  <br><br>
+                  <button class="primary-button large">Submit for Verification</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section id="dashboard" class="flow-section">
+        <h2>Dashboard Flows</h2>
+        <div class="tab-nav">
+          <button class="tab-button active">Home</button>
+          <button class="tab-button">Notifications</button>
+          <button class="tab-button">Quick Actions</button>
+        </div>
+        <div class="tab-container">
+          <div class="tab-content active">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <h1>Dashboard</h1>
+                <div class="header-right">
+                  <div class="icon-button">
+                    <span>🔔</span>
+                    <span class="badge">3</span>
+                  </div>
+                </div>
+              </header>
+              <div class="content">
+                <div class="account-card">
+                  <div class="account-tier">Business Account</div>
+                  <div class="account-name">TechStart Solutions</div>
+                  <div class="account-details">
+                    <div class="account-detail">Available Credit: $75,000</div>
+                    <div class="account-detail">Next Repayment: $8,500 due Dec 15</div>
+                    <div class="account-detail">Credit Score: 780/850</div>
+                  </div>
+                </div>
+                
+                <div class="quick-actions">
+                  <div class="quick-action">
+                    <span class="quick-action-icon">💰</span>
+                    <span class="quick-action-label">Apply for Loan</span>
+                  </div>
+                  <div class="quick-action">
+                    <span class="quick-action-icon">📊</span>
+                    <span class="quick-action-label">View Statements</span>
+                  </div>
+                  <div class="quick-action">
+                    <span class="quick-action-icon">💳</span>
+                    <span class="quick-action-label">Make Payment</span>
+                  </div>
+                  <div class="quick-action">
+                    <span class="quick-action-icon">📞</span>
+                    <span class="quick-action-label">Contact Support</span>
+                  </div>
+                </div>
+                
+                <div class="section-header">
+                  <h3>Active Loans</h3>
+                  <button class="text-button">See All</button>
+                </div>
+                
+                <div class="loan-card">
+                  <div class="loan-content">
+                    <div class="loan-title">Working Capital Loan #12345</div>
+                    <div class="loan-details">Amount: $50,000 | Outstanding: $35,000</div>
+                    <div class="loan-meta">
+                      <div class="meta-item">📅 Next Payment: Dec 15</div>
+                      <div class="meta-item">💲 Amount: $8,500</div>
+                      <div class="meta-item">📊 Status: Current</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="loan-card">
+                  <div class="loan-content">
+                    <div class="loan-title">Equipment Financing #12346</div>
+                    <div class="loan-details">Amount: $25,000 | Outstanding: $18,000</div>
+                    <div class="loan-meta">
+                      <div class="meta-item">📅 Next Payment: Dec 20</div>
+                      <div class="meta-item">💲 Amount: $2,100</div>
+                      <div class="meta-item">📊 Status: Current</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <footer class="bottom-nav">
+                <div class="nav-tab active">
+                  <span class="nav-tab-icon">🏠</span>
+                  <span class="nav-tab-label">Home</span>
+                </div>
+                <div class="nav-tab">
+                  <span class="nav-tab-icon">💰</span>
+                  <span class="nav-tab-label">Loans</span>
+                </div>
+                <div class="nav-tab">
+                  <span class="nav-tab-icon">👤</span>
+                  <span class="nav-tab-label">Account</span>
+                </div>
+                <div class="nav-tab">
+                  <span class="nav-tab-icon">⚙️</span>
+                  <span class="nav-tab-label">Settings</span>
+                </div>
+              </footer>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Notifications</h1>
+              </header>
+              <div class="content">
+                <div class="card">
+                  <h3>Loan Approved</h3>
+                  <p>Your loan application for $50,000 has been approved! Funds will be available within 24 hours.</p>
+                  <small>2 hours ago</small>
+                </div>
+                <div class="card">
+                  <h3>Payment Reminder</h3>
+                  <p>Your next payment of $8,500 is due on December 15. Set up auto-pay to avoid late fees.</p>
+                  <small>1 day ago</small>
+                </div>
+                <div class="card">
+                  <h3>Credit Score Update</h3>
+                  <p>Your business credit score has improved to 780! You're now eligible for better rates.</p>
+                  <small>3 days ago</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Quick Actions</h1>
+              </header>
+              <div class="content">
+                <button class="primary-button large">Apply for New Loan</button>
+                <button class="secondary-button large">View Loan History</button>
+                <button class="secondary-button large">Make a Payment</button>
+                <button class="secondary-button large">Contact Support</button>
+                <button class="secondary-button large">Update Business Info</button>
+                <button class="secondary-button large">Download Statements</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section id="loans" class="flow-section">
+        <h2>Loans Flows</h2>
+        <div class="tab-nav">
+          <button class="tab-button active">Apply</button>
+          <button class="tab-button">History</button>
+          <button class="tab-button">Calculator</button>
+        </div>
+        <div class="tab-container">
+          <div class="tab-content active">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <h1>Loan Application</h1>
+              </header>
+              <div class="content">
+                <div class="filter-pills">
+                  <button class="filter-pill active">Working Capital</button>
+                  <button class="filter-pill">Equipment</button>
+                  <button class="filter-pill">Expansion</button>
+                  <button class="filter-pill">Inventory</button>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Loan Amount</label>
+                  <input class="form-input" type="number" placeholder="$10,000 - $500,000">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Loan Purpose</label>
+                  <input class="form-input" type="text" placeholder="Describe your funding needs">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Repayment Term</label>
+                  <select class="form-input">
+                    <option>6 months</option>
+                    <option>12 months</option>
+                    <option>18 months</option>
+                    <option>24 months</option>
+                  </select>
+                </div>
+                
+                <button class="primary-button large">Continue Application</button>
+                <button class="text-button">Calculate Payments</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <h1>Loan History</h1>
+              </header>
+              <div class="content">
+                <div class="loan-card">
+                  <div class="loan-content">
+                    <div class="loan-title">Working Capital Loan</div>
+                    <div class="loan-details">$50,000 • Approved • Completed</div>
+                    <div class="loan-meta">
+                      <div class="meta-item">📅 2023</div>
+                      <div class="meta-item">💲 Paid: $52,500</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="loan-card">
+                  <div class="loan-content">
+                    <div class="loan-title">Equipment Financing</div>
+                    <div class="loan-details">$25,000 • Approved • Completed</div>
+                    <div class="loan-meta">
+                      <div class="meta-item">📅 2023</div>
+                      <div class="meta-item">💲 Paid: $26,800</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="loan-card">
+                  <div class="loan-content">
+                    <div class="loan-title">Expansion Loan</div>
+                    <div class="loan-details">$100,000 • Approved • Active</div>
+                    <div class="loan-meta">
+                      <div class="meta-item">📅 2024</div>
+                      <div class="meta-item">💲 Balance: $75,000</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Loan Calculator</h1>
+              </header>
+              <div class="content">
+                <div class="form-group">
+                  <label class="form-label">Loan Amount</label>
+                  <input class="form-input" type="number" value="50000">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Interest Rate (%)</label>
+                  <input class="form-input" type="number" value="8.5" step="0.1">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Term (months)</label>
+                  <input class="form-input" type="number" value="24">
+                </div>
+                
+                <div class="card">
+                  <h3>Payment Breakdown</h3>
+                  <div class="loan-meta">
+                    <div class="meta-item">💲 Monthly Payment: $2,315</div>
+                    <div class="meta-item">💰 Total Interest: $5,560</div>
+                    <div class="meta-item">📊 Total Cost: $55,560</div>
+                  </div>
+                </div>
+                
+                <button class="primary-button large">Apply for This Loan</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section id="account" class="flow-section">
+        <h2>Account Flows</h2>
+        <div class="tab-nav">
+          <button class="tab-button active">Profile</button>
+          <button class="tab-button">Business Info</button>
+          <button class="tab-button">Documents</button>
+        </div>
+        <div class="tab-container">
+          <div class="tab-content active">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <h1>Account</h1>
+              </header>
+              <div class="content">
+                <div class="account-card">
+                  <div class="account-tier">Premium Account</div>
+                  <div class="account-name">John Smith</div>
+                  <div class="account-details">
+                    <div class="account-detail">TechStart Solutions Pty Ltd</div>
+                    <div class="account-detail">ABN: 12 345 678 901</div>
+                    <div class="account-detail">Member since: Jan 2023</div>
+                  </div>
+                </div>
+                
+                <div class="section-header">
+                  <h3>Account Stats</h3>
+                </div>
+                
+                <div class="stats-grid">
+                  <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Active Loans</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-number">$175K</div>
+                    <div class="stat-label">Total Borrowed</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">On-time Payments</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-number">780</div>
+                    <div class="stat-label">Credit Score</div>
+                  </div>
+                </div>
+                
+                <button class="secondary-button large">Edit Profile</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Business Information</h1>
+              </header>
+              <div class="content">
+                <div class="form-group">
+                  <label class="form-label">Business Name</label>
+                  <input class="form-input" type="text" value="TechStart Solutions Pty Ltd">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">ABN</label>
+                  <input class="form-input" type="text" value="12 345 678 901">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Industry</label>
+                  <select class="form-input">
+                    <option selected>Technology</option>
+                    <option>Manufacturing</option>
+                    <option>Retail</option>
+                    <option>Services</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Business Address</label>
+                  <input class="form-input" type="text" value="123 Business St, Sydney NSW 2000">
+                </div>
+                
+                <button class="primary-button large">Save Changes</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Documents</h1>
+              </header>
+              <div class="content">
+                <div class="card">
+                  <h3>Bank Statements</h3>
+                  <p>Last 3 months • Verified</p>
+                  <button class="text-button">View Documents</button>
+                </div>
+                
+                <div class="card">
+                  <h3>Tax Returns</h3>
+                  <p>2022-2023 • Verified</p>
+                  <button class="text-button">View Documents</button>
+                </div>
+                
+                <div class="card">
+                  <h3>Business License</h3>
+                  <p>Current • Verified</p>
+                  <button class="text-button">View Documents</button>
+                </div>
+                
+                <button class="secondary-button large">Upload New Document</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section id="payments" class="flow-section">
+        <h2>Payments Flows</h2>
+        <div class="tab-nav">
+          <button class="tab-button active">Make Payment</button>
+          <button class="tab-button">Payment History</button>
+          <button class="tab-button">Auto-Pay</button>
+        </div>
+        <div class="tab-container">
+          <div class="tab-content active">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Make Payment</h1>
+              </header>
+              <div class="content">
+                <div class="card">
+                  <h3>Working Capital Loan #12345</h3>
+                  <p>Outstanding Balance: $35,000</p>
+                  <p>Next Payment: $8,500 due Dec 15</p>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Payment Amount</label>
+                  <input class="form-input" type="number" placeholder="Enter amount">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Payment Method</label>
+                  <select class="form-input">
+                    <option>Bank Account (****1234)</option>
+                    <option>Credit Card (****5678)</option>
+                    <option>Add New Payment Method</option>
+                  </select>
+                </div>
+                
+                <button class="primary-button large">Make Payment</button>
+                <button class="text-button">Pay Minimum Amount ($8,500)</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Payment History</h1>
+              </header>
+              <div class="content">
+                <div class="card">
+                  <h3>December 1, 2024</h3>
+                  <p>Working Capital Loan • $8,500 • Completed</p>
+                </div>
+                
+                <div class="card">
+                  <h3>November 1, 2024</h3>
+                  <p>Equipment Financing • $2,100 • Completed</p>
+                </div>
+                
+                <div class="card">
+                  <h3>October 1, 2024</h3>
+                  <p>Working Capital Loan • $8,500 • Completed</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Auto-Pay Setup</h1>
+              </header>
+              <div class="content">
+                <div class="card">
+                  <h3>Automatic Payments</h3>
+                  <p>Set up recurring payments to avoid late fees and maintain your credit score.</p>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Payment Amount</label>
+                  <select class="form-input">
+                    <option>Minimum Payment</option>
+                    <option>Fixed Amount</option>
+                    <option>Full Balance</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Payment Date</label>
+                  <select class="form-input">
+                    <option>1st of each month</option>
+                    <option>15th of each month</option>
+                    <option>Due date</option>
+                  </select>
+                </div>
+                
+                <button class="primary-button large">Enable Auto-Pay</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section id="support" class="flow-section">
+        <h2>Support Flows</h2>
+        <div class="tab-nav">
+          <button class="tab-button active">Chat</button>
+          <button class="tab-button">FAQ</button>
+          <button class="tab-button">Contact</button>
+        </div>
+        <div class="tab-container">
+          <div class="tab-content active">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Support Chat</h1>
+              </header>
+              <div class="content">
+                <div class="card" style="height: 300px; display: flex; flex-direction: column;">
+                  <div style="flex: 1; padding: 10px; background: #f5f5f5; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="margin-bottom: 10px;"><strong>Support:</strong> Hi! How can I help you with your Bizcap account today?</div>
+                    <div style="margin-bottom: 10px;"><strong>You:</strong> I have a question about my loan payment.</div>
+                    <div style="margin-bottom: 10px;"><strong>Support:</strong> I'd be happy to help! What would you like to know about your payment?</div>
+                  </div>
+                  <div style="display: flex; gap: 10px;">
+                    <input class="form-input" placeholder="Type your message..." style="flex: 1;">
+                    <button class="primary-button">Send</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>FAQ</h1>
+              </header>
+              <div class="content">
+                <div class="card">
+                  <h3>How do I apply for a loan?</h3>
+                  <p>Tap "Apply for Loan" from the dashboard and follow the guided process.</p>
+                </div>
+                
+                <div class="card">
+                  <h3>What documents do I need?</h3>
+                  <p>Bank statements, tax returns, and business license are typically required.</p>
+                </div>
+                
+                <div class="card">
+                  <h3>How long does approval take?</h3>
+                  <p>Most applications are approved within 24 hours during business days.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content">
+            <div class="mobile-screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">📶 🔋</div>
+              </div>
+              <header class="app-header">
+                <div class="header-left">←</div>
+                <h1>Contact Us</h1>
+              </header>
+              <div class="content">
+                <div class="card">
+                  <h3>Phone Support</h3>
+                  <p>1300 BIZCAP (1300 249 227)</p>
+                  <p>Mon-Fri 9AM-6PM AEST</p>
+                </div>
+                
+                <div class="card">
+                  <h3>Email Support</h3>
+                  <p>support@bizcap.com.au</p>
+                  <p>Response within 24 hours</p>
+                </div>
+                
+                <button class="primary-button large">Start Live Chat</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section id="settings" class="flow-section">
+        <h2>Settings Flows</h2>
+        <div class="mobile-screen">
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="status-icons">📶 🔋</div>
+          </div>
+          <header class="app-header">
+            <div class="header-left">←</div>
+            <h1>Settings</h1>
+          </header>
+          <div class="content">
+            <div class="card">
+              <h3>Notifications</h3>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Push Notifications</span>
+                <label class="toggle">
+                  <input type="checkbox" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                <span>Email Updates</span>
+                <label class="toggle">
+                  <input type="checkbox" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="card">
+              <h3>Security</h3>
+              <button class="secondary-button" style="width: 100%; margin-bottom: 10px;">Change Password</button>
+              <button class="secondary-button" style="width: 100%; margin-bottom: 10px;">Enable Biometrics</button>
+              <button class="secondary-button" style="width: 100%;">Two-Factor Authentication</button>
+            </div>
+            
+            <div class="card">
+              <h3>Privacy</h3>
+              <button class="secondary-button" style="width: 100%; margin-bottom: 10px;">Data Usage</button>
+              <button class="secondary-button" style="width: 100%;">Privacy Policy</button>
+            </div>
+            
+            <button class="secondary-button" style="width: 100%; margin-top: 20px; color: #f44336; border-color: #f44336;">Logout</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <script>
+    // Navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.flow-section');
+    
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const target = item.dataset.section;
+        navItems.forEach(nav => nav.classList.remove('active'));
+        item.classList.add('active');
+        sections.forEach(section => {
+          section.classList.toggle('active', section.id === target);
+        });
+      });
+    });
+    
+    // Tab switching
+    document.querySelectorAll('.tab-nav').forEach(tabNav => {
+      const buttons = tabNav.querySelectorAll('.tab-button');
+      const contents = tabNav.nextElementSibling.querySelectorAll('.tab-content');
+      
+      buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+          buttons.forEach(btn => btn.classList.remove('active'));
+          contents.forEach(content => content.classList.remove('active'));
+          button.classList.add('active');
+          contents[index].classList.add('active');
+        });
+      });
+    });
+    
+    // Activate first section
+    navItems[0].click();
+  </script>
+</body>
+</html>

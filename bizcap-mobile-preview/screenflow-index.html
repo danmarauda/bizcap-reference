@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bizcap Screen Flow Lane</title>
+
+    <!-- Bizcap fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Bizcap design tokens */
+      :root {
+        --color-base-background: #FFFFFF;
+        --color-base-text: #1A191E;
+        --color-neutral-0: #FFFFFF;
+        --color-neutral-50: #f5f7fb;
+        --color-neutral-100: #e5e7f0;
+        --color-neutral-200: #d3d7e4;
+        --color-neutral-700: #4b4a54;
+        --color-neutral-900: #1A191E;
+        --color-accent-primary: #0C79C1;
+        --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+
+        --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-size-h1: 28px;
+        --font-size-h2: 20px;
+        --font-size-h3: 16px;
+        --font-size-body: 14px;
+        --font-size-caption: 11px;
+
+        --line-height-tight: 1.1;
+        --line-height-normal: 1.4;
+        --line-height-relaxed: 1.6;
+
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 12px;
+        --space-lg: 16px;
+        --space-xl: 24px;
+        --space-2xl: 32px;
+
+        --radius-lg: 20px;
+        --radius-xl: 32px;
+        --radius-pill: 999px;
+
+        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
+        --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #f3f8ff 0, #ffffff 55%);
+        color: var(--color-base-text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        padding: 24px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .header h1 {
+        font-family: var(--font-heading);
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-neutral-900);
+        margin-bottom: 8px;
+      }
+
+      .header p {
+        font-size: 16px;
+        color: var(--color-neutral-700);
+      }
+
+      .screens-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+
+      .screen-card {
+        border-radius: 16px;
+        overflow: hidden;
+        background: white;
+        border: 1px solid var(--color-neutral-100);
+        box-shadow: var(--shadow-card);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .screen-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .screen-preview {
+        height: 200px;
+        background: linear-gradient(135deg, #f5f7fb 0%, #e5e7f0 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .screen-mockup {
+        width: 120px;
+        height: 200px;
+        border-radius: 12px;
+        background: white;
+        border: 1px solid var(--color-neutral-100);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .mockup-header {
+        height: 40px;
+        background: var(--color-accent-primary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+      }
+
+      .mockup-logo {
+        height: 16px;
+        width: auto;
+        background: white;
+        border-radius: 2px;
+      }
+
+      .mockup-notification {
+        width: 16px;
+        height: 16px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+      }
+
+      .mockup-content {
+        flex: 1;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .mockup-title {
+        height: 12px;
+        background: var(--color-neutral-200);
+        border-radius: 6px;
+      }
+
+      .mockup-subtitle {
+        height: 8px;
+        background: var(--color-neutral-100);
+        border-radius: 4px;
+        width: 80%;
+      }
+
+      .mockup-card {
+        height: 60px;
+        background: var(--color-neutral-50);
+        border-radius: 8px;
+        border: 1px solid var(--color-neutral-100);
+      }
+
+      .mockup-tabs {
+        height: 50px;
+        background: var(--color-neutral-50);
+        border-top: 1px solid var(--color-neutral-100);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .mockup-tab {
+        width: 20px;
+        height: 20px;
+        background: var(--color-neutral-200);
+        border-radius: 4px;
+      }
+
+      .screen-info {
+        padding: 20px;
+      }
+
+      .screen-title {
+        font-family: var(--font-heading);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 8px;
+      }
+
+      .screen-description {
+        font-size: 14px;
+        color: var(--color-neutral-700);
+        margin-bottom: 12px;
+        line-height: 1.4;
+      }
+
+      .screen-meta {
+        display: flex;
+        gap: 12px;
+        font-size: 12px;
+        color: var(--color-neutral-700);
+      }
+
+      .screen-status {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .status-complete {
+        background: rgba(34, 197, 94, 0.1);
+        color: #16a34a;
+      }
+
+      .status-in-progress {
+        background: rgba(251, 191, 36, 0.1);
+        color: #d97706;
+      }
+
+      .flow-diagram {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        border: 1px solid var(--color-neutral-100);
+        box-shadow: var(--shadow-card);
+      }
+
+      .flow-title {
+        font-family: var(--font-heading);
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .flow-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .flow-step {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        background: var(--color-neutral-50);
+        border-radius: 12px;
+        border: 1px solid var(--color-neutral-100);
+      }
+
+      .flow-step-number {
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        background: var(--color-accent-primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .flow-step-content h4 {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 4px;
+      }
+
+      .flow-step-content p {
+        font-size: 14px;
+        color: var(--color-neutral-700);
+      }
+
+      .flow-arrow {
+        width: 20px;
+        height: 20px;
+        margin: 8px auto;
+        border-left: 2px solid var(--color-accent-primary);
+        border-bottom: 2px solid var(--color-accent-primary);
+        transform: rotate(-45deg);
+      }
+
+      @media (max-width: 768px) {
+        .screens-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .flow-step {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Bizcap Screen Flow Lane</h1>
+        <p>Interactive prototypes for the company-wide mobile app</p>
+      </div>
+
+      <div class="screens-grid">
+        <!-- Home Dashboard -->
+        <a href="index.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <div class="mockup-logo"></div>
+                <div class="mockup-notification"></div>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-title"></div>
+                <div class="mockup-subtitle"></div>
+                <div class="mockup-card"></div>
+                <div class="mockup-card"></div>
+              </div>
+              <div class="mockup-tabs">
+                <div class="mockup-tab"></div>
+                <div class="mockup-tab"></div>
+                <div class="mockup-tab"></div>
+                <div class="mockup-tab"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Home Dashboard</h3>
+            <p class="screen-description">Main landing page with featured funding scenarios, search, and quick actions.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>High Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Search Results -->
+        <a href="screens/search-results.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Search</span>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-title" style="height: 8px; margin-bottom: 12px;"></div>
+                <div class="mockup-card" style="height: 40px; margin-bottom: 8px;"></div>
+                <div class="mockup-card" style="height: 40px; margin-bottom: 8px;"></div>
+                <div class="mockup-card" style="height: 40px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Search Results</h3>
+            <p class="screen-description">Filtered funding options based on user search criteria and preferences.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>High Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Scope Details -->
+        <a href="screens/scope-details.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Scope</span>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-card" style="height: 50px; margin-bottom: 8px;"></div>
+                <div class="mockup-title" style="height: 6px; margin-bottom: 4px;"></div>
+                <div class="mockup-title" style="height: 6px; margin-bottom: 8px;"></div>
+                <div class="mockup-card" style="height: 30px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Scope Details</h3>
+            <p class="screen-description">Detailed view of funding scope with progress tracking and application steps.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>High Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Event Details -->
+        <a href="screens/event-details.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Event</span>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-card" style="height: 60px; margin-bottom: 8px;"></div>
+                <div class="mockup-title" style="height: 8px; margin-bottom: 4px;"></div>
+                <div class="mockup-subtitle" style="margin-bottom: 8px;"></div>
+                <div class="mockup-card" style="height: 25px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Event Details</h3>
+            <p class="screen-description">Event information, registration, and related content for business workshops.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>Medium Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Profile/Account -->
+        <a href="screens/profile.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <span style="color: white; font-size: 12px;">Profile</span>
+              </div>
+              <div class="mockup-content">
+                <div style="width: 40px; height: 40px; background: var(--color-accent-primary); border-radius: 20px; margin: 0 auto 12px;"></div>
+                <div class="mockup-title" style="height: 8px; margin-bottom: 4px;"></div>
+                <div class="mockup-subtitle" style="margin-bottom: 12px;"></div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                  <div class="mockup-card" style="height: 30px;"></div>
+                  <div class="mockup-card" style="height: 30px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Profile & Account</h3>
+            <p class="screen-description">User profile management, account settings, and personal dashboard.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>Medium Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Application Progress -->
+        <a href="screens/scope-progress.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Progress</span>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-card" style="height: 45px; margin-bottom: 8px;"></div>
+                <div class="mockup-title" style="height: 6px; margin-bottom: 4px;"></div>
+                <div class="mockup-title" style="height: 6px; margin-bottom: 4px;"></div>
+                <div class="mockup-title" style="height: 6px; margin-bottom: 8px;"></div>
+                <div class="mockup-card" style="height: 25px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Application Progress</h3>
+            <p class="screen-description">Real-time tracking of loan application status with timeline and required actions.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>High Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Events List -->
+        <a href="screens/events-list.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Events</span>
+              </div>
+              <div class="mockup-content">
+                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                  <div class="mockup-card" style="height: 20px; width: 40px;"></div>
+                  <div class="mockup-card" style="height: 20px; width: 40px;"></div>
+                  <div class="mockup-card" style="height: 20px; width: 40px;"></div>
+                </div>
+                <div class="mockup-card" style="height: 35px; margin-bottom: 6px;"></div>
+                <div class="mockup-card" style="height: 35px; margin-bottom: 6px;"></div>
+                <div class="mockup-card" style="height: 35px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Events List</h3>
+            <p class="screen-description">Browse upcoming workshops, networking events, and business learning opportunities.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>Medium Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Account Management -->
+        <a href="screens/account-management.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Account</span>
+              </div>
+              <div class="mockup-content">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                  <div style="width: 30px; height: 30px; background: var(--color-accent-primary); border-radius: 15px;"></div>
+                  <div style="flex: 1;">
+                    <div class="mockup-title" style="height: 6px; margin-bottom: 2px;"></div>
+                    <div class="mockup-subtitle" style="height: 4px; width: 80%;"></div>
+                  </div>
+                </div>
+                <div class="mockup-card" style="height: 20px; margin-bottom: 4px;"></div>
+                <div class="mockup-card" style="height: 20px; margin-bottom: 4px;"></div>
+                <div class="mockup-card" style="height: 20px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Account Management</h3>
+            <p class="screen-description">Comprehensive account settings, business information, and team member management.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>High Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Payment Methods -->
+        <a href="screens/payment-methods.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Payments</span>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-card" style="height: 40px; margin-bottom: 8px; background: var(--color-accent-primary); opacity: 0.1;"></div>
+                <div class="mockup-card" style="height: 30px; margin-bottom: 6px;"></div>
+                <div class="mockup-card" style="height: 30px; margin-bottom: 6px;"></div>
+                <div class="mockup-card" style="height: 30px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Payment Methods</h3>
+            <p class="screen-description">Manage bank accounts, credit cards, and payment preferences for loan repayments.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>Medium Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Support Center -->
+        <a href="screens/support-center.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Support</span>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-card" style="height: 25px; margin-bottom: 8px;"></div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 8px;">
+                  <div class="mockup-card" style="height: 30px; background: #10b981; opacity: 0.1;"></div>
+                  <div class="mockup-card" style="height: 30px; background: #3b82f6; opacity: 0.1;"></div>
+                </div>
+                <div class="mockup-card" style="height: 20px; margin-bottom: 4px;"></div>
+                <div class="mockup-card" style="height: 20px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Support Center</h3>
+            <p class="screen-description">Help documentation, FAQs, live chat, and customer support contact options.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>Medium Priority</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Settings -->
+        <a href="screens/settings.html" class="screen-card">
+          <div class="screen-preview">
+            <div class="screen-mockup">
+              <div class="mockup-header">
+                <button style="background: none; border: none; color: white; font-size: 16px;">←</button>
+                <span style="color: white; font-size: 12px;">Settings</span>
+              </div>
+              <div class="mockup-content">
+                <div class="mockup-card" style="height: 20px; margin-bottom: 4px;"></div>
+                <div class="mockup-card" style="height: 20px; margin-bottom: 4px;"></div>
+                <div class="mockup-card" style="height: 20px; margin-bottom: 4px;"></div>
+                <div class="mockup-card" style="height: 20px; margin-bottom: 4px;"></div>
+                <div class="mockup-card" style="height: 20px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-info">
+            <h3 class="screen-title">Settings</h3>
+            <p class="screen-description">App preferences, notifications, security settings, and account configuration.</p>
+            <div class="screen-meta">
+              <span class="screen-status status-complete">Complete</span>
+              <span>Medium Priority</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="flow-diagram">
+        <h2 class="flow-title">User Journey Flow</h2>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-number">1</div>
+            <div class="flow-step-content">
+              <h4>Onboarding & Registration</h4>
+              <p>User creates account and provides basic business information</p>
+            </div>
+          </div>
+
+          <div class="flow-arrow"></div>
+
+          <div class="flow-step">
+            <div class="flow-step-number">2</div>
+            <div class="flow-step-content">
+              <h4>Home Dashboard Discovery</h4>
+              <p>User explores featured funding options and quick actions</p>
+            </div>
+          </div>
+
+          <div class="flow-arrow"></div>
+
+          <div class="flow-step">
+            <div class="flow-step-number">3</div>
+            <div class="flow-step-content">
+              <h4>Search & Compare Options</h4>
+              <p>User searches for specific funding needs and compares options</p>
+            </div>
+          </div>
+
+          <div class="flow-arrow"></div>
+
+          <div class="flow-step">
+            <div class="flow-step-number">4</div>
+            <div class="flow-step-content">
+              <h4>Scope Creation & Tracking</h4>
+              <p>User creates funding scope and tracks application progress</p>
+            </div>
+          </div>
+
+          <div class="flow-arrow"></div>
+
+          <div class="flow-step">
+            <div class="flow-step-number">5</div>
+            <div class="flow-step-content">
+              <h4>Events & Learning</h4>
+              <p>User attends workshops and engages with business community</p>
+            </div>
+          </div>
+
+          <div class="flow-arrow"></div>
+
+          <div class="flow-step">
+            <div class="flow-step-number">6</div>
+            <div class="flow-step-content">
+              <h4>Account Management</h4>
+              <p>User manages profile, settings, and funding history</p>
+            </div>
+          </div>
+
+          <div class="flow-arrow"></div>
+
+          <div class="flow-step">
+            <div class="flow-step-number">7</div>
+            <div class="flow-step-content">
+              <h4>Payment & Support</h4>
+              <p>User handles payment methods and accesses support when needed</p>
+            </div>
+          </div>
+
+          <div class="flow-arrow"></div>
+
+          <div class="flow-step">
+            <div class="flow-step-number">8</div>
+            <div class="flow-step-content">
+              <h4>Settings & Preferences</h4>
+              <p>User customizes app experience and manages security settings</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

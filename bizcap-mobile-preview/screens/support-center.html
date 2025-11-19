@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support Center – Bizcap</title>
+
+    <!-- Bizcap fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Bizcap design tokens */
+      :root {
+        --color-base-background: #FFFFFF;
+        --color-base-text: #1A191E;
+        --color-neutral-0: #FFFFFF;
+        --color-neutral-50: #f5f7fb;
+        --color-neutral-100: #e5e7f0;
+        --color-neutral-200: #d3d7e4;
+        --color-neutral-700: #4b4a54;
+        --color-neutral-900: #1A191E;
+        --color-accent-primary: #0C79C1;
+        --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+        --color-accent-secondary: #16a34a;
+        --color-accent-secondary-soft: rgba(22, 163, 74, 0.1);
+        --color-accent-warning: #f59e0b;
+        --color-accent-warning-soft: rgba(245, 158, 11, 0.1);
+        --color-accent-danger: #dc2626;
+        --color-accent-danger-soft: rgba(220, 38, 38, 0.1);
+
+        --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-size-h1: clamp(32px, 4vw, 48px);
+        --font-size-h2: 32px;
+        --font-size-h3: 24px;
+        --font-size-body: 16px;
+        --font-size-small: 14px;
+        --font-size-caption: 11px;
+
+        --line-height-tight: 1.1;
+        --line-height-normal: 1.4;
+        --line-height-relaxed: 1.6;
+
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
+
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 32px;
+        --radius-pill: 999px;
+
+        --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.06);
+        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
+        --shadow-premium: 0 20px 60px rgba(12, 121, 193, 0.15);
+        --shadow-glow: 0 0 40px rgba(12, 121, 193, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #f3f8ff 0, #ffffff 55%);
+        color: var(--color-base-text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        overflow-x: hidden;
+      }
+
+      /* Premium Animations */
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.9; }
+      }
+      @keyframes onlinePulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+        50% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); }
+      }
+      @keyframes messageSlide {
+        0% { transform: translateX(-100%); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+      }
+
+      .phone-shell {
+        width: 393px;
+        height: 852px;
+        max-width: 100%;
+        border-radius: 46px;
+        border: 1px solid var(--color-neutral-100);
+        overflow: hidden;
+        background: var(--color-neutral-0);
+        box-shadow: var(--shadow-shell);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        animation: scaleIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+
+      .status-bar {
+        padding: 18px 24px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        animation: slideDown 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
+      }
+
+      .status-icons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .app-header {
+        padding: 0 24px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: slideDown 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+      }
+
+      .nav-back-btn {
+        background: none;
+        border: none;
+        color: var(--color-neutral-700);
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+      }
+
+      .nav-back-btn:hover {
+        background: var(--color-neutral-50);
+        color: var(--color-accent-primary);
+      }
+
+      .app-title-block {
+        flex: 1;
+        text-align: center;
+      }
+
+      .app-title-block h1 {
+        font-family: var(--font-heading);
+        font-size: 22px;
+        line-height: 1.1;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .app-title-block p {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        margin-top: 2px;
+      }
+
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .icon-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: var(--color-accent-primary-soft);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.4s ease;
+      }
+
+      .icon-btn:hover::before {
+        width: 100%;
+        height: 100%;
+      }
+
+      .icon-btn:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(12, 121, 193, 0.2);
+      }
+
+      .notification-dot {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 8px;
+        height: 8px;
+        background: var(--color-accent-danger);
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .screen-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 24px 80px;
+        scroll-behavior: smooth;
+      }
+
+      /* Premium Search Section */
+      .search-section {
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 24px;
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(8px);
+        animation: slideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+        transition: all 0.3s ease;
+      }
+
+      .search-section:hover {
+        box-shadow: var(--shadow-premium);
+        transform: translateY(-2px);
+      }
+
+      .search-container {
+        position: relative;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--color-neutral-700);
+        z-index: 2;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 14px 16px 14px 48px;
+        border: 2px solid var(--color-neutral-100);
+        border-radius: 16px;
+        font-size: 15px;
+        color: var(--color-neutral-900);
+        background: var(--color-neutral-50);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        outline: none;
+      }
+
+      .search-input::placeholder {
+        color: var(--color-neutral-700);
+      }
+
+      .search-input:focus {
+        border-color: var(--color-accent-primary);
+        background: var(--color-neutral-0);
+        box-shadow: 0 0 0 4px var(--color-accent-primary-soft);
+      }
+
+      /* Premium Quick Actions */
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .action-card {
+        border-radius: 20px;
+        padding: 24px;
+        text-align: center;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow: hidden;
+        animation: slideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+      }
+
+      .action-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .action-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .action-card--chat {
+        background: linear-gradient(135deg, var(--color-accent-primary), #0ea5e9);
+      }
+
+      .action-card--call {
+        background: linear-gradient(135deg, var(--color-accent-secondary), #22c55e);
+      }
+
+      .action-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .action-card:hover .action-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .action-title {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .action-subtitle {
+        font-size: 12px;
+        opacity: 0.9;
+        margin-bottom: 12px;
+      }
+
+      .online-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .online-indicator {
+        width: 6px;
+        height: 6px;
+        background: #10b981;
+        border-radius: 50%;
+        animation: onlinePulse 2s ease-in-out infinite;
+      }
+
+      /* Premium Support Sections */
+      .support-section {
+        border-radius: 20px;
+        padding: 24px;
+        margin-bottom: 20px;
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(8px);
+        animation: slideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        transition: all 0.3s ease;
+      }
+
+      .support-section:hover {
+        box-shadow: var(--shadow-premium);
+        transform: translateY(-2px);
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        font-family: var(--font-heading);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section-title::before {
+        content: '';
+        width: 4px;
+        height: 20px;
+        background: var(--color-accent-primary);
+        border-radius: 2px;
+      }
+
+      .view-all-btn {
+        background: none;
+        border: none;
+        color: var(--color-accent-primary);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.2s ease;
+      }
+
+      .view-all-btn:hover {
+        color: #0a6bb3;
+        transform: translateX(2px);
+      }
+
+      /* Premium Category Items */
+      .category-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .category-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 12px;
+        background: var(--color-neutral-0);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .category-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background: var(--color-accent-primary-soft);
+        transition: all 0.3s ease;
+      }
+
+      .category-item:hover::before {
+        width: 4px;
+      }
+
+      .category-item:hover {
+        background: var(--color-neutral-50);
+        border-color: var(--color-accent-primary);
+        transform: translateX(4px);
+        box-shadow: 0 4px 12px rgba(12, 121, 193, 0.1);
+      }
+
+      .category-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 1;
+      }
+
+      .category-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: all 0.3s ease;
+      }
+
+      .category-item:hover .category-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .category-icon--applications {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+      }
+
+      .category-icon--payments {
+        background: linear-gradient(135deg, var(--color-accent-secondary), #22c55e);
+        color: white;
+      }
+
+      .category-icon--account {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        color: white;
+      }
+
+      .category-icon--security {
+        background: linear-gradient(135deg, var(--color-accent-warning), #f97316);
+        color: white;
+      }
+
+      .category-icon--technical {
+        background: linear-gradient(135deg, var(--color-accent-danger), #ef4444);
+        color: white;
+      }
+
+      .category-text h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 2px;
+      }
+
+      .category-text p {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+      }
+
+      .category-arrow {
+        color: var(--color-neutral-700);
+        transition: all 0.3s ease;
+      }
+
+      .category-item:hover .category-arrow {
+        color: var(--color-accent-primary);
+        transform: translateX(4px);
+      }
+
+      /* Premium Ticket Items */
+      .ticket-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .ticket-item {
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 12px;
+        padding: 16px;
+        background: var(--color-neutral-0);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .ticket-item:hover {
+        background: var(--color-neutral-50);
+        border-color: var(--color-accent-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(12, 121, 193, 0.1);
+      }
+
+      .ticket-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .ticket-info h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 2px;
+      }
+
+      .ticket-info p {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+      }
+
+      .ticket-status {
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .ticket-status--resolved {
+        background: var(--color-accent-secondary-soft);
+        color: var(--color-accent-secondary);
+      }
+
+      .ticket-status--progress {
+        background: var(--color-accent-primary-soft);
+        color: var(--color-accent-primary);
+      }
+
+      .ticket-description {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+
+      .ticket-time {
+        font-size: 11px;
+        color: var(--color-neutral-700);
+      }
+
+      /* Premium FAQ Accordion */
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .faq-item {
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .faq-item:hover {
+        border-color: var(--color-accent-primary);
+        box-shadow: 0 4px 12px rgba(12, 121, 193, 0.1);
+      }
+
+      .faq-question {
+        width: 100%;
+        padding: 16px;
+        background: var(--color-neutral-0);
+        border: none;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+      }
+
+      .faq-question:hover {
+        background: var(--color-neutral-50);
+      }
+
+      .faq-icon {
+        transition: transform 0.3s ease;
+      }
+
+      .faq-item.active .faq-icon {
+        transform: rotate(180deg);
+      }
+
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        background: var(--color-neutral-50);
+      }
+
+      .faq-item.active .faq-answer {
+        max-height: 200px;
+      }
+
+      .faq-answer-content {
+        padding: 16px;
+        font-size: 13px;
+        color: var(--color-neutral-700);
+        line-height: 1.5;
+      }
+
+      /* Premium Emergency Section */
+      .emergency-section {
+        border-radius: 20px;
+        padding: 24px;
+        background: linear-gradient(135deg, var(--color-accent-danger-soft), rgba(220, 38, 38, 0.05));
+        border: 1px solid var(--color-accent-danger);
+        animation: slideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s both;
+        transition: all 0.3s ease;
+      }
+
+      .emergency-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(220, 38, 38, 0.2);
+      }
+
+      .emergency-content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .emergency-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--color-accent-danger);
+        color: white;
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .emergency-text h3 {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-accent-danger);
+        margin-bottom: 4px;
+      }
+
+      .emergency-text p {
+        font-size: 13px;
+        color: var(--color-neutral-700);
+        margin-bottom: 12px;
+      }
+
+      .emergency-btn {
+        background: var(--color-accent-danger);
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .emergency-btn:hover {
+        background: #b91c1c;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+      }
+
+      /* Premium Contact Options */
+      .contact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 12px;
+        background: var(--color-neutral-0);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .contact-item:hover {
+        background: var(--color-neutral-50);
+        border-color: var(--color-accent-primary);
+        transform: translateX(4px);
+        box-shadow: 0 4px 12px rgba(12, 121, 193, 0.1);
+      }
+
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--color-neutral-100);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-neutral-700);
+        transition: all 0.3s ease;
+      }
+
+      .contact-item:hover .contact-icon {
+        background: var(--color-accent-primary);
+        color: white;
+        transform: scale(1.1);
+      }
+
+      .contact-info h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 2px;
+      }
+
+      .contact-info p {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+      }
+
+      /* Premium Tab Bar */
+      .tab-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 8px 24px 10px;
+        border-top: 1px solid var(--color-neutral-100);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-around;
+        animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+      }
+
+      .tab-btn {
+        border: none;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 8px;
+        border-radius: 12px;
+      }
+
+      .tab-btn:hover {
+        background: var(--color-neutral-50);
+      }
+
+      .tab-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .tab-label {
+        font-size: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .tab-btn--active .tab-icon {
+        background: var(--color-accent-primary-soft);
+        color: var(--color-accent-primary);
+        transform: scale(1.1);
+      }
+
+      .tab-btn--active .tab-label {
+        color: var(--color-accent-primary);
+        font-weight: 600;
+      }
+
+      .tab-btn:not(.tab-btn--active) .tab-label {
+        color: var(--color-neutral-700);
+      }
+
+      /* Tab Icons */
+      .tab-icon-home {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' fill='currentColor'/%3e%3cpolyline points='9,22 9,12 15,12 15,22' fill='currentColor'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-scopes {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M15 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M21 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M3 7h18' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-events {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='10' stroke='currentColor' stroke-width='2'/%3e%3cpolyline points='12,6 12,12 16,14' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-account {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2' stroke='currentColor' stroke-width='2'/%3e%3ccircle cx='12' cy='7' r='4' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* Premium hover effects */
+      .premium-hover {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .premium-hover:hover {
+        transform: translateY(-4px) scale(1.02);
+      }
+
+      /* Glow effect on focus */
+      .glow-focus:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-accent-primary-soft), var(--shadow-glow);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="phone-shell">
+      <div class="status-bar">
+        <span id="bizcap-time">09:41</span>
+        <div class="status-icons">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20h20M6 16h12M10 12h4M14 8h-4M16 4h-8" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 10h2M6 14h6" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+        <header class="app-header">
+          <button class="nav-back-btn" onclick="history.back()">← Back</button>
+          <div class="app-title-block">
+            <h1>Support Center</h1>
+            <p>We're here to help</p>
+          </div>
+          <button class="icon-btn" id="notification-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="notification-dot"></span>
+          </button>
+        </header>
+
+      <div class="screen-scroll">
+        <!-- Premium Search Section -->
+        <section class="search-section">
+          <div class="search-container">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input 
+              type="text" 
+              class="search-input glow-focus" 
+              placeholder="Search for help..."
+              id="support-search"
+            >
+          </div>
+        </section>
+
+        <!-- Premium Quick Actions -->
+        <div class="quick-actions">
+          <button class="action-card action-card--chat premium-hover" id="live-chat-btn">
+            <div class="action-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 10h.01M12 10h.01M16 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="action-title">Live Chat</h3>
+            <p class="action-subtitle">Available 24/7</p>
+            <div class="online-status">
+              <span class="online-indicator"></span>
+              Online
+            </div>
+          </button>
+          
+          <button class="action-card action-card--call premium-hover" id="call-us-btn">
+            <div class="action-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="action-title">Call Us</h3>
+            <p class="action-subtitle">Mon-Fri 9AM-6PM</p>
+            <div class="online-status">
+              1300 BIZCAP
+            </div>
+          </button>
+        </div>
+
+        <!-- Help Categories -->
+        <section class="support-section">
+          <div class="section-header">
+            <h3 class="section-title">Help Categories</h3>
+          </div>
+          
+          <div class="category-list">
+            <button class="category-item" data-category="applications">
+              <div class="category-content">
+                <div class="category-icon category-icon--applications">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="category-text">
+                  <h4>Applications & Loans</h4>
+                  <p>Application process, status, and requirements</p>
+                </div>
+              </div>
+              <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <button class="category-item" data-category="payments">
+              <div class="category-content">
+                <div class="category-icon category-icon--payments">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="category-text">
+                  <h4>Payments & Repayments</h4>
+                  <p>Payment methods, schedules, and issues</p>
+                </div>
+              </div>
+              <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <button class="category-item" data-category="account">
+              <div class="category-content">
+                <div class="category-icon category-icon--account">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="category-text">
+                  <h4>Account Management</h4>
+                  <p>Profile, settings, and security</p>
+                </div>
+              </div>
+              <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <button class="category-item" data-category="security">
+              <div class="category-content">
+                <div class="category-icon category-icon--security">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="category-text">
+                  <h4>Security & Fraud</h4>
+                  <p>Security concerns and fraud prevention</p>
+                </div>
+              </div>
+              <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <button class="category-item" data-category="technical">
+              <div class="category-content">
+                <div class="category-icon category-icon--technical">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="category-text">
+                  <h4>Technical Issues</h4>
+                  <p>App problems and technical support</p>
+                </div>
+              </div>
+              <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- Recent Support Tickets -->
+        <section class="support-section">
+          <div class="section-header">
+            <h3 class="section-title">Recent Tickets</h3>
+            <button class="view-all-btn">View All</button>
+          </div>
+
+          <div class="ticket-list">
+            <div class="ticket-item">
+              <div class="ticket-header">
+                <div class="ticket-info">
+                  <h4>Loan Application Status</h4>
+                  <p>Ticket #SUP-2024-0842</p>
+                </div>
+                <span class="ticket-status ticket-status--resolved">Resolved</span>
+              </div>
+              <p class="ticket-description">Question about my application timeline and next steps...</p>
+              <p class="ticket-time">Updated 2 hours ago</p>
+            </div>
+
+            <div class="ticket-item">
+              <div class="ticket-header">
+                <div class="ticket-info">
+                  <h4>Payment Method Issue</h4>
+                  <p>Ticket #SUP-2024-0838</p>
+                </div>
+                <span class="ticket-status ticket-status--progress">In Progress</span>
+              </div>
+              <p class="ticket-description">Unable to update my bank account details...</p>
+              <p class="ticket-time">Updated 1 day ago</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQs -->
+        <section class="support-section">
+          <div class="section-header">
+            <h3 class="section-title">Frequently Asked Questions</h3>
+            <button class="view-all-btn">View All</button>
+          </div>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>How long does the application process take?</span>
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  Most applications are processed within 24-48 hours. You'll receive updates via email and in your app dashboard.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>What documents do I need to apply?</span>
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  You'll typically need: business registration, financial statements, bank statements, and ID verification.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>How do I make repayments?</span>
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  Repayments can be made automatically via bank transfer, direct debit, or manually through your dashboard.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Emergency Contact -->
+        <section class="emergency-section premium-hover">
+          <div class="emergency-content">
+            <div class="emergency-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="emergency-text">
+              <h3>Emergency Support</h3>
+              <p>For urgent security or fraud concerns</p>
+              <button class="emergency-btn glow-focus" id="emergency-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Call Emergency Line
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Options -->
+        <section class="support-section">
+          <h3 class="section-title">Other Ways to Reach Us</h3>
+          
+          <div class="contact-list">
+            <a href="mailto:support@bizcap.com" class="contact-item">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="contact-info">
+                <h4>Email Support</h4>
+                <p>support@bizcap.com</p>
+              </div>
+            </a>
+
+            <button class="contact-item" id="whatsapp-btn">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="contact-info">
+                <h4>WhatsApp</h4>
+                <p>+61 2 1234 5678</p>
+              </div>
+            </button>
+
+            <button class="contact-item" id="schedule-btn">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="contact-info">
+                <h4>Schedule a Call</h4>
+                <p>Book a time with our team</p>
+              </div>
+              <svg class="category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <nav class="tab-bar">
+        <button class="tab-btn" data-tab="home">
+          <div class="tab-icon tab-icon-home"></div>
+          <span class="tab-label">Home</span>
+        </button>
+        <button class="tab-btn" data-tab="scopes">
+          <div class="tab-icon tab-icon-scopes"></div>
+          <span class="tab-label">Scopes</span>
+        </button>
+        <button class="tab-btn" data-tab="events">
+          <div class="tab-icon tab-icon-events"></div>
+          <span class="tab-label">Events</span>
+        </button>
+        <button class="tab-btn tab-btn--active" data-tab="support">
+          <div class="tab-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 10h.01M12 10h.01M16 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="tab-label">Support</span>
+        </button>
+        <button class="tab-btn" data-tab="account">
+          <div class="tab-icon tab-icon-account"></div>
+          <span class="tab-label">Account</span>
+        </button>
+      </nav>
+    </main>
+
+    <script>
+      function updateBizcapTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        document.getElementById("bizcap-time").textContent = `${h}:${m}`;
+      }
+      updateBizcapTime();
+      setInterval(updateBizcapTime, 60000);
+
+      // Enhanced tab interactions
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          tabButtons.forEach((b) => b.classList.remove("tab-btn--active"));
+          btn.classList.add("tab-btn--active");
+          console.log("Bizcap tab:", btn.dataset.tab);
+          
+          // Add haptic feedback simulation
+          btn.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            btn.style.transform = 'scale(1)';
+          }, 100);
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById('support-search');
+      searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        console.log('Searching for:', searchTerm);
+        
+        // Add visual feedback
+        if (searchTerm.length > 0) {
+          this.style.background = 'linear-gradient(90deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%)';
+          this.style.backgroundSize = '200% 100%';
+          this.style.animation = 'shimmer 1.5s infinite';
+        } else {
+          this.style.background = '';
+          this.style.animation = '';
+        }
+      });
+
+      searchInput.addEventListener('focus', function() {
+        this.placeholder = 'Type your question here...';
+      });
+
+      searchInput.addEventListener('blur', function() {
+        this.placeholder = 'Search for help...';
+      });
+
+      // Quick action buttons
+      document.getElementById('live-chat-btn').addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 150);
+        console.log('Opening live chat...');
+        
+        // Simulate chat opening
+        this.innerHTML = `
+          <div class="action-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 10h.01M12 10h.01M16 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="action-title">Connecting...</h3>
+          <p class="action-subtitle">Please wait</p>
+          <div class="online-status">
+            <span class="online-indicator"></span>
+            Connecting
+          </div>
+        `;
+        
+        setTimeout(() => {
+          this.innerHTML = `
+            <div class="action-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 10h.01M12 10h.01M16 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="action-title">Live Chat</h3>
+            <p class="action-subtitle">Available 24/7</p>
+            <div class="online-status">
+              <span class="online-indicator"></span>
+              Online
+            </div>
+          `;
+        }, 2000);
+      });
+
+      document.getElementById('call-us-btn').addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 150);
+        console.log('Calling 1300 BIZCAP...');
+      });
+
+      // Category items
+      document.querySelectorAll('.category-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const category = this.dataset.category;
+          console.log('Selected category:', category);
+          
+          // Add haptic feedback
+          this.style.transform = 'translateX(8px)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 200);
+        });
+      });
+
+      // FAQ accordion functionality
+      document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', function() {
+          const faqItem = this.parentElement;
+          const isActive = faqItem.classList.contains('active');
+          
+          // Close all FAQs
+          document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+          });
+          
+          // Open clicked FAQ if it wasn't active
+          if (!isActive) {
+            faqItem.classList.add('active');
+          }
+          
+          // Add haptic feedback
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = 'scale(1)';
+          }, 150);
+        });
+      });
+
+      // Emergency button
+      document.getElementById('emergency-btn').addEventListener('click', function() {
+        if (confirm('This is the emergency line. Are you sure you want to call?')) {
+          this.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Connecting...
+          `;
+          
+          setTimeout(() => {
+            this.innerHTML = `
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Call Emergency Line
+            `;
+          }, 2000);
+        }
+      });
+
+      // Contact options
+      document.getElementById('whatsapp-btn').addEventListener('click', function() {
+        console.log('Opening WhatsApp...');
+      });
+
+      document.getElementById('schedule-btn').addEventListener('click', function() {
+        console.log('Opening calendar scheduler...');
+      });
+
+      // Notification button
+      document.getElementById('notification-btn').addEventListener('click', function() {
+        this.style.transform = 'rotate(15deg) scale(1.1)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 300);
+        console.log('Opening notifications...');
+        
+        // Remove notification dot
+        const dot = this.querySelector('.notification-dot');
+        if (dot) {
+          dot.style.display = 'none';
+        }
+      });
+
+      // View all buttons
+      document.querySelectorAll('.view-all-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          this.style.transform = 'translateX(4px)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 200);
+        });
+      });
+
+      // Add smooth scroll behavior
+      document.querySelector('.screen-scroll').addEventListener('scroll', function() {
+        const scrolled = this.scrollTop;
+        const searchSection = document.querySelector('.search-section');
+        
+        if (searchSection) {
+          searchSection.style.transform = `translateY(${scrolled * 0.1}px)`;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile – Bizcap S-Tier</title>
+
+    <!-- Bizcap fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* S-Tier Bizcap design tokens */
+      :root {
+        --color-base-background: #FFFFFF;
+        --color-base-text: #1A191E;
+        --color-neutral-0: #FFFFFF;
+        --color-neutral-50: #f5f7fb;
+        --color-neutral-100: #e5e7f0;
+        --color-neutral-200: #d3d7e4;
+        --color-neutral-700: #4b4a54;
+        --color-neutral-900: #1A191E;
+        --color-accent-primary: #0C79C1;
+        --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+        --color-accent-secondary: #00D4AA;
+        --color-accent-warning: #FF6B35;
+        --color-accent-success: #10B981;
+        --color-accent-danger: #EF4444;
+
+        --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-size-h1: clamp(32px, 4vw, 48px);
+        --font-size-h2: 32px;
+        --font-size-h3: 24px;
+        --font-size-body: 16px;
+        --font-size-small: 14px;
+        --font-size-caption: 11px;
+
+        --line-height-tight: 1.1;
+        --line-height-normal: 1.4;
+        --line-height-relaxed: 1.6;
+
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
+
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 32px;
+        --radius-pill: 999px;
+
+        --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.06);
+        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
+        --shadow-premium: 0 20px 60px rgba(12, 121, 193, 0.15);
+        --shadow-glow: 0 0 40px rgba(12, 121, 193, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #f0f8ff 0, #ffffff 40%, #fafbff 100%);
+        color: var(--color-base-text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Premium background effects */
+      body::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(12, 121, 193, 0.03) 0%, transparent 70%);
+        animation: float 20s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(30px, -30px) rotate(120deg); }
+        66% { transform: translate(-20px, 20px) rotate(240deg); }
+      }
+
+      /* S-Tier animations */
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+        to { opacity: 1; transform: scale(1); filter: blur(0px); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; filter: blur(5px); }
+        to { opacity: 1; filter: blur(0px); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.9; }
+      }
+
+      .phone-shell {
+        width: 393px;
+        height: 852px;
+        max-width: 100%;
+        border-radius: 46px;
+        border: 1px solid var(--color-neutral-100);
+        overflow: hidden;
+        background: var(--color-neutral-0);
+        box-shadow: var(--shadow-premium);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .phone-shell::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 46px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(12, 121, 193, 0.3), rgba(0, 212, 170, 0.2));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        animation: glow 3s ease-in-out infinite;
+        animation-delay: 2s;
+      }
+
+      .status-bar {
+        padding: 18px 24px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        position: relative;
+        z-index: 10;
+      }
+
+      .status-icons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .app-header {
+        padding: 0 24px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        position: relative;
+        z-index: 10;
+      }
+
+      .header-title {
+        font-family: var(--font-heading);
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .icon-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(12, 121, 193, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .icon-btn:hover::before {
+        width: 100px;
+        height: 100px;
+      }
+
+      .icon-btn:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(12, 121, 193, 0.2);
+      }
+
+      .screen-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 24px 80px;
+        scroll-behavior: smooth;
+        position: relative;
+      }
+
+      .screen-scroll::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      .screen-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .screen-scroll::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-200);
+        border-radius: 10px;
+      }
+
+      .profile-header {
+        background: linear-gradient(135deg, var(--color-accent-primary) 0%, #0a65a0 100%);
+        border-radius: 24px;
+        padding: 24px;
+        color: #ffffff;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+      }
+
+      .profile-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: float 15s ease-in-out infinite reverse;
+      }
+
+      .profile-avatar-section {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .profile-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-accent-primary);
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .profile-avatar:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 35px rgba(255, 255, 255, 0.3);
+      }
+
+      .avatar-edit {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--color-accent-secondary);
+        border: 2px solid #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .avatar-edit:hover {
+        transform: scale(1.1);
+        background: #00b894;
+      }
+
+      .profile-info {
+        flex: 1;
+      }
+
+      .profile-name {
+        font-family: var(--font-heading);
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .profile-email {
+        font-size: 13px;
+        opacity: 0.9;
+        margin-bottom: 8px;
+      }
+
+      .profile-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-accent-success);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .profile-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        opacity: 0.8;
+      }
+
+      .account-section {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 16px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      }
+
+      .section-title {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 16px;
+      }
+
+      .info-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--color-neutral-100);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .info-item:last-child {
+        border-bottom: none;
+      }
+
+      .info-item:hover {
+        padding-left: 8px;
+        background: var(--color-neutral-50);
+        margin: 0 -8px;
+        padding-right: 8px;
+        border-radius: 12px;
+      }
+
+      .info-label {
+        font-size: 13px;
+        color: var(--color-neutral-700);
+      }
+
+      .info-value {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-neutral-900);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .info-arrow {
+        width: 16px;
+        height: 16px;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+      }
+
+      .info-item:hover .info-arrow {
+        opacity: 1;
+        transform: translateX(2px);
+      }
+
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+      }
+
+      .action-card {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 16px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .action-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(12, 121, 193, 0.05), transparent);
+        transition: left 0.6s;
+      }
+
+      .action-card:hover::before {
+        left: 100%;
+      }
+
+      .action-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(12, 121, 193, 0.15);
+        border-color: var(--color-accent-primary);
+      }
+
+      .action-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--color-accent-primary-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: var(--color-accent-primary);
+        margin-bottom: 8px;
+      }
+
+      .action-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 2px;
+      }
+
+      .action-description {
+        font-size: 11px;
+        color: var(--color-neutral-700);
+      }
+
+      .security-section {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(0, 212, 170, 0.05) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 16px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+      }
+
+      .security-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .security-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(16, 185, 129, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: var(--color-accent-success);
+      }
+
+      .security-title {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .security-items {
+        display: grid;
+        gap: 8px;
+      }
+
+      .security-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+      }
+
+      .security-check {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--color-accent-success);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #ffffff;
+        flex-shrink: 0;
+      }
+
+      .security-text {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+      }
+
+      .tab-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 10px 24px 12px;
+        border-top: 1px solid var(--color-neutral-100);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-around;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+      }
+
+      .tab-btn {
+        border: none;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 6px 12px;
+        border-radius: 12px;
+      }
+
+      .tab-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .tab-label {
+        font-size: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .tab-btn--active .tab-icon {
+        background: var(--color-accent-primary-soft);
+        color: var(--color-accent-primary);
+        transform: scale(1.1);
+      }
+
+      .tab-btn--active .tab-label {
+        color: var(--color-accent-primary);
+        font-weight: 600;
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-icon {
+        transform: scale(1.15);
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-label {
+        color: var(--color-accent-primary);
+      }
+
+      .tab-btn:not(.tab-btn--active) .tab-label {
+        color: var(--color-neutral-700);
+      }
+
+      /* Tab Icons */
+      .tab-icon-home {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' fill='currentColor'/%3e%3cpolyline points='9,22 9,12 15,12 15,22' fill='currentColor'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-scopes {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M15 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M21 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M3 7h18' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-events {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='10' stroke='currentColor' stroke-width='2'/%3e%3cpolyline points='12,6 12,12 16,14' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-account {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2' stroke='currentColor' stroke-width='2'/%3e%3ccircle cx='12' cy='7' r='4' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* Premium loading animation */
+      .premium-loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(12, 121, 193, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--color-accent-primary);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .phone-shell {
+          width: 100%;
+          height: 100vh;
+          border-radius: 0;
+        }
+        
+        body {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="phone-shell">
+      <div class="status-bar">
+        <span id="bizcap-time">09:41</span>
+        <div class="status-icons">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20h20M6 16h12M10 12h4M14 8h-4M16 4h-8" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 10h2M6 14h6" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <header class="app-header">
+        <button class="icon-btn" id="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h1 class="header-title">Profile</h1>
+        <button class="icon-btn" id="settings-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="screen-scroll">
+        <div class="profile-header">
+          <div class="profile-avatar-section">
+            <div class="profile-avatar" id="profile-avatar">
+              JD
+              <div class="avatar-edit">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="2"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+            </div>
+            <div class="profile-info">
+              <h2 class="profile-name">Jonathan Davidson</h2>
+              <p class="profile-email">jonathan.davidson@restaurant.com</p>
+              <div class="profile-status">
+                <span class="status-dot"></span>
+                Verified Business
+              </div>
+            </div>
+          </div>
+          
+          <div class="profile-stats">
+            <div class="stat-item">
+              <div class="stat-value">$250K</div>
+              <div class="stat-label">Total Funded</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">3</div>
+              <div class="stat-label">Active Loans</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">4.9</div>
+              <div class="stat-label">Credit Score</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-section">
+          <h3 class="section-title">Account Information</h3>
+          <div class="info-grid">
+            <div class="info-item" id="business-info">
+              <span class="info-label">Business Name</span>
+              <span class="info-value">
+                Melbourne Restaurant Group
+                <svg class="info-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="info-item" id="contact-info">
+              <span class="info-label">Phone Number</span>
+              <span class="info-value">
+                +61 412 345 678
+                <svg class="info-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="info-item" id="address-info">
+              <span class="info-label">Business Address</span>
+              <span class="info-value">
+                Melbourne, VIC 3000
+                <svg class="info-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="info-item" id="abn-info">
+              <span class="info-label">ABN</span>
+              <span class="info-value">
+                83 914 571 673
+                <svg class="info-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <div class="action-card" id="documents-action">
+            <div class="action-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/>
+                <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h4 class="action-title">Documents</h4>
+            <p class="action-description">Manage your business documents</p>
+          </div>
+          
+          <div class="action-card" id="payment-action">
+            <div class="action-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                <line x1="1" y1="10" x2="23" y2="10" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h4 class="action-title">Payment Methods</h4>
+            <p class="action-description">Update payment details</p>
+          </div>
+          
+          <div class="action-card" id="notifications-action">
+            <div class="action-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2"/>
+                <path d="M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h4 class="action-title">Notifications</h4>
+            <p class="action-description">Configure alerts and updates</p>
+          </div>
+          
+          <div class="action-card" id="security-action">
+            <div class="action-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h4 class="action-title">Security</h4>
+            <p class="action-description">Password and authentication</p>
+          </div>
+        </div>
+
+        <div class="security-section">
+          <div class="security-header">
+            <div class="security-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" stroke="currentColor" stroke-width="2"/>
+                <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" stroke="currentColor" stroke-width="2"/>
+                <path d="M3 12c0 4.5 3.5 8 8 8 1.5 0 3-.5 4-1.5" stroke="currentColor" stroke-width="2"/>
+                <path d="M21 12c0 4.5-3.5 8-8 8-1.5 0-3-.5-4-1.5" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3 class="security-title">Security Status</h3>
+          </div>
+          <div class="security-items">
+            <div class="security-item">
+              <div class="security-check">✓</div>
+              <span class="security-text">Two-factor authentication enabled</span>
+            </div>
+            <div class="security-item">
+              <div class="security-check">✓</div>
+              <span class="security-text">Email verified</span>
+            </div>
+            <div class="security-item">
+              <div class="security-check">✓</div>
+              <span class="security-text">Business documents verified</span>
+            </div>
+            <div class="security-item">
+              <div class="security-check">✓</div>
+              <span class="security-text">Secure password set</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="tab-bar">
+        <button class="tab-btn" data-tab="home">
+          <div class="tab-icon tab-icon-home"></div>
+          <span class="tab-label">Home</span>
+        </button>
+        <button class="tab-btn" data-tab="scopes">
+          <div class="tab-icon tab-icon-scopes"></div>
+          <span class="tab-label">Scopes</span>
+        </button>
+        <button class="tab-btn" data-tab="events">
+          <div class="tab-icon tab-icon-events"></div>
+          <span class="tab-label">Events</span>
+        </button>
+        <button class="tab-btn tab-btn--active" data-tab="account">
+          <div class="tab-icon tab-icon-account"></div>
+          <span class="tab-label">Account</span>
+        </button>
+      </nav>
+    </main>
+
+    <script>
+      function updateBizcapTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        document.getElementById("bizcap-time").textContent = `${h}:${m}`;
+      }
+      updateBizcapTime();
+      setInterval(updateBizcapTime, 60000);
+
+      // Enhanced tab interactions
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", function() {
+          tabButtons.forEach((b) => b.classList.remove("tab-btn--active"));
+          this.classList.add("tab-btn--active");
+          console.log("Bizcap tab:", this.dataset.tab);
+        });
+      });
+
+      // Back button
+      document.getElementById("back-btn").addEventListener("click", () => {
+        window.history.back();
+      });
+
+      // Settings button
+      document.getElementById("settings-btn").addEventListener("click", function() {
+        this.style.animation = 'pulse 0.5s ease';
+        setTimeout(() => {
+          this.style.animation = '';
+          alert("Open account settings: Personal info, business details, preferences, and more.");
+        }, 500);
+      });
+
+      // Profile avatar interaction
+      document.getElementById("profile-avatar").addEventListener("click", function() {
+        this.style.animation = 'pulse 0.5s ease';
+        setTimeout(() => {
+          this.style.animation = '';
+          alert("Update profile picture: Upload new photo or remove current image.");
+        }, 500);
+      });
+
+      // Info item interactions
+      const infoItems = document.querySelectorAll(".info-item");
+      infoItems.forEach((item) => {
+        item.addEventListener("click", function() {
+          this.style.transform = 'translateX(4px)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 200);
+        });
+      });
+
+      // Business info
+      document.getElementById("business-info").addEventListener("click", function() {
+        alert("Business Name: Melbourne Restaurant Group\nIndustry: Hospitality & Food Service\nEstablished: 2019");
+      });
+
+      // Contact info
+      document.getElementById("contact-info").addEventListener("click", function() {
+        alert("Phone: +61 412 345 678\nEmail: jonathan.davidson@restaurant.com\nPreferred contact: SMS");
+      });
+
+      // Address info
+      document.getElementById("address-info").addEventListener("click", function() {
+        alert("Address: 123 Flinders Street\nMelbourne, VIC 3000\nAustralia");
+      });
+
+      // ABN info
+      document.getElementById("abn-info").addEventListener("click", function() {
+        alert("ABN: 83 914 571 673\nStatus: Active\nGST Registered: Yes");
+      });
+
+      // Quick action interactions
+      document.getElementById("documents-action").addEventListener("click", function() {
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          this.style.transform = '';
+          alert("Documents: Business registration, Financial statements, Bank records, Tax returns, ID verification.");
+        }, 150);
+      });
+
+      document.getElementById("payment-action").addEventListener("click", function() {
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          this.style.transform = '';
+          alert("Payment Methods: Bank account ****1234 (Primary), Visa card ****5678 (Backup)");
+        }, 150);
+      });
+
+      document.getElementById("notifications-action").addEventListener("click", function() {
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          this.style.transform = '';
+          alert("Notifications: Email alerts ON, SMS alerts ON, Push notifications ON, Weekly summary OFF");
+        }, 150);
+      });
+
+      document.getElementById("security-action").addEventListener("click", function() {
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          this.style.transform = '';
+          alert("Security: 2FA enabled, Last password change 30 days ago, Active sessions: 3 devices");
+        }, 150);
+      });
+
+      // Add ripple animation to styles
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

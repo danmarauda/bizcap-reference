@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search Results – Bizcap S-Tier</title>
+
+    <!-- Bizcap fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* S-Tier Bizcap design tokens */
+      :root {
+        --color-base-background: #FFFFFF;
+        --color-base-text: #1A191E;
+        --color-neutral-0: #FFFFFF;
+        --color-neutral-50: #f5f7fb;
+        --color-neutral-100: #e5e7f0;
+        --color-neutral-200: #d3d7e4;
+        --color-neutral-700: #4b4a54;
+        --color-neutral-900: #1A191E;
+        --color-accent-primary: #0C79C1;
+        --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+        --color-accent-secondary: #00D4AA;
+        --color-accent-warning: #FF6B35;
+        --color-accent-success: #10B981;
+        --color-accent-danger: #EF4444;
+
+        --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-size-h1: clamp(32px, 4vw, 48px);
+        --font-size-h2: 32px;
+        --font-size-h3: 24px;
+        --font-size-body: 16px;
+        --font-size-small: 14px;
+        --font-size-caption: 11px;
+
+        --line-height-tight: 1.1;
+        --line-height-normal: 1.4;
+        --line-height-relaxed: 1.6;
+
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
+
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 32px;
+        --radius-pill: 999px;
+
+        --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.06);
+        --shadow-shell: 0 18px 40px rgba(0, 0, 0, 0.14);
+        --shadow-premium: 0 20px 60px rgba(12, 121, 193, 0.15);
+        --shadow-glow: 0 0 40px rgba(12, 121, 193, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #f0f8ff 0, #ffffff 40%, #fafbff 100%);
+        color: var(--color-base-text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Premium background effects */
+      body::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(12, 121, 193, 0.03) 0%, transparent 70%);
+        animation: float 20s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(30px, -30px) rotate(120deg); }
+        66% { transform: translate(-20px, 20px) rotate(240deg); }
+      }
+
+      /* S-Tier animations */
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-30px); filter: blur(8px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+        to { opacity: 1; transform: scale(1); filter: blur(0px); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; filter: blur(5px); }
+        to { opacity: 1; filter: blur(0px); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+      @keyframes glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(12, 121, 193, 0.3); }
+        50% { box-shadow: 0 0 40px rgba(12, 121, 193, 0.6); }
+      }
+
+      .phone-shell {
+        width: 393px;
+        height: 852px;
+        max-width: 100%;
+        border-radius: 46px;
+        border: 1px solid var(--color-neutral-100);
+        overflow: hidden;
+        background: var(--color-neutral-0);
+        box-shadow: var(--shadow-premium);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .phone-shell::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 46px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(12, 121, 193, 0.3), rgba(0, 212, 170, 0.2));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        animation: glow 3s ease-in-out infinite;
+        animation-delay: 2s;
+      }
+
+      .status-bar {
+        padding: 18px 24px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--color-neutral-700);
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        position: relative;
+        z-index: 10;
+      }
+
+      .status-icons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .app-header {
+        padding: 0 24px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        position: relative;
+        z-index: 10;
+      }
+
+      .header-title {
+        font-family: var(--font-heading);
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .icon-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(12, 121, 193, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .icon-btn:hover::before {
+        width: 100px;
+        height: 100px;
+      }
+
+      .icon-btn:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(12, 121, 193, 0.2);
+      }
+
+      .screen-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 24px 80px;
+        scroll-behavior: smooth;
+        position: relative;
+      }
+
+      .screen-scroll::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      .screen-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .screen-scroll::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-200);
+        border-radius: 10px;
+      }
+
+      .search-summary {
+        padding: 16px 0;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+      }
+
+      .search-summary h2 {
+        font-family: var(--font-heading);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 4px;
+      }
+
+      .search-summary p {
+        font-size: 13px;
+        color: var(--color-neutral-700);
+      }
+
+      .filter-chips {
+        display: flex;
+        gap: 8px;
+        margin: 16px 0;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      }
+
+      .filter-chips::-webkit-scrollbar {
+        height: 3px;
+      }
+
+      .filter-chips::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .filter-chips::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-200);
+        border-radius: 10px;
+      }
+
+      .filter-chip {
+        flex-shrink: 0;
+        padding: 8px 12px;
+        border-radius: 20px;
+        background: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-100);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-neutral-700);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .filter-chip:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        color: var(--color-accent-primary);
+        transform: translateY(-1px);
+      }
+
+      .filter-chip.active {
+        background: var(--color-accent-primary);
+        color: #ffffff;
+        border-color: var(--color-accent-primary);
+      }
+
+      .filter-chip .remove {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+      }
+
+      .results-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+      }
+
+      .result-card {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: 20px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .result-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(12, 121, 193, 0.05), transparent);
+        transition: left 0.6s;
+      }
+
+      .result-card:hover::before {
+        left: 100%;
+      }
+
+      .result-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(12, 121, 193, 0.15);
+        border-color: var(--color-accent-primary);
+      }
+
+      .result-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .result-title {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: 4px;
+      }
+
+      .result-subtitle {
+        font-size: 12px;
+        color: var(--color-neutral-700);
+      }
+
+      .result-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .badge-fast {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--color-accent-success);
+      }
+
+      .badge-secured {
+        background: rgba(12, 121, 193, 0.1);
+        color: var(--color-accent-primary);
+      }
+
+      .badge-flexible {
+        background: rgba(0, 212, 170, 0.1);
+        color: var(--color-accent-secondary);
+      }
+
+      .result-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .detail-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .detail-label {
+        font-size: 10px;
+        color: var(--color-neutral-700);
+        margin-bottom: 2px;
+      }
+
+      .detail-value {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .result-features {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .feature-tag {
+        padding: 4px 8px;
+        border-radius: 12px;
+        background: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-100);
+        font-size: 10px;
+        color: var(--color-neutral-700);
+      }
+
+      .result-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .btn-apply {
+        flex: 1;
+        padding: 10px 16px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--color-accent-primary) 0%, #0a65a0 100%);
+        color: #ffffff;
+        border: none;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .btn-apply:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(12, 121, 193, 0.3);
+      }
+
+      .btn-compare {
+        padding: 10px 12px;
+        border-radius: 16px;
+        background: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-100);
+        color: var(--color-neutral-700);
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-compare:hover {
+        background: #e9f4ff;
+        border-color: var(--color-accent-primary);
+        color: var(--color-accent-primary);
+      }
+
+      .load-more {
+        padding: 16px;
+        text-align: center;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+      }
+
+      .load-more-btn {
+        padding: 12px 24px;
+        border-radius: 20px;
+        background: transparent;
+        border: 1px solid var(--color-neutral-100);
+        color: var(--color-accent-primary);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .load-more-btn:hover {
+        background: var(--color-accent-primary-soft);
+        transform: translateY(-1px);
+      }
+
+      .tab-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 10px 24px 12px;
+        border-top: 1px solid var(--color-neutral-100);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-around;
+        animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+      }
+
+      .tab-btn {
+        border: none;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 6px 12px;
+        border-radius: 12px;
+      }
+
+      .tab-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .tab-label {
+        font-size: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .tab-btn--active .tab-icon {
+        background: var(--color-accent-primary-soft);
+        color: var(--color-accent-primary);
+        transform: scale(1.1);
+      }
+
+      .tab-btn--active .tab-label {
+        color: var(--color-accent-primary);
+        font-weight: 600;
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-icon {
+        transform: scale(1.15);
+      }
+
+      .tab-btn:not(.tab-btn--active):hover .tab-label {
+        color: var(--color-accent-primary);
+      }
+
+      .tab-btn:not(.tab-btn--active) .tab-label {
+        color: var(--color-neutral-700);
+      }
+
+      /* Tab Icons */
+      .tab-icon-home {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' fill='currentColor'/%3e%3cpolyline points='9,22 9,12 15,12 15,22' fill='currentColor'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-scopes {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M15 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M21 19v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z' fill='currentColor'/%3e%3cpath d='M3 7h18' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-events {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='12' cy='12' r='10' stroke='currentColor' stroke-width='2'/%3e%3cpolyline points='12,6 12,12 16,14' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .tab-icon-account {
+        background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2' stroke='currentColor' stroke-width='2'/%3e%3ccircle cx='12' cy='7' r='4' stroke='currentColor' stroke-width='2'/%3e%3c/svg%3e");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* Premium loading animation */
+      .premium-loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(12, 121, 193, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--color-accent-primary);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .phone-shell {
+          width: 100%;
+          height: 100vh;
+          border-radius: 0;
+        }
+        
+        body {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="phone-shell">
+      <div class="status-bar">
+        <span id="bizcap-time">09:41</span>
+        <div class="status-icons">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20h20M6 16h12M10 12h4M14 8h-4M16 4h-8" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 10h2M6 14h6" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <header class="app-header">
+        <button class="icon-btn" id="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h1 class="header-title">Search Results</h1>
+        <button class="icon-btn" id="filter-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="9" cy="6" r="1" fill="currentColor"/>
+            <circle cx="15" cy="12" r="1" fill="currentColor"/>
+            <circle cx="9" cy="18" r="1" fill="currentColor"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="screen-scroll">
+        <div class="search-summary">
+          <h2>24 funding options found</h2>
+          <p>For "restaurant equipment" in Melbourne, VIC</p>
+        </div>
+
+        <div class="filter-chips">
+          <div class="filter-chip active">
+            Equipment
+            <span class="remove">×</span>
+          </div>
+          <div class="filter-chip active">
+            $50K-$100K
+            <span class="remove">×</span>
+          </div>
+          <div class="filter-chip active">
+            Fast approval
+            <span class="remove">×</span>
+          </div>
+          <div class="filter-chip">
+            + Add filter
+          </div>
+        </div>
+
+        <div class="results-list">
+          <div class="result-card">
+            <div class="result-header">
+              <div>
+                <h3 class="result-title">Fast Business Loan</h3>
+                <p class="result-subtitle">Bizcap • Equipment financing</p>
+              </div>
+              <span class="result-badge badge-fast">Fast</span>
+            </div>
+            
+            <div class="result-details">
+              <div class="detail-item">
+                <span class="detail-label">Amount</span>
+                <span class="detail-value">$5K - $500K</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Term</span>
+                <span class="detail-value">3 - 24 months</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Rate</span>
+                <span class="detail-value">From 1.5% p.m.</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Approval</span>
+                <span class="detail-value">~3 hours</span>
+              </div>
+            </div>
+
+            <div class="result-features">
+              <span class="feature-tag">No collateral</span>
+              <span class="feature-tag">Same day funding</span>
+              <span class="feature-tag">Simple application</span>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-apply">Apply Now</button>
+              <button class="btn-compare">Compare</button>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <div>
+                <h3 class="result-title">Equipment Finance</h3>
+                <p class="result-subtitle">Bizcap • Specialized equipment</p>
+              </div>
+              <span class="result-badge badge-secured">Secured</span>
+            </div>
+            
+            <div class="result-details">
+              <div class="detail-item">
+                <span class="detail-label">Amount</span>
+                <span class="detail-value">$10K - $750K</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Term</span>
+                <span class="detail-value">6 - 36 months</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Rate</span>
+                <span class="detail-value">From 0.9% p.m.</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Approval</span>
+                <span class="detail-value">~24 hours</span>
+              </div>
+            </div>
+
+            <div class="result-features">
+              <span class="feature-tag">Equipment as security</span>
+              <span class="feature-tag">Tax benefits</span>
+              <span class="feature-tag">Flexible terms</span>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-apply">Apply Now</button>
+              <button class="btn-compare">Compare</button>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <div>
+                <h3 class="result-title">Line of Credit</h3>
+                <p class="result-subtitle">Bizcap • Ongoing access to funds</p>
+              </div>
+              <span class="result-badge badge-flexible">Flexible</span>
+            </div>
+            
+            <div class="result-details">
+              <div class="detail-item">
+                <span class="detail-label">Amount</span>
+                <span class="detail-value">$10K - $250K</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Term</span>
+                <span class="detail-value">Revolving</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Rate</span>
+                <span class="detail-value">From 1.2% p.m.</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Approval</span>
+                <span class="detail-value">~24 hours</span>
+              </div>
+            </div>
+
+            <div class="result-features">
+              <span class="feature-tag">Draw as needed</span>
+              <span class="feature-tag">Interest only</span>
+              <span class="feature-tag">No early exit fees</span>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-apply">Apply Now</button>
+              <button class="btn-compare">Compare</button>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <div>
+                <h3 class="result-title">Secured Business Loan</h3>
+                <p class="result-subtitle">Bizcap • Property or asset backed</p>
+              </div>
+              <span class="result-badge badge-secured">Secured</span>
+            </div>
+            
+            <div class="result-details">
+              <div class="detail-item">
+                <span class="detail-label">Amount</span>
+                <span class="detail-value">$50K - $5M</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Term</span>
+                <span class="detail-value">12 - 60 months</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Rate</span>
+                <span class="detail-value">From 0.6% p.m.</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Approval</span>
+                <span class="detail-value">~48 hours</span>
+              </div>
+            </div>
+
+            <div class="result-features">
+              <span class="feature-tag">Low rates</span>
+              <span class="feature-tag">Higher amounts</span>
+              <span class="feature-tag">Longer terms</span>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-apply">Apply Now</button>
+              <button class="btn-compare">Compare</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="load-more">
+          <button class="load-more-btn" id="load-more">
+            Load more results
+          </button>
+        </div>
+      </div>
+
+      <nav class="tab-bar">
+        <button class="tab-btn" data-tab="home">
+          <div class="tab-icon tab-icon-home"></div>
+          <span class="tab-label">Home</span>
+        </button>
+        <button class="tab-btn tab-btn--active" data-tab="scopes">
+          <div class="tab-icon tab-icon-scopes"></div>
+          <span class="tab-label">Scopes</span>
+        </button>
+        <button class="tab-btn" data-tab="events">
+          <div class="tab-icon tab-icon-events"></div>
+          <span class="tab-label">Events</span>
+        </button>
+        <button class="tab-btn" data-tab="account">
+          <div class="tab-icon tab-icon-account"></div>
+          <span class="tab-label">Account</span>
+        </button>
+      </nav>
+    </main>
+
+    <script>
+      function updateBizcapTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        document.getElementById("bizcap-time").textContent = `${h}:${m}`;
+      }
+      updateBizcapTime();
+      setInterval(updateBizcapTime, 60000);
+
+      // Enhanced tab interactions
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", function() {
+          tabButtons.forEach((b) => b.classList.remove("tab-btn--active"));
+          this.classList.add("tab-btn--active");
+          console.log("Bizcap tab:", this.dataset.tab);
+        });
+      });
+
+      // Filter chip interactions
+      const filterChips = document.querySelectorAll(".filter-chip");
+      filterChips.forEach((chip) => {
+        chip.addEventListener("click", function(e) {
+          if (this.classList.contains("active") && e.target.classList.contains("remove")) {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              this.style.transform = '';
+              this.remove();
+              console.log("Filter removed");
+            }, 150);
+          } else if (!this.textContent.includes("Add filter")) {
+            this.classList.toggle("active");
+          }
+        });
+      });
+
+      // Result card interactions
+      const resultCards = document.querySelectorAll(".result-card");
+      resultCards.forEach((card) => {
+        card.addEventListener("click", function(e) {
+          if (!e.target.classList.contains("btn-apply") && !e.target.classList.contains("btn-compare")) {
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = '';
+              console.log("View funding details");
+            }, 150);
+          }
+        });
+      });
+
+      // Apply button interactions
+      const applyButtons = document.querySelectorAll(".btn-apply");
+      applyButtons.forEach((btn) => {
+        btn.addEventListener("click", function(e) {
+          e.stopPropagation();
+          this.innerHTML = '<span class="premium-loading"></span>';
+          setTimeout(() => {
+            this.innerHTML = 'Apply Now';
+            alert("Starting your Bizcap application! You'll be redirected to the secure application form.");
+          }, 1500);
+        });
+      });
+
+      // Compare button interactions
+      const compareButtons = document.querySelectorAll(".btn-compare");
+      compareButtons.forEach((btn) => {
+        btn.addEventListener("click", function(e) {
+          e.stopPropagation();
+          this.style.background = 'var(--color-accent-primary)';
+          this.style.color = '#ffffff';
+          this.textContent = 'Added';
+          setTimeout(() => {
+            this.style.background = '';
+            this.style.color = '';
+            this.textContent = 'Compare';
+          }, 2000);
+        });
+      });
+
+      // Load more functionality
+      document.getElementById("load-more").addEventListener("click", function() {
+        this.innerHTML = '<span class="premium-loading"></span> Loading...';
+        setTimeout(() => {
+          this.innerHTML = 'Load more results';
+          alert("12 more funding options loaded. Scroll to see all results.");
+        }, 1500);
+      });
+
+      // Back button
+      document.getElementById("back-btn").addEventListener("click", () => {
+        window.history.back();
+      });
+
+      // Filter button
+      document.getElementById("filter-btn").addEventListener("click", () => {
+        alert("Open advanced filters: Industry, Amount, Term, Rate, Approval time, Security type.");
+      });
+
+      // Add ripple animation to styles
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

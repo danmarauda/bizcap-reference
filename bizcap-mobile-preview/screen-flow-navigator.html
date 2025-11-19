@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bizcap Screen Flow Navigator</title>
+
+    <!-- Bizcap fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Bizcap design tokens */
+      :root {
+        --color-base-background: #FFFFFF;
+        --color-base-text: #1A191E;
+        --color-neutral-0: #FFFFFF;
+        --color-neutral-50: #f5f7fb;
+        --color-neutral-100: #e5e7f0;
+        --color-neutral-200: #d3d7e4;
+        --color-neutral-700: #4b4a54;
+        --color-neutral-900: #1A191E;
+        --color-accent-primary: #0C79C1;
+        --color-accent-primary-soft: rgba(12, 121, 193, 0.08);
+        --color-accent-secondary: #10b981;
+        --color-accent-tertiary: #f59e0b;
+        --color-accent-danger: #ef4444;
+
+        --font-heading: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-body: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-size-h1: clamp(24px, 3vw, 32px);
+        --font-size-h2: 24px;
+        --font-size-h3: 20px;
+        --font-size-body: 14px;
+        --font-size-small: 12px;
+        --font-size-caption: 10px;
+
+        --line-height-tight: 1.1;
+        --line-height-normal: 1.4;
+        --line-height-relaxed: 1.6;
+
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 12px;
+        --space-lg: 16px;
+        --space-xl: 20px;
+        --space-2xl: 24px;
+        --space-3xl: 32px;
+
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --radius-pill: 999px;
+
+        --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.06);
+        --shadow-shell: 0 8px 24px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 8px 20px rgba(12, 121, 193, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        color: var(--color-base-text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        line-height: var(--line-height-normal);
+      }
+
+      .app-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .app-header {
+        background: var(--color-neutral-0);
+        border-bottom: 1px solid var(--color-neutral-100);
+        padding: var(--space-lg) var(--space-xl);
+        box-shadow: var(--shadow-card);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--space-xl);
+      }
+
+      .header-title {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+      }
+
+      .header-title h1 {
+        font-family: var(--font-heading);
+        font-size: var(--font-size-h1);
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .header-subtitle {
+        font-size: var(--font-size-small);
+        color: var(--color-neutral-700);
+        margin-top: var(--space-xs);
+      }
+
+      .view-controls {
+        display: flex;
+        gap: var(--space-sm);
+        background: var(--color-neutral-50);
+        padding: var(--space-xs);
+        border-radius: var(--radius-lg);
+      }
+
+      .view-btn {
+        padding: var(--space-sm) var(--space-md);
+        border: none;
+        background: transparent;
+        color: var(--color-neutral-700);
+        font-size: var(--font-size-small);
+        font-weight: 500;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .view-btn:hover {
+        background: var(--color-neutral-100);
+      }
+
+      .view-btn--active {
+        background: var(--color-accent-primary);
+        color: white;
+      }
+
+      .main-content {
+        flex: 1;
+        padding: var(--space-xl);
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* Lane Navigation */
+      .lane-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--space-md);
+        margin-bottom: var(--space-2xl);
+      }
+
+      .lane-card {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: var(--radius-lg);
+        padding: var(--space-lg);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .lane-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--color-neutral-200);
+        transition: background 0.2s ease;
+      }
+
+      .lane-card:hover {
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-2px);
+      }
+
+      .lane-card--active {
+        border-color: var(--color-accent-primary);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .lane-card--active::before {
+        background: var(--color-accent-primary);
+      }
+
+      .lane-icon {
+        font-size: 24px;
+        margin-bottom: var(--space-sm);
+      }
+
+      .lane-title {
+        font-family: var(--font-heading);
+        font-size: var(--font-size-h3);
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: var(--space-xs);
+      }
+
+      .lane-description {
+        font-size: var(--font-size-small);
+        color: var(--color-neutral-700);
+        line-height: var(--line-height-relaxed);
+      }
+
+      .lane-stats {
+        display: flex;
+        gap: var(--space-md);
+        margin-top: var(--space-md);
+        padding-top: var(--space-md);
+        border-top: 1px solid var(--color-neutral-100);
+      }
+
+      .lane-stat {
+        font-size: var(--font-size-caption);
+        color: var(--color-neutral-700);
+      }
+
+      .lane-stat strong {
+        color: var(--color-neutral-900);
+        font-weight: 600;
+      }
+
+      /* Screen Flow Tree */
+      .flow-container {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: var(--radius-lg);
+        padding: var(--space-xl);
+        min-height: 500px;
+        box-shadow: var(--shadow-card);
+      }
+
+      .flow-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-xl);
+        padding-bottom: var(--space-lg);
+        border-bottom: 1px solid var(--color-neutral-100);
+      }
+
+      .flow-title {
+        font-family: var(--font-heading);
+        font-size: var(--font-size-h2);
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .flow-actions {
+        display: flex;
+        gap: var(--space-sm);
+      }
+
+      .flow-btn {
+        padding: var(--space-sm) var(--space-md);
+        border: 1px solid var(--color-neutral-100);
+        background: var(--color-neutral-0);
+        color: var(--color-neutral-700);
+        font-size: var(--font-size-small);
+        font-weight: 500;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .flow-btn:hover {
+        background: var(--color-neutral-50);
+        border-color: var(--color-accent-primary);
+        color: var(--color-accent-primary);
+      }
+
+      .tree-view {
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-size: var(--font-size-small);
+        line-height: var(--line-height-relaxed);
+        overflow-x: auto;
+        white-space: pre;
+        color: var(--color-neutral-700);
+      }
+
+      .tree-node {
+        cursor: pointer;
+        transition: color 0.2s ease;
+        user-select: none;
+      }
+
+      .tree-node:hover {
+        color: var(--color-accent-primary);
+      }
+
+      .tree-node--selected {
+        color: var(--color-accent-primary);
+        font-weight: 600;
+      }
+
+      .tree-node--parent {
+        font-weight: 600;
+        color: var(--color-neutral-900);
+      }
+
+      .tree-indent {
+        color: var(--color-neutral-200);
+      }
+
+      /* User Journey View */
+      .journey-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: var(--space-xl);
+        height: 600px;
+      }
+
+      .journey-roles {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: var(--radius-lg);
+        padding: var(--space-lg);
+        overflow-y: auto;
+      }
+
+      .journey-role {
+        padding: var(--space-md);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-bottom: var(--space-sm);
+        border: 1px solid transparent;
+      }
+
+      .journey-role:hover {
+        background: var(--color-neutral-50);
+        border-color: var(--color-neutral-100);
+      }
+
+      .journey-role--active {
+        background: var(--color-accent-primary-soft);
+        border-color: var(--color-accent-primary);
+        color: var(--color-accent-primary);
+        font-weight: 600;
+      }
+
+      .journey-flow {
+        background: var(--color-neutral-0);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: var(--radius-lg);
+        padding: var(--space-xl);
+        overflow-y: auto;
+      }
+
+      .journey-steps {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-lg);
+      }
+
+      .journey-step {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+        padding: var(--space-lg);
+        background: var(--color-neutral-50);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-neutral-100);
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .journey-step:hover {
+        box-shadow: var(--shadow-card);
+        transform: translateX(4px);
+      }
+
+      .step-number {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--color-accent-primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: var(--font-size-small);
+        flex-shrink: 0;
+      }
+
+      .step-content {
+        flex: 1;
+      }
+
+      .step-title {
+        font-family: var(--font-heading);
+        font-weight: 600;
+        color: var(--color-neutral-900);
+        margin-bottom: var(--space-xs);
+      }
+
+      .step-description {
+        font-size: var(--font-size-small);
+        color: var(--color-neutral-700);
+      }
+
+      .step-arrow {
+        color: var(--color-neutral-200);
+        font-size: 18px;
+      }
+
+      /* Mobile View */
+      .mobile-view {
+        display: none;
+      }
+
+      .mobile-nav {
+        position: sticky;
+        top: 0;
+        background: var(--color-neutral-0);
+        border-bottom: 1px solid var(--color-neutral-100);
+        padding: var(--space-md);
+        z-index: 100;
+      }
+
+      .mobile-nav select {
+        width: 100%;
+        padding: var(--space-md);
+        border: 1px solid var(--color-neutral-100);
+        border-radius: var(--radius-md);
+        background: var(--color-neutral-0);
+        font-family: var(--font-body);
+        font-size: var(--font-size-body);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .desktop-view {
+          display: none;
+        }
+
+        .mobile-view {
+          display: block;
+        }
+
+        .main-content {
+          padding: var(--space-md);
+        }
+
+        .journey-container {
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+
+        .journey-roles {
+          order: 2;
+        }
+
+        .journey-flow {
+          order: 1;
+          min-height: 400px;
+        }
+      }
+
+      /* Loading state */
+      .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+        color: var(--color-neutral-700);
+        font-size: var(--font-size-body);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--color-neutral-50);
+        border-radius: var(--radius-md);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-200);
+        border-radius: var(--radius-md);
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-neutral-300);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="app-header">
+        <div class="header-content">
+          <div class="header-title">
+            <div>
+              <h1>📱 Bizcap Screen Flow Navigator</h1>
+              <div class="header-subtitle">Interactive mobile app architecture and user journey visualization</div>
+            </div>
+          </div>
+          <div class="view-controls">
+            <button class="view-btn view-btn--active" data-view="lanes">Lanes</button>
+            <button class="view-btn" data-view="tree">Tree</button>
+            <button class="view-btn" data-view="journey">Journeys</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <!-- Desktop View -->
+        <div class="desktop-view">
+          <!-- Lanes View -->
+          <div id="lanes-view" class="view-content">
+            <div class="lane-nav" id="lane-nav">
+              <!-- Lane cards will be dynamically inserted here -->
+            </div>
+            <div class="flow-container">
+              <div class="flow-header">
+                <h2 class="flow-title" id="current-lane-title">Select a Lane</h2>
+                <div class="flow-actions">
+                  <button class="flow-btn" id="expand-all">Expand All</button>
+                  <button class="flow-btn" id="collapse-all">Collapse All</button>
+                </div>
+              </div>
+              <div class="tree-view" id="tree-content">
+                <div class="loading">Select a lane to view its screen flow structure...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tree View -->
+          <div id="tree-view" class="view-content" style="display: none;">
+            <div class="flow-container">
+              <div class="flow-header">
+                <h2 class="flow-title">Complete Screen Flow Tree</h2>
+                <div class="flow-actions">
+                  <button class="flow-btn" id="export-tree">Export</button>
+                  <button class="flow-btn" id="print-tree">Print</button>
+                </div>
+              </div>
+              <div class="tree-view" id="full-tree-content">
+                <div class="loading">Loading complete screen flow tree...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Journey View -->
+          <div id="journey-view" class="view-content" style="display: none;">
+            <div class="journey-container">
+              <div class="journey-roles">
+                <h3 style="margin-bottom: var(--space-lg); font-family: var(--font-heading);">User Roles</h3>
+                <div id="role-list">
+                  <!-- Roles will be dynamically inserted here -->
+                </div>
+              </div>
+              <div class="journey-flow">
+                <div class="flow-header">
+                  <h2 class="flow-title" id="current-journey-title">Select a User Role</h2>
+                </div>
+                <div class="journey-steps" id="journey-steps">
+                  <div class="loading">Select a user role to view their journey...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile View -->
+        <div class="mobile-view">
+          <div class="mobile-nav">
+            <select id="mobile-view-select">
+              <option value="lanes">Lanes View</option>
+              <option value="tree">Tree View</option>
+              <option value="journey">User Journeys</option>
+            </select>
+          </div>
+          <div id="mobile-content">
+            <!-- Mobile content will be dynamically inserted here -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module">
+      // Screen flow data structure
+      const screenFlowData = {
+        lanes: [
+          {
+            id: 'auth',
+            icon: '🔐',
+            title: 'Authentication',
+            description: 'User onboarding, verification, and role-based access control',
+            stats: { screens: 15, flows: 4, complexity: 'Medium' },
+            tree: `🔐 Authentication Flow
+├── 📱 Splash Screen (3-5 seconds)
+│   ├── Bizcap logo animation
+│   ├── Loading states
+│   └── Version check & app update
+├── 🌟 Welcome & Onboarding
+│   ├── Welcome Screen
+│   │   ├── Value proposition
+│   │   ├── Trust indicators (42K+ SMEs, $1.9B+ funded)
+│   │   └── Get Started CTA
+│   ├── Business Information Collection
+│   │   ├── Business type selection
+│   │   ├── Industry classification
+│   │   ├── Annual revenue range
+│   │   ├── Number of employees
+│   │   └── Funding purposes
+│   └── Identity Verification
+│       ├── Personal details
+│       ├── Business registration verification
+│       ├── Document upload (ID, business papers)
+│       └── Biometric verification (optional)
+├── 🔑 Authentication
+│   ├── Login Screen
+│   │   ├── Email/phone input
+│   │   ├── Password field
+│   │   ├── Remember me option
+│   │   ├── Forgot password link
+│   │   └── Social login options (Google, Apple)
+│   ├── Registration Screen
+│   │   ├── Account creation form
+│   │   ├── Terms & conditions acceptance
+│   │   ├── Privacy policy agreement
+│   │   └── Email verification
+│   └── Two-Factor Authentication
+│       ├── SMS code verification
+│       ├── Authenticator app setup
+│       └── Backup codes generation
+└── 🎯 Role Selection & Permissions
+    ├── SME Business Owner
+    ├── Business Partner
+    ├── Internal Staff
+    └── Administrator`
+          },
+          {
+            id: 'main',
+            icon: '🏠',
+            title: 'Main Application',
+            description: 'Core tab navigation and primary user interface',
+            stats: { screens: 42, flows: 8, complexity: 'High' },
+            tree: `🏠 Main App Navigation
+├── 🏠 Home Tab
+│   ├── Dashboard Overview
+│   │   ├── Welcome message with user name
+│   │   ├── Business health summary
+│   │   ├── Quick stats (funding available, applications active)
+│   │   └── Personalized recommendations
+│   ├── Search & Discovery
+│   │   ├── Global search bar
+│   │   ├── Voice search option
+│   │   ├── Recent searches
+│   │   └── Trending searches
+│   ├── Featured Content
+│   │   ├── Featured funding scenarios
+│   │   ├── Success stories carousel
+│   │   ├── Educational content highlights
+│   │   └── Limited-time offers
+│   ├── Quick Actions Grid
+│   │   ├── Start new application
+│   │   ├── Check application status
+│   │   ├── Upload documents
+│   │   ├── Talk to advisor
+│   │   ├── View funding options
+│   │   └── Calculate funding needs
+│   ├── Use Case Categories
+│   │   ├── Cash flow management
+│   │   ├── Stock/inventory financing
+│   │   ├── Equipment purchase
+│   │   ├── Marketing & growth
+│   │   ├── Expansion projects
+│   │   └── Emergency funding
+│   └── Metrics & Insights
+│       ├── Total funded amount
+│       ├── Repayment progress
+│       ├── Credit score impact
+│       └── Market trends
+├── 📊 Scopes Tab
+│   ├── Scope Management Dashboard
+│   │   ├── Active scopes overview
+│   │   ├── Completed scopes history
+│   │   ├── Draft scopes (in progress)
+│   │   └── Scope performance metrics
+│   ├── Individual Scope Details
+│   │   ├── Scope Overview
+│   │   ├── Requirements Checklist
+│   │   ├── Timeline & Milestones
+│   │   └── Document Management
+│   ├── Create New Scope Flow
+│   │   ├── Business Assessment Wizard
+│   │   ├── Funding Needs Analysis
+│   │   └── AI-Powered Scope Generation
+│   └── Scope Analytics
+│       ├── Performance tracking
+│       ├── ROI analysis
+│       ├── Comparison with similar businesses
+│       └── Optimization suggestions
+├── 🎯 Events Tab
+│   ├── Event Discovery
+│   │   ├── Upcoming events list
+│   │   ├── Event categories filter
+│   │   ├── Featured events
+│   │   └── Recommended events
+│   ├── Event Details & Registration
+│   │   ├── Event Information
+│   │   ├── Registration Process
+│   │   └── Event Resources
+│   ├── Event Participation
+│   │   ├── Live event access
+│   │   ├── Interactive features
+│   │   ├── Networking opportunities
+│   │   └── Real-time Q&A
+│   ├── Past Events Archive
+│   │   ├── Event history
+│   │   ├── Recorded sessions
+│   │   ├── Downloadable resources
+│   │   └── Certificate of attendance
+│   └── Event Analytics
+│       ├── Attendance tracking
+│       ├── Engagement metrics
+│       ├── Learning outcomes
+│       └── Networking statistics
+└── 👤 Account Tab
+    ├── Profile Management
+    │   ├── Personal Information
+    │   ├── Business Details
+    │   └── Preferences & Settings
+    ├── Financial Overview
+    │   ├── Funding History
+    │   ├── Financial Documents
+    │   └── Financial Analytics
+    ├── Document Center
+    │   ├── Document Upload
+    │   ├── Document Management
+    │   └── Document Templates
+    ├── Settings & Configuration
+    │   ├── Security Settings
+    │   ├── Notification Settings
+    │   ├── Privacy Settings
+    │   └── App Configuration
+    └── Help & Support
+        ├── Support Center
+        ├── Contact Support
+        ├── Troubleshooting
+        └── Feedback & Suggestions`
+          },
+          {
+            id: 'funding',
+            icon: '💼',
+            title: 'Funding Application',
+            description: 'Complete funding application workflow from start to finish',
+            stats: { screens: 38, flows: 6, complexity: 'High' },
+            tree: `💼 Funding Application Flow
+├── 🚀 Application Initiation
+│   ├── Application Type Selection
+│   │   ├── Fast Business Loan
+│   │   ├── Small Business Loan
+│   │   ├── Secured Business Loan
+│   │   ├── Line of Credit
+│   │   ├── Equipment Financing
+│   │   └── Custom Funding Solution
+│   ├── Quick Pre-Qualification
+│   │   ├── Basic eligibility check
+│   │   ├── Estimated funding range
+│   │   ├── Preliminary terms
+│   │   └── Application time estimate
+│   └── Application Method Choice
+│       ├── Guided application flow
+│       ├── Express application (simplified)
+│       ├── Advisor-assisted application
+│       └── Save and continue later
+├── 📋 Application Form Completion
+│   ├── Business Information Section
+│   │   ├── Business registration details
+│   │   ├── Operational information
+│   │   ├── Industry & NAICS codes
+│   │   ├── Business structure details
+│   │   └── Ownership information
+│   ├── Financial Information Section
+│   │   ├── Annual revenue details
+│   │   ├── Profit & loss statements
+│   │   ├── Balance sheet information
+│   │   ├── Cash flow statements
+│   │   └── Tax return information
+│   ├── Funding Requirements Section
+│   │   ├── Funding amount requested
+│   │   ├── Purpose of funds
+│   │   ├── Use case breakdown
+│   │   ├── Timeline requirements
+│   │   └── Repayment preferences
+│   └── Personal Information Section
+│       ├── Owner details
+│       ├── Personal financial information
+│       ├── Credit authorization
+│       └── Background check consent
+├── 📄 Document Collection & Upload
+│   ├── Document Requirements Dashboard
+│   │   ├── Required documents list
+│   │   ├── Document status tracking
+│   │   ├── Upload progress indicators
+│   │   └── Expiration date reminders
+│   ├── Document Upload Interface
+│   │   ├── Camera capture option
+│   │   ├── Gallery selection
+│   │   ├── File upload from cloud
+│   │   ├── Batch upload capabilities
+│   │   └── Document preview & verification
+│   ├── Document Verification
+│   │   ├── Quality check automation
+│   │   ├── OCR data extraction
+│   │   ├── Manual review requirements
+│   │   └── Rejection reasons & guidance
+│   └── Document Management
+│       ├── Document organization
+│       ├── Version control
+│       ├── Sharing with stakeholders
+│       └── Secure storage
+├── 🔍 Application Review & Submission
+│   ├── Application Review Dashboard
+│   │   ├── Completeness check
+│   │   ├── Accuracy verification
+│   │   ├── Missing items identification
+│   │   └── Quality score assessment
+│   ├── Terms & Conditions Review
+│   │   ├── Loan terms display
+│   │   ├── Interest rates explanation
+│   │   ├── Fee structure breakdown
+│   │   ├── Repayment schedule
+│   │   └── Legal agreements
+│   ├── Final Verification Steps
+│   │   ├── Information confirmation
+│   │   ├── E-signature requirements
+│   │   ├── Identity verification
+│   │   └── Compliance acknowledgments
+│   └── Application Submission
+│       ├── Submission confirmation
+│       ├── Reference number generation
+│       ├── Timeline communication
+│       └── Next steps outline
+├── ⏳ Application Processing Status
+│   ├── Under Review Phase
+│   │   ├── Application received confirmation
+│   │   ├── Initial review status
+│   │   ├── Additional information requests
+│   │   ├── Document clarification needs
+│   │   └── Estimated completion time
+│   ├── Underwriting Phase
+│   │   ├── Credit assessment in progress
+│   │   ├── Risk evaluation status
+│   │   ├── Underwriting updates
+│   │   ├── Conditional approval status
+│   │   └── Final review stage
+│   ├── Decision Phase
+│   │   ├── Approval preparation
+│   │   ├── Final terms confirmation
+│   │   ├── Decision notification
+│   │   ├── Appeal options (if rejected)
+│   │   └── Alternative offers
+│   └── Communication Center
+│       ├── Message inbox
+│       ├── Status update notifications
+│       ├── Document request center
+│       ├── Advisor communication
+│       └── FAQ & help resources
+└── 🎉 Approval & Funding Disbursement
+    ├── Approval Confirmation
+    │   ├── Approval notification
+    │   ├── Final terms acceptance
+    │   ├── Funding agreement signing
+    │   ├── Disbursement scheduling
+    │   └── Account setup for funding
+    ├── Funding Disbursement
+    │   ├── Bank account verification
+    │   ├── Disbursement method selection
+    │   ├── Funding timeline confirmation
+    │   ├── Disbursement tracking
+    │   └── Funds receipt confirmation
+    ├── Post-Funding Onboarding
+    │   ├── Welcome package
+    │   ├── Account setup completion
+    │   ├── Repayment schedule activation
+    │   ├── Access to funding features
+    │   └── Success resources
+    └── Funding Management
+        ├── Fund utilization tracking
+        ├── Repayment management
+        ├── Drawdown scheduling (for lines of credit)
+        ├── Performance reporting
+        └── Relationship management`
+          },
+          {
+            id: 'scopes',
+            icon: '📊',
+            title: 'Scope Management',
+            description: 'Advanced scope lifecycle, analytics, and portfolio management',
+            stats: { screens: 35, flows: 5, complexity: 'High' },
+            tree: `📊 Advanced Scope Management
+├── 🎯 Scope Intelligence & Analytics
+│   ├── Scope Performance Dashboard
+│   │   ├── Real-time performance metrics
+│   │   ├── ROI tracking & analysis
+│   │   ├── Benchmarking against industry
+│   │   ├── Success probability scoring
+│   │   └── Optimization recommendations
+│   ├── Predictive Analytics
+│   │   ├── Funding success prediction
+│   │   ├── Cash flow forecasting
+│   │   ├── Market trend analysis
+│   │   ├── Risk assessment modeling
+│   │   └── Growth opportunity identification
+│   └── Business Intelligence
+│       ├── Financial health insights
+│       ├── Competitive analysis
+│       ├── Market position evaluation
+│       ├── Strategic planning tools
+│       └── Decision support systems
+├── 🔄 Scope Lifecycle Management
+│   ├── Scope Creation & Planning
+│   │   ├── AI-powered scope recommendations
+│   │   ├── Custom scope builder
+│   │   ├── Scenario modeling tools
+│   │   ├── Impact assessment calculators
+│   │   └── Strategic alignment analysis
+│   ├── Scope Execution & Monitoring
+│   │   ├── Real-time progress tracking
+│   │   ├── Milestone management
+│   │   ├── Budget utilization monitoring
+│   │   ├── Performance KPI tracking
+│   │   └── Deviation alert systems
+│   ├── Scope Optimization & Adjustment
+│   │   ├── Performance optimization tools
+│   │   ├── Real-time adjustment capabilities
+│   │   ├── Resource reallocation options
+│   │   ├── Strategy refinement tools
+│   │   └── Continuous improvement features
+│   └── Scope Completion & Analysis
+│       ├── Final outcome assessment
+│       ├── Lessons learned documentation
+│       ├── Success factor analysis
+│       ├── Knowledge base contribution
+│       └── Future planning insights
+├── 🤝 Collaboration & Stakeholder Management
+│   ├── Team Collaboration Tools
+│   │   ├── Shared scope workspaces
+│   │   ├── Task assignment & tracking
+│   │   ├── Communication channels
+│   │   ├── Document collaboration
+│   │   └── Decision recording systems
+│   ├── External Partner Integration
+│   │   ├── Advisor access management
+│   │   ├── Lender communication portals
+│   │   ├── Supplier coordination tools
+│   │   ├── Customer impact tracking
+│   │   └── Regulatory compliance interfaces
+│   ├── Stakeholder Reporting
+│   │   ├── Automated report generation
+│   │   ├── Custom report builder
+│   │   ├── Stakeholder dashboards
+│   │   ├── Performance sharing tools
+│   │   └── Compliance reporting
+│   └── Approval Workflow Management
+│       ├── Multi-level approval chains
+│       ├── Conditional approval rules
+│       ├── Escalation pathways
+│       ├── Audit trail maintenance
+│       └── Compliance verification
+└── 📈 Scope Portfolio Management
+    ├── Multi-Scope Overview
+    │   ├── Portfolio dashboard
+    │   ├── Cross-scope analytics
+    │   ├── Resource allocation optimization
+    │   ├── Risk diversification analysis
+    │   └── Strategic alignment assessment
+    ├── Scope Comparison Tools
+    │   ├── Performance benchmarking
+    │   ├── ROI comparison analysis
+    │   ├── Risk-reward evaluation
+    │   ├── Best practice identification
+    │   └── Improvement opportunity mapping
+    ├── Strategic Planning Integration
+    │   ├── Long-term goal alignment
+    │   ├── Strategic initiative linking
+    │   ├── Growth trajectory planning
+    │   ├── Market expansion support
+    │   └── Competitive positioning
+    └── Knowledge Management
+        ├── Best practice library
+        ├── Template repository
+        ├── Lessons learned database
+        ├── Expert knowledge access
+        └── Continuous learning resources`
+          },
+          {
+            id: 'events',
+            icon: '🎯',
+            title: 'Events & Engagement',
+            description: 'Comprehensive event system, community features, and networking',
+            stats: { screens: 28, flows: 4, complexity: 'Medium' },
+            tree: `🎯 Comprehensive Events & Engagement System
+├── 📅 Event Discovery & Personalization
+│   ├── Smart Event Recommendations
+│   │   ├── AI-powered event matching
+│   │   ├── Personalized event feeds
+│   │   ├── Industry-specific filtering
+│   │   ├── Interest-based recommendations
+│   │   └── Networking opportunity suggestions
+│   ├── Event Categories & Types
+│   │   ├── Educational workshops
+│   │   ├── Networking events
+│   │   ├── Industry conferences
+│   │   ├── Product launches
+│   │   ├── Training sessions
+│   │   ├── Webinars & virtual events
+│   │   └── Community meetups
+│   ├── Event Search & Filtering
+│   │   ├── Advanced search capabilities
+│   │   ├── Multi-criteria filtering
+│   │   ├── Location-based search
+│   │   ├── Date range selection
+│   │   └── Price range filtering
+│   └── Trending & Popular Events
+│       ├── Most attended events
+│       ├── Highly rated sessions
+│       ├── Trending topics
+│       ├── Featured speakers
+│       └── Limited-time offers
+├── 🎪 Event Experience & Participation
+│   ├── Pre-Event Engagement
+│   │   ├── Event preparation resources
+│   │   ├── Speaker introduction materials
+│   │   ├── Networking icebreakers
+│   │   ├── Agenda planning tools
+│   │   └── Community discussion forums
+│   ├── Live Event Experience
+│   │   ├── Interactive session features
+│   │   ├── Real-time Q&A systems
+│   │   ├── Live polling & surveys
+│   │   ├── Virtual networking lounges
+│   │   ├── Breakout session management
+│   │   └── Social media integration
+│   ├── Post-Event Follow-up
+│   │   ├── Session recording access
+│   │   ├── Presentation downloads
+│   │   ├── Networking follow-up tools
+│   │   ├── Feedback collection systems
+│   │   ├── Certificate generation
+│   │   └── Continuing education credits
+│   └── Event Analytics & Insights
+│       ├── Engagement metrics tracking
+│       ├── Learning outcome measurement
+│       ├── Networking effectiveness analysis
+│       ├── Content performance analytics
+│       └── ROI assessment tools
+├── 🤝 Community & Networking Features
+│   ├── Professional Networking
+│   │   ├── Attendee directory
+│   │   ├── One-on-one meeting scheduling
+│   │   ├── Interest-based matchmaking
+│   │   ├── Professional profile management
+│   │   └── Contact exchange systems
+│   ├── Community Groups & Forums
+│   │   ├── Industry-specific groups
+│   │   ├── Topic-based discussions
+│   │   ├── Peer support networks
+│   │   ├── Expert Q&A forums
+│   │   └── Best practice sharing
+│   ├── Mentorship Programs
+│   │   ├── Mentor-mentee matching
+│   │   ├── Goal setting & tracking
+│   │   ├── Progress monitoring tools
+│   │   ├── Knowledge transfer systems
+│   │   └── Success story celebration
+│   └── Collaboration Tools
+│       ├── Project collaboration spaces
+│       ├── Document sharing capabilities
+│       ├── Video conferencing integration
+│       ├── Task management systems
+│       └── Communication channels
+├── 📚 Learning & Development Hub
+│   ├── Educational Content Library
+│   │   ├── On-demand courses
+│   │   ├── Skill development modules
+│   │   ├── Industry certification prep
+│   │   ├── Business management training
+│   │   └── Financial literacy education
+│   ├── Personalized Learning Paths
+│   │   ├── Skill gap assessment
+│   │   ├── Custom curriculum creation
+│   │   ├── Progress tracking systems
+│   │   ├── Achievement recognition
+│   │   └── Adaptive learning technology
+│   ├── Expert-Led Sessions
+│   │   ├── Live workshop scheduling
+│   │   ├── Expert office hours
+│   │   ├── Masterclass series
+│   │   ├── Case study discussions
+│   │   └── Industry insight sessions
+│   └── Knowledge Assessment
+│       ├── Skill testing modules
+│       ├── Certification programs
+│       ├── Competency validation
+│       ├── Performance benchmarking
+│       └── Continuous improvement tracking
+└── 🏆 Recognition & Achievement System
+    ├── Achievement Tracking
+    │   ├── Learning milestones
+    │   ├── Networking accomplishments
+    │   ├── Community contributions
+    │   ├── Leadership recognition
+    │   └── Innovation celebrations
+    ├── Badge & Certificate System
+    │   ├── Digital badge collection
+    │   ├── Certificate generation
+    │   ├── Skill verification
+    │   ├── Professional credentialing
+    │   └── Social sharing capabilities
+    ├── Leaderboard & Rankings
+    │   ├── Community leaderboards
+    │   ├── Learning champions
+    │   ├── Networking stars
+    │   ├── Contribution recognition
+    │   └── Progress competitions
+    └── Reward & Incentive Programs
+        ├── Exclusive event access
+        ├── Premium content unlocks
+        ├── Professional opportunities
+        ├── Special recognition events
+        └── Community privilege grants`
+          },
+          {
+            id: 'account',
+            icon: '👤',
+            title: 'Account & Settings',
+            description: 'User profile, financial management, and app configuration',
+            stats: { screens: 32, flows: 6, complexity: 'Medium' },
+            tree: `👤 Account & Settings Management
+├── 📝 Profile Management
+│   ├── Personal Information
+│   │   ├── Contact details
+│   │   ├── Demographic information
+│   │   ├── Communication preferences
+│   │   └── Profile picture
+│   ├── Business Details
+│   │   ├── Business information
+│   │   ├── Industry classification
+│   │   ├── Financial information
+│   │   └── Business documentation
+│   └── Preferences & Settings
+│       ├── Language selection
+│       ├── Time zone settings
+│       ├── Currency preferences
+│       └── Notification preferences
+├── 💰 Financial Overview
+│   ├── Funding History
+│   │   ├── Complete applications
+│   │   ├── Active funding
+│   │   ├── Repayment history
+│   │   └── Credit score evolution
+│   ├── Financial Documents
+│   │   ├── Bank statements
+│   │   ├── Tax returns
+│   │   ├── Financial reports
+│   │   └── Compliance documents
+│   └── Financial Analytics
+│       ├── Cash flow trends
+│       ├── Funding utilization
+│       ├── Repayment performance
+│       └── Financial health score
+├── 📁 Document Center
+│   ├── Document Upload
+│   │   ├── File upload interface
+│   │   ├── Document categorization
+│   │   ├── Quality verification
+│   │   └── Batch upload options
+│   ├── Document Management
+│   │   ├── Document library
+│   │   ├── Version control
+│   │   ├── Expiration tracking
+│   │   └── Sharing permissions
+│   └── Document Templates
+│       ├── Business forms
+│       ├── Financial templates
+│       ├── Application templates
+│       └── Compliance checklists
+├── ⚙️ Settings & Configuration
+│   ├── Security Settings
+│   │   ├── Password management
+│   │   ├── Two-factor authentication
+│   │   ├── Device management
+│   │   └── Login activity
+│   ├── Notification Settings
+│   │   ├── Push notification preferences
+│   │   ├── Email notification settings
+│   │   ├── SMS alert configuration
+│   │   └── Do-not-disturb modes
+│   ├── Privacy Settings
+│   │   ├── Data sharing preferences
+│   │   ├── Marketing communications
+│   │   ├── Analytics participation
+│   │   └── Data export options
+│   └── App Configuration
+│       ├── Theme selection
+│       ├── Font size settings
+│       ├── Accessibility options
+│       └── Data usage settings
+└── 🆘 Help & Support
+    ├── Support Center
+    │   ├── FAQ section
+    │   ├── Knowledge base
+    │   ├── Video tutorials
+    │   └── Glossary of terms
+    ├── Contact Support
+    │   ├── Live chat interface
+    │   ├── Support ticket system
+    │   ├── Phone support options
+    │   └── Email support
+    ├── Troubleshooting
+    │   ├── Common issues
+    │   ├── Diagnostic tools
+    │   ├── Error reporting
+    │   └── Account recovery
+    └── Feedback & Suggestions
+        ├── App feedback form
+        ├── Feature requests
+        ├── Bug reporting
+        └── User satisfaction surveys`
+          },
+          {
+            id: 'support',
+            icon: '💬',
+            title: 'Support & Communication',
+            description: 'Multi-channel support, expert network, and knowledge management',
+            stats: { screens: 24, flows: 5, complexity: 'Medium' },
+            tree: `💬 Multi-Channel Support & Communication
+├── 💬 Real-Time Communication
+│   ├── Live Chat Support
+│   │   ├── Instant messaging with advisors
+│   │   ├── Chatbot assistance for common queries
+│   │   ├── File sharing during chat
+│   │   ├── Screen sharing capabilities
+│   │   └── Chat transcript saving
+│   ├── Video Consultation
+│   │   ├── Scheduled video calls
+│   │   ├── Screen sharing for demonstrations
+│   │   ├── Multi-participant video sessions
+│   │   ├── Recording capabilities
+│   │   └── Virtual meeting rooms
+│   ├── Voice Support
+│   │   ├── Click-to-call functionality
+│   │   ├── Callback scheduling
+│   │   ├── Voicemail management
+│   │   ├── Call recording for quality
+│   │   └── International calling support
+│   └── Social Media Integration
+│       ├── Facebook Messenger support
+│       ├── WhatsApp business integration
+│       ├── LinkedIn professional support
+│       ├── Twitter customer service
+│       └── Instagram business support
+├── 📧 Asynchronous Communication
+│   ├── Email Support System
+│   │   ├── Ticket creation from emails
+│   │   ├── Automated response systems
+│   │   ├── Priority routing based on content
+│   │   ├── Attachment handling
+│   │   └── Response time tracking
+│   ├── Support Ticket Management
+│   │   ├── Ticket creation & categorization
+│   │   ├── Priority assignment
+│   │   ├── Status tracking
+│   │   ├── Escalation workflows
+│   │   └── Resolution analytics
+│   ├── Message Center
+│   │   ├── Secure messaging platform
+│   │   ├── Message threading
+│   │   ├── Read receipts
+│   │   ├── Message search & filtering
+│   │   └── Automated notifications
+│   └── Feedback Collection System
+│       ├── Satisfaction surveys
+│       ├── Service quality ratings
+│       ├── Improvement suggestions
+│       ├── Complaint resolution tracking
+│       └── Positive feedback celebration
+├── 🎓 Self-Service & Knowledge Base
+│   ├── Comprehensive FAQ System
+│   │   ├── Categorized question library
+│   │   ├── Search functionality
+│   │   ├── Related questions suggestions
+│   │   ├── Video answer integration
+│   │   └── Community-contributed answers
+│   ├── Knowledge Base Library
+│   │   ├── Detailed help articles
+│   │   ├── How-to guides & tutorials
+│   │   ├── Best practice documentation
+│   │   ├── Troubleshooting guides
+│   │   └── Policy & procedure explanations
+│   ├── Video Tutorial Library
+│   │   ├── Feature walkthrough videos
+│   │   ├── Process demonstration clips
+│   │   ├── Expert interview recordings
+│   │   ├── Webinar archive access
+│   │   └── Interactive video tutorials
+│   └── Interactive Help Tools
+│       ├── Guided walkthrough systems
+│       ├── Interactive troubleshooting wizards
+│       ├── Step-by-step process guides
+│       ├── Context-sensitive help popups
+│       └── In-app tutorial overlays
+├── 👥 Expert & Advisor Network
+│   ├── Advisor Matching System
+│   │   ├── Expertise-based matching
+│   │   ├── Availability scheduling
+│   │   ├── Specialization filtering
+│   │   ├── Rating & review system
+│   │   └── Preferred advisor selection
+│   ├── Consultation Booking
+│   │   ├── Calendar integration
+│   │   ├── Appointment scheduling
+│   │   ├── Reminder systems
+│   │   ├── Rescheduling capabilities
+│   │   └── Consultation preparation tools
+│   ├── Expert Directory
+│   │   ├── Professional profiles
+│   │   ├── Areas of expertise
+│   │   ├── Availability status
+│   │   ├── Client testimonials
+│   │   └── Direct contact options
+│   └── Group Advisory Sessions
+│       ├── Group consultation scheduling
+│       ├── Topic-focused sessions
+│       ├── Peer-to-peer learning
+│       ├── Expert panel discussions
+│       └── Community Q&A forums
+└── 📊 Support Analytics & Improvement
+    ├── Performance Metrics Dashboard
+    │   ├── Response time tracking
+    │   ├── Resolution rate analysis
+    │   ├── Customer satisfaction scores
+    │   ├── Support agent performance
+    │   └── Channel effectiveness analysis
+    ├── Quality Assurance Systems
+    │   ├── Conversation monitoring
+    │   ├── Service quality audits
+    │   ├── Compliance checking
+    │   ├── Training gap identification
+    │   └── Improvement recommendation
+    ├── Predictive Support Analytics
+    │   ├── Issue prediction models
+    │   ├── Proactive support triggers
+    │   ├── Customer churn risk analysis
+    │   ├── Resource optimization planning
+    │   └── Service improvement forecasting
+    └── Continuous Improvement Loop
+        ├── Feedback analysis & insights
+        ├── Process optimization recommendations
+        ├── Training program development
+        ├── System enhancement identification
+        └── Innovation opportunity mapping`
+          },
+          {
+            id: 'notifications',
+            icon: '🔔',
+            title: 'Notifications & Alerts',
+            description: 'Intelligent notification system with multi-channel delivery',
+            stats: { screens: 18, flows: 4, complexity: 'Medium' },
+            tree: `🔔 Intelligent Notification & Alert System
+├── 📱 Push Notification Management
+│   ├── Application Status Updates
+│   │   ├── Application received confirmations
+│   │   ├── Document request alerts
+│   │   ├── Underwriting progress updates
+│   │   ├── Approval notifications
+│   │   ├── Funding disbursement confirmations
+│   │   └── Repayment reminder alerts
+│   ├── Engagement & Opportunity Alerts
+│   │   ├── New funding opportunities
+│   │   ├── Limited-time offer notifications
+│   │   ├── Event invitation reminders
+│   │   ├── Educational content recommendations
+│   │   ├── Networking opportunity alerts
+│   │   └── Market trend updates
+│   ├── Account & Security Notifications
+│   │   ├── Login activity alerts
+│   │   ├── Security breach warnings
+│   │   ├── Password change confirmations
+│   │   ├── Device authorization requests
+│   │   ├── Account update notifications
+│   │   └── Compliance requirement reminders
+│   └── Personalized Insights
+│       ├── Business health alerts
+│       ├── Funding optimization suggestions
+│       ├── Market opportunity notifications
+│       ├── Risk warning alerts
+│       ├── Growth milestone celebrations
+│       └── Personal achievement recognitions
+├── 📧 Email Communication Hub
+│   ├── Transactional Email System
+│   │   ├── Application confirmation emails
+│   │   ├── Document request notifications
+│   │   ├── Status update summaries
+│   │   ├── Approval and funding notifications
+│   │   ├── Payment and repayment confirmations
+│   │   └── Legal and compliance communications
+│   ├── Marketing & Engagement Emails
+│   │   ├── Personalized funding recommendations
+│   │   ├── Educational newsletter subscriptions
+│   │   ├── Event promotion and invitations
+│   │   ├── Industry insight newsletters
+│   │   ├── Success story showcases
+│   │   └── Product update announcements
+│   ├── Digest & Summary Emails
+│   │   ├── Daily activity summaries
+│   │   ├── Weekly progress reports
+│   │   ├── Monthly business insights
+│   │   ├── Quarterly performance reviews
+│   │   └── Annual achievement summaries
+│   └── Automated Email Workflows
+│       ├── Welcome email sequences
+│       ├── Onboarding progress tracking
+│       ├── Milestone celebration emails
+│       ├── Re-engagement campaigns
+│       ├── Feedback request automation
+│       └── Loyalty program communications
+├── 💬 In-App Messaging Center
+│   ├── Real-Time Message Delivery
+│   │   ├── Instant advisor messages
+│   │   ├── System alert notifications
+│   │   ├── Peer-to-peer messaging
+│   │   ├── Group announcement broadcasts
+│   │   ├── Emergency alert systems
+│   │   └── Contextual help messages
+│   ├── Message Organization & Management
+│   │   ├── Categorized message folders
+│   │   ├── Priority message filtering
+│   │   ├── Unread message tracking
+│   │   ├── Message search functionality
+│   │   ├── Message archiving systems
+│   │   └── Spam filtering management
+│   ├── Interactive Message Features
+│   │   ├── Actionable message buttons
+│   │   ├── Quick response templates
+│   │   ├── Message reaction capabilities
+│   │   ├── File attachment sharing
+│   │   ├── Message scheduling options
+│   │   └── Read receipt tracking
+│   └── Communication Analytics
+│       ├── Message engagement tracking
+│       ├── Response time analysis
+│       ├── Communication effectiveness metrics
+│       ├── User preference learning
+│       ├── Channel optimization insights
+│       └── Content performance analysis
+└── ⚙️ Notification Preferences & Controls
+    ├── Personalized Notification Settings
+    │   ├── Channel selection preferences
+    │   ├── Frequency control options
+    │   ├── Content category filtering
+    │   ├── Time-based scheduling rules
+    │   ├── Priority level customization
+    │   └── Do-not-disturb modes
+    ├── Smart Notification Algorithms
+    │   ├── Behavioral learning systems
+    │   ├── Engagement pattern analysis
+    │   ├── Optimal timing prediction
+    │   ├── Content relevance scoring
+    │   ├── Notification fatigue prevention
+    │   └── Personalization optimization
+    ├── Business Rule Configuration
+    │   ├── Compliance notification requirements
+    │   ├── Business hours communication rules
+    │   ├── Emergency override protocols
+    │   ├── Role-based notification policies
+    │   ├── Geographic targeting rules
+    │   └── Industry-specific regulations
+    └── Accessibility & Inclusion Features
+        ├── Visual notification alternatives
+        ├── Audio alert customization
+        ├── Haptic feedback options
+        ├── Screen reader compatibility
+        ├── Language preference support
+        └── Cognitive load optimization`
+          }
+        ],
+        userJourneys: [
+          {
+            id: 'sme',
+            title: 'SME Business Owner',
+            description: 'Complete funding journey from discovery to repayment',
+            steps: [
+              { title: 'Onboarding', description: 'Welcome, business verification, and account setup' },
+              { title: 'Dashboard Discovery', description: 'Explore funding options and business insights' },
+              { title: 'Funding Application', description: 'Complete application with document upload' },
+              { title: 'Underwriting Process', description: 'Application review and approval process' },
+              { title: 'Funding Disbursement', description: 'Receive funds and set up repayment' },
+              { title: 'Scope Management', description: 'Manage funding scope and track progress' },
+              { title: 'Events & Learning', description: 'Participate in events and educational content' },
+              { title: 'Account Management', description: 'Profile settings and financial overview' }
+            ]
+          },
+          {
+            id: 'partner',
+            title: 'Business Partner',
+            description: 'Client management and application processing workflow',
+            steps: [
+              { title: 'Partner Authentication', description: 'Secure partner login and verification' },
+              { title: 'Client Dashboard', description: 'Overview of client portfolio and applications' },
+              { title: 'Application Processing', description: 'Review and process client applications' },
+              { title: 'Client Communication', description: 'Coordinate with clients throughout process' },
+              { title: 'Portfolio Analytics', description: 'Track performance across all clients' },
+              { title: 'Reporting Tools', description: 'Generate reports for stakeholders' },
+              { title: 'Resource Management', description: 'Manage advisor assignments and capacity' },
+              { title: 'Compliance & Audit', description: 'Ensure regulatory compliance' }
+            ]
+          },
+          {
+            id: 'staff',
+            title: 'Internal Staff',
+            description: 'Application review, customer support, and operations',
+            steps: [
+              { title: 'Staff Login', description: 'Secure staff authentication and role access' },
+              { title: 'Operations Dashboard', description: 'System overview and queue management' },
+              { title: 'Application Review', description: 'Detailed review and assessment of applications' },
+              { title: 'Customer Support', description: 'Handle customer inquiries and issues' },
+              { title: 'Quality Assurance', description: 'Ensure process compliance and quality' },
+              { title: 'Performance Analytics', description: 'Track individual and team performance' },
+              { title: 'Training & Development', description: 'Access training materials and updates' },
+              { title: 'System Administration', description: 'Manage system settings and user access' }
+            ]
+          },
+          {
+            id: 'admin',
+            title: 'Administrator',
+            description: 'System oversight, configuration, and strategic management',
+            steps: [
+              { title: 'Admin Access', description: 'High-level system authentication' },
+              { title: 'System Overview', description: 'Complete system health and metrics' },
+              { title: 'User Management', description: 'Manage all user roles and permissions' },
+              { title: 'System Configuration', description: 'Configure system settings and integrations' },
+              { title: 'Compliance Monitoring', description: 'Oversee regulatory compliance' },
+              { title: 'Business Intelligence', description: 'Strategic analytics and insights' },
+              { title: 'Risk Management', description: 'Monitor and mitigate system risks' },
+              { title: 'Strategic Planning', description: 'Plan system evolution and growth' }
+            ]
+          }
+        ]
+      };
+
+      // Application state
+      let currentView = 'lanes';
+      let selectedLane = null;
+      let selectedJourney = null;
+
+      // Initialize application
+      function initApp() {
+        console.log('Initializing app...');
+        renderLaneNavigation();
+        setupEventListeners();
+        updateView('lanes');
+        console.log('App initialized successfully');
+      }
+
+      // Render lane navigation cards
+      function renderLaneNavigation() {
+        console.log('Rendering lane navigation...');
+        const laneNav = document.getElementById('lane-nav');
+        if (!laneNav) {
+          console.error('lane-nav element not found');
+          return;
+        }
+        laneNav.innerHTML = screenFlowData.lanes.map(lane => `
+          <div class="lane-card ${selectedLane === lane.id ? 'lane-card--active' : ''}" 
+               data-lane-id="${lane.id}">
+            <div class="lane-icon">${lane.icon}</div>
+            <div class="lane-title">${lane.title}</div>
+            <div class="lane-description">${lane.description}</div>
+            <div class="lane-stats">
+              <div class="lane-stat"><strong>${lane.stats.screens}</strong> screens</div>
+              <div class="lane-stat"><strong>${lane.stats.flows}</strong> flows</div>
+              <div class="lane-stat">${lane.stats.complexity}</div>
+            </div>
+          </div>
+        `).join('');
+        console.log('Lane navigation rendered');
+      }
+
+      // Render user journey roles
+      function renderUserJourneys() {
+        const roleList = document.getElementById('role-list');
+        roleList.innerHTML = screenFlowData.userJourneys.map(journey => `
+          <div class="journey-role ${selectedJourney === journey.id ? 'journey-role--active' : ''}" 
+               data-journey-id="${journey.id}">
+            <div style="font-weight: 600; margin-bottom: 4px;">${journey.title}</div>
+            <div style="font-size: 11px; color: var(--color-neutral-700);">${journey.description}</div>
+          </div>
+        `).join('');
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // View controls
+        document.querySelectorAll('.view-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const view = btn.dataset.view;
+            updateView(view);
+          });
+        });
+
+        // Mobile view selector
+        const mobileSelect = document.getElementById('mobile-view-select');
+        if (mobileSelect) {
+          mobileSelect.addEventListener('change', (e) => {
+            updateView(e.target.value);
+          });
+        }
+
+        // Lane cards
+        document.getElementById('lane-nav').addEventListener('click', (e) => {
+          const laneCard = e.target.closest('.lane-card');
+          if (laneCard) {
+            selectLane(laneCard.dataset.laneId);
+          }
+        });
+
+        // Journey roles
+        const roleList = document.getElementById('role-list');
+        if (roleList) {
+          roleList.addEventListener('click', (e) => {
+            const roleCard = e.target.closest('.journey-role');
+            if (roleCard) {
+              selectJourney(roleCard.dataset.journeyId);
+            }
+          });
+        }
+
+        // Action buttons
+        document.getElementById('expand-all')?.addEventListener('click', () => {
+          // Implementation for expand all functionality
+          console.log('Expand all clicked');
+        });
+
+        document.getElementById('collapse-all')?.addEventListener('click', () => {
+          // Implementation for collapse all functionality
+          console.log('Collapse all clicked');
+        });
+
+        document.getElementById('export-tree')?.addEventListener('click', () => {
+          exportTreeData();
+        });
+
+        document.getElementById('print-tree')?.addEventListener('click', () => {
+          window.print();
+        });
+      }
+
+      // Update view
+      function updateView(view) {
+        currentView = view;
+        
+        // Update view buttons
+        document.querySelectorAll('.view-btn').forEach(btn => {
+          btn.classList.toggle('view-btn--active', btn.dataset.view === view);
+        });
+
+        // Update mobile selector
+        const mobileSelect = document.getElementById('mobile-view-select');
+        if (mobileSelect) {
+          mobileSelect.value = view;
+        }
+
+        // Show/hide views
+        document.getElementById('lanes-view').style.display = view === 'lanes' ? 'block' : 'none';
+        document.getElementById('tree-view').style.display = view === 'tree' ? 'block' : 'none';
+        document.getElementById('journey-view').style.display = view === 'journey' ? 'block' : 'none';
+
+        // Load view-specific content
+        switch (view) {
+          case 'lanes':
+            if (!selectedLane) {
+              selectLane('auth'); // Select first lane by default
+            }
+            break;
+          case 'tree':
+            loadFullTree();
+            break;
+          case 'journey':
+            if (!selectedJourney) {
+              selectJourney('sme'); // Select first journey by default
+            }
+            break;
+        }
+      }
+
+      // Select lane
+      function selectLane(laneId) {
+        selectedLane = laneId;
+        const lane = screenFlowData.lanes.find(l => l.id === laneId);
+        
+        if (lane) {
+          // Update UI
+          document.querySelectorAll('.lane-card').forEach(card => {
+            card.classList.toggle('lane-card--active', card.dataset.laneId === laneId);
+          });
+
+          // Update title
+          document.getElementById('current-lane-title').textContent = `${lane.icon} ${lane.title} Lane`;
+
+          // Update tree content
+          const treeContent = document.getElementById('tree-content');
+          treeContent.innerHTML = `<pre class="fade-in">${lane.tree}</pre>`;
+        }
+      }
+
+      // Select journey
+      function selectJourney(journeyId) {
+        selectedJourney = journeyId;
+        const journey = screenFlowData.userJourneys.find(j => j.id === journeyId);
+        
+        if (journey) {
+          // Update UI
+          document.querySelectorAll('.journey-role').forEach(card => {
+            card.classList.toggle('journey-role--active', card.dataset.journeyId === journeyId);
+          });
+
+          // Update title
+          document.getElementById('current-journey-title').textContent = journey.title;
+
+          // Update journey steps
+          const stepsContainer = document.getElementById('journey-steps');
+          stepsContainer.innerHTML = journey.steps.map((step, index) => `
+            <div class="journey-step fade-in" style="animation-delay: ${index * 0.1}s">
+              <div class="step-number">${index + 1}</div>
+              <div class="step-content">
+                <div class="step-title">${step.title}</div>
+                <div class="step-description">${step.description}</div>
+              </div>
+              ${index < journey.steps.length - 1 ? '<div class="step-arrow">→</div>' : ''}
+            </div>
+          `).join('');
+        }
+      }
+
+      // Load full tree
+      function loadFullTree() {
+        const fullTreeContent = document.getElementById('full-tree-content');
+        const fullTree = screenFlowData.lanes.map(lane => lane.tree).join('\n\n' + '='.repeat(80) + '\n\n');
+        fullTreeContent.innerHTML = `<pre class="fade-in">${fullTree}</pre>`;
+      }
+
+      // Export tree data
+      function exportTreeData() {
+        const dataStr = JSON.stringify(screenFlowData, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'bizcap-screen-flow-tree.json';
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+
+      // Initialize when DOM is ready
+      document.addEventListener('DOMContentLoaded', initApp);
+
+      // Debug: Log that script loaded
+      console.log('Screen Flow Navigator script loaded');
+    </script>
+  </body>
+</html>
