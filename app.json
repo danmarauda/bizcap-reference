@@ -1,0 +1,93 @@
+{
+  "expo": {
+    "name": "Bizcap",
+    "slug": "bizcap",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0066FF"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bizcap.mobile",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Bizcap needs access to your camera to scan documents",
+        "NSPhotoLibraryUsageDescription": "Bizcap needs access to your photo library to upload documents",
+        "NSFaceIDUsageDescription": "Bizcap uses Face ID to secure your account"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0066FF"
+      },
+      "package": "com.bizcap.mobile",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-linear-gradient",
+      "expo-blur",
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "sounds": ["./assets/sounds/notification.wav"],
+          "icon": "./assets/notification-icon.png",
+          "color": "#0066FF"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Bizcap to access your camera"
+        }
+      ],
+      [
+        "expo-file-system",
+        {
+          "newFileIntentAction": "VIEW"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id"
+      }
+    },
+    "owner": "danmarauda",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/your-project-id"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "bizcap",
+            "project": "mobile-app"
+          }
+        }
+      ]
+    }
+  }
+}

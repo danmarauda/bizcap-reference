@@ -1,0 +1,637 @@
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPhone Frames — Finance App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style class="">
+/*
+Sequence animation intro. Usage:
+1) Insert this code in the <head>
+2) Add to Tailwind Classes: [animation:fadeSlideIn_1s_ease-out_0.1s_both]
+*/
+@keyframes fadeSlideIn {
+0% {
+opacity: 0;
+transform: translateY(30px);
+filter: blur(8px);
+}
+100% {
+opacity: 1;
+transform: translateY(0);
+filter: blur(0px);
+}
+}
+</style>
+<style>
+body {
+font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+.font-geist {
+font-family: 'Geist', sans-serif;
+}
+/* Progressive blur for status bar */
+.gradient-blur-top {
+position: absolute;
+z-index: 10;
+inset: 0 0 auto 0;
+height: 120px;
+pointer-events: none;
+}
+.gradient-blur-top>div,
+.gradient-blur-top::before,
+.gradient-blur-top::after {
+position: absolute;
+inset: 0;
+}
+.gradient-blur-top::before {
+content: "";
+z-index: 1;
+backdrop-filter: blur(0.5px);
+mask: linear-gradient(to top,
+rgba(0, 0, 0, 0) 0%,
+rgba(0, 0, 0, 1) 12.5%,
+rgba(0, 0, 0, 1) 25%,
+rgba(0, 0, 0, 0) 37.5%);
+}
+.gradient-blur-top>div:nth-of-type(1) {
+z-index: 2;
+backdrop-filter: blur(1px);
+mask: linear-gradient(to top,
+rgba(0, 0, 0, 0) 12.5%,
+rgba(0, 0, 0, 1) 25%,
+rgba(0, 0, 0, 1) 37.5%,
+rgba(0, 0, 0, 0) 50%);
+}
+.gradient-blur-top>div:nth-of-type(2) {
+z-index: 3;
+backdrop-filter: blur(2px);
+mask: linear-gradient(to top,
+rgba(0, 0, 0, 0) 25%,
+rgba(0, 0, 0, 1) 37.5%,
+rgba(0, 0, 0, 1) 50%,
+rgba(0, 0, 0, 0) 62.5%);
+}
+.gradient-blur-top>div:nth-of-type(3) {
+z-index: 4;
+backdrop-filter: blur(4px);
+mask: linear-gradient(to top,
+rgba(0, 0, 0, 0) 37.5%,
+rgba(0, 0, 0, 1) 50%,
+rgba(0, 0, 0, 1) 62.5%,
+rgba(0, 0, 0, 0) 75%);
+}
+.gradient-blur-top>div:nth-of-type(4) {
+z-index: 5;
+backdrop-filter: blur(8px);
+mask: linear-gradient(to top,
+rgba(0, 0, 0, 0) 50%,
+rgba(0, 0, 0, 1) 62.5%,
+rgba(0, 0, 0, 1) 75%,
+rgba(0, 0, 0, 0) 87.5%);
+}
+.gradient-blur-top>div:nth-of-type(5) {
+z-index: 6;
+backdrop-filter: blur(16px);
+mask: linear-gradient(to top,
+rgba(0, 0, 0, 0) 62.5%,
+rgba(0, 0, 0, 1) 75%,
+rgba(0, 0, 0, 1) 87.5%,
+rgba(0, 0, 0, 0) 100%);
+}
+.gradient-blur-top>div:nth-of-type(6) {
+z-index: 7;
+backdrop-filter: blur(32px);
+mask: linear-gradient(to top,
+rgba(0, 0, 0, 0) 75%,
+rgba(0, 0, 0, 1) 87.5%,
+rgba(0, 0, 0, 1) 100%);
+}
+.gradient-blur-top::after {
+content: "";
+z-index: 8;
+backdrop-filter: blur(64px);
+mask: linear-gradient(to top,
+rgba(0, 0, 0, 0) 87.5%,
+rgba(0, 0, 0, 1) 100%);
+}
+/* Bottom navbar blur */
+.gradient-blur-bottom {
+position: absolute;
+z-index: 50;
+inset: auto 0 0 0;
+height: 100px;
+pointer-events: none;
+}
+.gradient-blur-bottom>div,
+.gradient-blur-bottom::before,
+.gradient-blur-bottom::after {
+position: absolute;
+inset: 0;
+}
+.gradient-blur-bottom::before {
+content: "";
+z-index: 1;
+backdrop-filter: blur(0.5px);
+mask: linear-gradient(to bottom,
+rgba(0, 0, 0, 0) 0%,
+rgba(0, 0, 0, 1) 12.5%,
+rgba(0, 0, 0, 1) 25%,
+rgba(0, 0, 0, 0) 37.5%);
+}
+.gradient-blur-bottom>div:nth-of-type(1) {
+z-index: 2;
+backdrop-filter: blur(1px);
+mask: linear-gradient(to bottom,
+rgba(0, 0, 0, 0) 12.5%,
+rgba(0, 0, 0, 1) 25%,
+rgba(0, 0, 0, 1) 37.5%,
+rgba(0, 0, 0, 0) 50%);
+}
+.gradient-blur-bottom>div:nth-of-type(2) {
+z-index: 3;
+backdrop-filter: blur(2px);
+mask: linear-gradient(to bottom,
+rgba(0, 0, 0, 0) 25%,
+rgba(0, 0, 0, 1) 37.5%,
+rgba(0, 0, 0, 1) 50%,
+rgba(0, 0, 0, 0) 62.5%);
+}
+.gradient-blur-bottom>div:nth-of-type(3) {
+z-index: 4;
+backdrop-filter: blur(4px);
+mask: linear-gradient(to bottom,
+rgba(0, 0, 0, 0) 37.5%,
+rgba(0, 0, 0, 1) 50%,
+rgba(0, 0, 0, 1) 62.5%,
+rgba(0, 0, 0, 0) 75%);
+}
+.gradient-blur-bottom>div:nth-of-type(4) {
+z-index: 5;
+backdrop-filter: blur(8px);
+mask: linear-gradient(to bottom,
+rgba(0, 0, 0, 0) 50%,
+rgba(0, 0, 0, 1) 62.5%,
+rgba(0, 0, 0, 1) 75%,
+rgba(0, 0, 0, 0) 87.5%);
+}
+.gradient-blur-bottom>div:nth-of-type(5) {
+z-index: 6;
+backdrop-filter: blur(16px);
+mask: linear-gradient(to bottom,
+rgba(0, 0, 0, 0) 62.5%,
+rgba(0, 0, 0, 1) 75%,
+rgba(0, 0, 0, 1) 87.5%,
+rgba(0, 0, 0, 0) 100%);
+}
+.gradient-blur-bottom>div:nth-of-type(6) {
+z-index: 7;
+backdrop-filter: blur(32px);
+mask: linear-gradient(to bottom,
+rgba(0, 0, 0, 0) 75%,
+rgba(0, 0, 0, 1) 87.5%,
+rgba(0, 0, 0, 1) 100%);
+}
+.gradient-blur-bottom::after {
+content: "";
+z-index: 8;
+backdrop-filter: blur(64px);
+mask: linear-gradient(to bottom,
+rgba(0, 0, 0, 0) 87.5%,
+rgba(0, 0, 0, 1) 100%);
+}
+</style>
+<link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style><link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style></head>
+<body class="min-h-screen flex items-center justify-center antialiased xl:bg-[radial-gradient(circle_at_top_left,var(--tw-gradient-stops))] xl:from-white xl:to-gray-400 bg-gradient-to-br from-gray-50 via-white to-gray-100 pt-8 pr-8 pb-8 pl-8">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Background (component) added by Aura -->
+<div class="aura-background-component fixed top-0 w-full h-screen -z-10 hue-rotate-90 saturate-0"><div class="aura-background-component top-0 w-full -z-10 absolute h-full">
+  <div data-us-project="JUFg0MwEcM3urKc9W7Vg" class="absolute w-full h-full left-0 top-0 -z-10"></div>
+  <script type="text/javascript">
+    !function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();
+  </script>
+</div></div>
+
+<!-- Container for 3 iPhone frames -->
+<div class="flex gap-x-16 gap-y-8 items-center justify-center" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(2)">
+  
+  <!-- Left iPhone Frame -->
+  <div class="[animation:fadeSlideIn_1s_ease-out_0.1s_both] relative" style="width: 393px; height: 852px;" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1)">
+    <!-- Phone frame -->
+    <div class="absolute inset-0 bg-black rounded-[3rem] shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] p-3">
+      <!-- Notch -->
+      <div class="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-50"></div>
+      
+      <!-- Screen -->
+      <div class="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+        <!-- Progressive blur top -->
+        <div class="gradient-blur-top">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <!-- Content -->
+        <div class="overflow-y-auto bg-gray-950 w-full h-full bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/a53ef6f7-ea7c-457d-a8d3-dd91c9933e39_3840w.jpg)] bg-cover" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2)" style="">
+          <!-- Status bar -->
+          <div class="flex z-50 text-white pt-4 pr-6 pb-2 pl-6 relative items-center justify-between" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1)">
+            <span class="text-sm font-medium font-geist">9:41</span>
+            <div class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=""><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><circle cx="12" cy="20" r="1"></circle></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"></rect><path d="M22 11v2"></path></svg>
+            </div>
+          </div>
+
+          <!-- Content area -->
+          <div class="text-white bg-cover pt-12 pr-6 pb-24 pl-6 bg-center bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/e63b6ef8-c2cb-44fd-80ac-2f4ea3efc8b0_800w.jpg)]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2)" style="">
+            <div class="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 px-3 py-1 text-[11px] text-white/80 font-geist mb-4">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+              Product workflow
+            </div>
+            
+            <h1 class="text-4xl font-geist tracking-tight text-white mb-4">
+              From data to decisions
+            </h1>
+            
+            <p class="text-sm text-white/70 font-geist mb-8">
+              Connect, understand, and act—end‑to‑end automation in three simple steps.
+            </p>
+
+            <!-- Steps -->
+            <div class="space-y-8">
+              <div class="flex items-start gap-4">
+                <span class="select-none leading-none text-5xl font-semibold text-white/10 font-geist w-12">1</span>
+                <div class="">
+                  <p class="text-xl text-white font-geist tracking-tight">Connect</p>
+                  <p class="mt-1 text-sm text-white/70 font-geist">Link banks, billing, and spend tools in minutes—no spreadsheets.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <span class="select-none leading-none text-5xl font-semibold text-white/10 font-geist w-12">2</span>
+                <div class="">
+                  <p class="text-xl text-white font-geist tracking-tight">Understand</p>
+                  <p class="text-sm text-white/70 font-geist mt-1">AI categorizes, explains, and forecasts using your business context.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <span class="select-none leading-none text-5xl font-semibold text-white/10 font-geist w-12">3</span>
+                <div class="">
+                  <p class="text-xl text-white font-geist tracking-tight">Act</p>
+                  <p class="mt-1 text-sm text-white/70 font-geist">Trigger approvals, alerts, and playbooks automatically.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-8">
+              <button class="inline-flex gap-2 text-sm font-medium text-gray-900 font-geist bg-white w-full rounded-full pt-3 pr-5 pb-3 pl-5 shadow-lg gap-x-2 gap-y-2 items-center justify-center" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; button:nth-of-type(1)">
+                Explore the demo
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progressive blur bottom -->
+        <div class="gradient-blur-bottom">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <!-- Bottom tab bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-gray-900/80 backdrop-blur-xl border-t border-gray-700/50 px-6 pb-6 pt-3 z-50">
+  <div class="flex items-center justify-around">
+    <div class="flex flex-col items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(255, 255, 255);"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1" class=""></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+      <span class="text-[10px] font-medium text-white font-geist">Home</span>
+    </div>
+    <div class="flex flex-col items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+      <span class="text-[10px] font-medium text-gray-400 font-geist">Analytics</span>
+    </div>
+    <div class="flex flex-col items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" class=""></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" x2="12" y1="18" y2="12"></line><line x1="9" x2="15" y1="15" y2="15"></line></svg>
+      <span class="text-[10px] font-medium text-gray-400 font-geist">Reports</span>
+    </div>
+    <div class="flex flex-col items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(4) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><circle cx="12" cy="12" r="10" class=""></circle><circle cx="12" cy="12" r="4" class=""></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14" class=""></line></svg>
+      <span class="text-[10px] font-medium text-gray-400 font-geist">Settings</span>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Center iPhone Frame (Hero) -->
+  <div class="[animation:fadeSlideIn_1s_ease-out_0.2s_both] relative" style="width: 393px; height: 852px;" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2)">
+    <!-- Phone frame -->
+    <div class="absolute inset-0 bg-black rounded-[3rem] shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] p-3">
+      <!-- Notch -->
+      <div class="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-50"></div>
+      
+      <!-- Screen -->
+      <div class="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+        <!-- Progressive blur top -->
+        <div class="gradient-blur-top" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1)">
+  <div class=""></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+        <!-- Content -->
+        <div class="overflow-y-auto bg-white w-full h-full" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2)">
+          <!-- Status bar -->
+          <div class="flex z-50 pt-4 pr-6 pb-2 pl-6 relative items-center justify-between" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1)">
+            <span class="text-sm font-medium text-gray-900 font-geist">9:41</span>
+            <div class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=""><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><circle cx="12" cy="20" r="1"></circle></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" class=""><rect x="2" y="7" width="16" height="10" rx="2" ry="2" class=""></rect><path d="M22 11v2"></path></svg>
+            </div>
+          </div>
+
+          <!-- Hero content -->
+          <div class="px-6 pt-16 pb-24">
+            <!-- Background decorative elements -->
+            <div class="absolute top-20 right-0 w-40 h-40 bg-fuchsia-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-40 left-0 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl"></div>
+
+            <div class="relative">
+              <div class="inline-flex text-xs text-gray-700 font-geist bg-white/80 border border-gray-200 rounded-full pt-1 pr-3 pb-1 pl-3 backdrop-blur-md gap-2 items-center mb-4">
+                <span class="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                Real‑time Finance Platform
+              </div>
+
+              <h1 class="leading-tight text-4xl tracking-tighter font-geist mb-4" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; h1:nth-of-type(1)">Financial visibility, simplified. </h1>
+
+              <p class="text-sm text-gray-600 font-geist mb-6">
+                Understand revenue, costs, and trends instantly—no spreadsheets required.
+              </p>
+
+              <div class="flex flex-col gap-3 mb-6">
+                <button class="inline-flex gap-3 text-sm font-medium text-white bg-black rounded-full pt-3 pr-6 pb-3 pl-6 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] gap-x-3 gap-y-3 items-center justify-center" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(2) &gt; button:nth-of-type(1)">
+                  <span class="font-geist">Get Started</span>
+                  <div class="relative flex items-center justify-center w-5 h-5 bg-white/20 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </div>
+                </button>
+                <button class="inline-flex xl:bg-white/10 text-sm font-medium text-gray-900 font-geist bg-gray-100 rounded-full pt-3 pr-6 pb-3 pl-6 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] gap-x-2 gap-y-2 items-center justify-center" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(2) &gt; button:nth-of-type(2)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                  View demo
+                </button>
+              </div>
+
+              <!-- Dashboard preview card -->
+              <div class="bg-white/70 ring-1 ring-black/5 rounded-2xl p-3 shadow-xl backdrop-blur-md">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs font-medium text-gray-700 font-geist">Dashboard Overview</span>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-emerald-600 text-[10px] font-geist">
+                    <span class="h-1 w-1 rounded-full bg-emerald-500"></span>
+                    Live
+                  </span>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="bg-white ring-1 ring-black/5 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="w-10 h-10 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/ae254670-d172-42d4-8b69-97ab2ade6de8_320w.jpg)] bg-cover rounded-xl shadow-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(3) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1)"></div>
+                      <span class="text-[10px] text-emerald-600 font-medium font-geist">+12%</span>
+                    </div>
+                    <p class="text-[10px] text-gray-500 font-geist">Revenue</p>
+                    <p class="text-base font-semibold text-gray-900 tracking-tight font-geist">$92,310</p>
+                  </div>
+
+                  <div class="bg-white ring-1 ring-black/5 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="w-10 h-10 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/b6b83d37-3f6a-4823-a93d-2c633b910edb_320w.jpg)] bg-cover rounded-xl shadow-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(3) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1)"></div>
+                      <span class="text-[10px] text-emerald-600 font-medium font-geist">+8%</span>
+                    </div>
+                    <p class="text-[10px] text-gray-500 font-geist">Net Profit</p>
+                    <p class="text-base font-semibold text-gray-900 tracking-tight font-geist">$30,145</p>
+                  </div>
+
+                  <div class="bg-white ring-1 ring-black/5 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="w-10 h-10 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/90ebe0ba-ebce-4718-a047-8f9ae422c646_320w.jpg)] bg-cover rounded-xl shadow-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(3) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1)"></div>
+                      <span class="text-[10px] text-gray-600 font-medium font-geist">+24</span>
+                    </div>
+                    <p class="text-[10px] text-gray-500 font-geist">Customers</p>
+                    <p class="text-base font-semibold text-gray-900 tracking-tight font-geist">1,847</p>
+                  </div>
+
+                  <div class="bg-white ring-1 ring-black/5 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="w-10 h-10 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/1f71e922-535f-4aaa-8ec1-be337e3db393_320w.jpg)] bg-cover rounded-xl shadow-sm" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(3) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1)"></div>
+                      <span class="text-[10px] text-emerald-600 font-medium font-geist">+18%</span>
+                    </div>
+                    <p class="text-[10px] text-gray-500 font-geist">Growth Rate</p>
+                    <p class="text-base font-semibold text-gray-900 tracking-tight font-geist">32.4%</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progressive blur bottom -->
+        <div class="gradient-blur-bottom">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <!-- Bottom tab bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-gray-200/50 px-6 pb-6 pt-3 z-50">
+          <div class="flex items-center justify-around">
+            <div class="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(17, 24, 39);"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1" class=""></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+              <span class="text-[10px] font-medium text-gray-900 font-geist">Home</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><path d="M3 3v16a2 2 0 0 0 2 2h16" class=""></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+              <span class="text-[10px] font-medium text-gray-400 font-geist">Analytics</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" class=""></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" x2="12" y1="18" y2="12"></line><line x1="9" x2="15" y1="15" y2="15"></line></svg>
+              <span class="text-[10px] font-medium text-gray-400 font-geist">Reports</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(4) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
+              <span class="text-[10px] font-medium text-gray-400 font-geist">Settings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right iPhone Frame -->
+  <div class="[animation:fadeSlideIn_1s_ease-out_0.3s_both] relative" style="width: 393px; height: 852px;" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3)">
+    <!-- Phone frame -->
+    <div class="absolute inset-0 bg-black rounded-[3rem] shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] p-3">
+      <!-- Notch -->
+      <div class="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-50"></div>
+      
+      <!-- Screen -->
+      <div class="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+        <!-- Progressive blur top -->
+        <div class="gradient-blur-top">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <!-- Content -->
+        <div class="w-full h-full overflow-y-auto bg-white">
+          <!-- Status bar -->
+          <div class="flex z-50 pt-4 pr-6 pb-2 pl-6 relative items-center justify-between" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(1)">
+            <span class="text-sm font-medium text-gray-900 font-geist">9:41</span>
+            <div class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=""><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0" class=""></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><circle cx="12" cy="20" r="1"></circle></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"></rect><path d="M22 11v2"></path></svg>
+            </div>
+          </div>
+
+          <!-- Content area -->
+          <div class="px-6 pt-8 pb-24">
+            <div class="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-md border border-gray-200 px-3 py-1 text-xs text-gray-700 font-geist mb-4">
+              <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+              New — Mobile
+            </div>
+            
+            <h2 class="text-3xl font-geist tracking-tight mb-3">
+              Your finance copilot, now on mobile
+            </h2>
+            
+            <p class="text-sm text-gray-600 font-geist mb-6">
+              Approvals, insights, and alerts wherever you are. Stay on top of cash, revenue, and spend in real time.
+            </p>
+
+            <!-- App Store Button -->
+            <div class="mb-6">
+              <button class="inline-flex text-white bg-black w-full rounded-full pt-3 pr-5 pb-3 pl-5 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] gap-x-3 gap-y-3 items-center justify-center" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; button:nth-of-type(1)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class=""><path d="M12 6.528V3a1 1 0 0 1 1-1h0"></path><path d="M18.237 21A15 15 0 0 0 22 11a6 6 0 0 0-10-4.472A6 6 0 0 0 2 11a15.1 15.1 0 0 0 3.763 10 3 3 0 0 0 3.648.648 5.5 5.5 0 0 1 5.178 0A3 3 0 0 0 18.237 21" class=""></path></svg>
+                <div class="text-left leading-tight">
+                  <span class="block text-[10px] text-white/70 font-geist">Download on the</span>
+                  <span class="block text-sm font-medium tracking-tight font-geist">App Store</span>
+                </div>
+              </button>
+            </div>
+
+            <!-- Phone mockup -->
+            <div class="relative mx-auto" style="width: 200px;">
+              <div class="absolute -inset-3 bg-gradient-to-tr from-blue-600/20 via-indigo-500/10 to-amber-400/20 rounded-[2rem] blur-2xl"></div>
+              <div class="ring-1 ring-black/10 bg-gray-900 rounded-[1.75rem] pt-1.5 pr-1.5 pb-1.5 pl-1.5 relative shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(2)">
+                <div class="absolute top-1.5 left-1/2 -translate-x-1/2 h-4 w-20 rounded-b-xl bg-black/70"></div>
+                <div class="overflow-hidden rounded-[1.4rem] bg-white">
+                  <img src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/38d4c429-57cd-4aed-8afc-441837f8ccb6_800w.webp" alt="Mobile preview" class="w-full h-[380px] object-cover" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; div:nth-of-type(3) &gt; div:nth-of-type(2) &gt; div:nth-of-type(2) &gt; img:nth-of-type(1)" data-element-src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/ea3a5611-6ce0-4973-9c34-7b2492e29a38_800w.jpg" style="">
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature bullets -->
+            <div class="mt-8 space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-gray-50 shadow-sm shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-700"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-gray-900 font-geist">Instant alerts</p>
+                  <p class="text-xs text-gray-600 font-geist">Know when invoices are paid or spend spikes.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-gray-50 shadow-sm shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-600"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-gray-900 font-geist">One‑tap approvals</p>
+                  <p class="text-xs text-gray-600 font-geist">Approve expenses and POs securely on the go.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progressive blur bottom -->
+        <div class="gradient-blur-bottom">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <!-- Bottom tab bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-gray-200/50 px-6 pb-6 pt-3 z-50">
+          <div class="flex items-center justify-around">
+            <div class="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(1) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(17, 24, 39);"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1" class=""></rect></svg>
+              <span class="text-[10px] font-medium text-gray-900 font-geist">Home</span>
+            </div>
+            <div class="flex flex-col gap-1 gap-x-1 gap-y-1 items-center" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9-5 5-4-4-3 3" class=""></path></svg>
+              <span class="text-[10px] font-medium text-gray-400 font-geist">Analytics</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" class=""></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" x2="12" y1="18" y2="12" class=""></line><line x1="9" x2="15" y1="15" y2="15"></line></svg>
+              <span class="text-[10px] font-medium text-gray-400 font-geist">Reports</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-[24px] h-[24px]" data-element-locator="html &gt; body:nth-of-type(1) &gt; div:nth-of-type(1) &gt; div:nth-of-type(3) &gt; div:nth-of-type(1) &gt; div:nth-of-type(2) &gt; div:nth-of-type(4) &gt; div:nth-of-type(1) &gt; div:nth-of-type(4) &gt; svg:nth-of-type(1)" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(156, 163, 175);"><circle cx="12" cy="12" r="10" class=""></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" x2="12" y1="8" y2="8"></line><line x1="3.95" x2="8.54" y1="6.06" y2="14"></line><line x1="10.88" x2="15.46" y1="21.94" y2="14"></line></svg>
+              <span class="text-[10px] font-medium text-gray-400 font-geist">Settings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  if (window.lucide && typeof lucide.createIcons === 'function') {
+    lucide.createIcons({ attrs: { 'stroke-width': 1.5 } });
+  }
+</script>
+
+
+</body></html>

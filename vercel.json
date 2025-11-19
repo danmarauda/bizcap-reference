@@ -1,0 +1,68 @@
+{
+  "version": 2,
+  "name": "bizcap",
+  "buildCommand": "pnpm build:web",
+  "outputDirectory": "packages/web/out",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "regions": ["syd1", "hkg1"],
+  "functions": {
+    "packages/web/app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_APP_URL": "@app-url",
+    "NEXT_PUBLIC_CONVEX_URL": "@convex-url",
+    "CONVEX_DEPLOYMENT": "@convex-deployment"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_APP_URL": "@app-url",
+      "NEXT_PUBLIC_CONVEX_URL": "@convex-url",
+      "CONVEX_DEPLOYMENT": "@convex-deployment"
+    }
+  },
+  "alias": [
+    {
+      "domain": "bizcap.vercel.app"
+    },
+    {
+      "domain": "www.bizcap.com.au"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=60, stale-while-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/webhooks/:path*",
+      "destination": "/api/webhooks/:path*"
+    }
+  ]
+}

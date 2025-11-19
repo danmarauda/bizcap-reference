@@ -1,0 +1,949 @@
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wanderlux - Premium Travel Experience</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+@keyframes slideUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+from { opacity: 0; transform: translateY(-20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideLeft {
+from { opacity: 0; transform: translateX(20px); }
+to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideRight {
+from { opacity: 0; transform: translateX(-20px); }
+to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+from { opacity: 0; transform: scale(0.95); }
+to { opacity: 1; transform: scale(1); }
+}
+@keyframes blurIn {
+from { opacity: 0; filter: blur(10px); }
+to { opacity: 1; filter: blur(0); }
+}
+.filled-heart {
+fill: #ef4444;
+color: #ef4444;
+}
+.tab-bar-shadow {
+box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.05), 0 -4px 12px -2px rgba(0, 0, 0, 0.08);
+}
+</style>
+<link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style></head>
+<body class="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900" style="font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"><div class="fixed top-0 w-full -z-10 h-screen bg-cover bg-center blur-3xl" id="aura-image" style="background-image: url(&quot;https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/bb230a81-04eb-4600-a67d-85e86a4b3c40_3840w.webp&quot;);"></div>
+
+<!-- Background (image) added by Aura -->
+
+  <main class="min-h-screen flex w-full py-8 items-center justify-center">
+    <div class="flex flex-col lg:flex-row items-center justify-center gap-8 px-4">
+      
+      <!-- Left iPhone: Discover Screen -->
+      <section class="w-[393px] h-[852px] bg-white rounded-[46px] border border-slate-200 overflow-hidden shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.02),_0_6.7px_5.3px_rgba(0,_0,_0,_0.028),_0_12.5px_10px_rgba(0,_0,_0,_0.035),_0_22.3px_17.9px_rgba(0,_0,_0,_0.042),_0_41.8px_33.4px_rgba(0,_0,_0,_0.05),_0_100px_80px_rgba(0,_0,_0,_0.07)]" style="animation: 0.8s ease-out 0s 1 normal both running scaleIn; scroll-behavior: smooth;">
+        <div class="h-full flex flex-col overflow-y-auto pb-20">
+          <!-- Status Bar -->
+          <div class="px-6 pt-6 pb-3 flex items-center justify-between text-slate-800" style="animation: slideDown 0.6s ease-out 0.2s both;">
+            <span class="text-sm font-medium" id="time1">23:04</span>
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="signal" class="lucide lucide-signal w-4 h-4"><path d="M2 20h.01"></path><path d="M7 20v-4"></path><path d="M12 20v-8"></path><path d="M17 20V8"></path><path d="M22 4v16"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi w-4 h-4"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="battery-charging" class="lucide lucide-battery-charging w-5 h-5"><path d="m11 7-3 5h4l-3 5"></path><path d="M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.935"></path><path d="M22 14v-4"></path><path d="M5.14 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.936"></path></svg>
+            </div>
+          </div>
+
+          <!-- Header -->
+          <div class="px-6 pb-5 flex items-center justify-between" style="animation: slideDown 0.6s ease-out 0.3s both;">
+            <div class="flex items-center gap-3">
+              <div class="h-10 w-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center shadow-sm">
+                <span class="text-[15px] font-semibold tracking-tighter">WL</span>
+              </div>
+              <div class="">
+                <h1 class="text-[24px] leading-6 font-semibold tracking-tight text-slate-900">Wanderlux</h1>
+                <p class="text-[12px] text-slate-500">Explore destinations</p>
+              </div>
+            </div>
+            <button id="notificationBtn" class="h-11 w-11 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 transition-colors relative">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="bell" class="lucide lucide-bell w-5 h-5"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
+              <span id="notificationDot" class="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full"></span>
+            </button>
+          </div>
+
+          <!-- Search -->
+          <div class="px-6 mb-5" style="animation: slideUp 0.6s ease-out 0.4s both;">
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+              <input type="text" id="searchInput" placeholder="Search destinations, experiences..." class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-800 placeholder-slate-400 ring-1 ring-slate-200 focus:ring-2 focus:ring-slate-300 focus:outline-none text-[14px] transition-all">
+              <button id="filterBtn" class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="sliders-horizontal" class="lucide lucide-sliders-horizontal w-4 h-4"><path d="M10 5H3"></path><path d="M12 19H3"></path><path d="M14 3v4"></path><path d="M16 17v4"></path><path d="M21 12h-9"></path><path d="M21 19h-5"></path><path d="M21 5h-7"></path><path d="M8 10v4"></path><path d="M8 12H3"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="px-6 mb-6" style="animation: slideUp 0.6s ease-out 0.5s both;">
+            <button id="joinTravelersBtn" class="w-full flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+              <div class="flex -space-x-3">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&amp;w=100&amp;auto=format&amp;fit=crop" class="w-9 h-9 rounded-full ring-2 ring-white object-cover" alt="">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&amp;w=100&amp;auto=format&amp;fit=crop" class="w-9 h-9 rounded-full ring-2 ring-white object-cover" alt="">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&amp;w=100&amp;auto=format&amp;fit=crop" class="w-9 h-9 rounded-full ring-2 ring-white object-cover" alt="">
+                <div class="w-9 h-9 rounded-full ring-2 ring-white bg-slate-700 flex items-center justify-center text-white text-[11px] font-semibold">+50</div>
+              </div>
+              <div class="flex-1 text-left">
+                <p class="text-[13px] font-semibold text-slate-900">Join 2.4M travelers</p>
+                <p class="text-[11px] text-slate-600">Booking their dream stays</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4 text-slate-400"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </button>
+          </div>
+
+          <!-- Categories -->
+          <div class="px-6 mb-6" style="animation: slideLeft 0.6s ease-out 0.6s both;">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[18px] font-semibold tracking-tight text-slate-900">Browse by type</h3>
+              <button class="text-[13px] text-slate-600 hover:text-slate-900 font-medium flex items-center gap-1 transition-colors">
+                View all
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right w-4 h-4"><path d="m9 18 6-6-6-6"></path></svg>
+              </button>
+            </div>
+            <div class="grid grid-cols-4 gap-3">
+              <button data-category="villas" class="category-btn flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl bg-slate-900 text-white shadow-lg hover:shadow-xl transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" class="lucide lucide-home w-6 h-6"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                <span class="text-[12px] font-medium">Villas</span>
+              </button>
+              <button data-category="flights" class="category-btn flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 text-slate-700 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="plane" class="lucide lucide-plane w-6 h-6"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>
+                <span class="text-[12px] font-medium">Flights</span>
+              </button>
+              <button data-category="resorts" class="category-btn flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 text-slate-700 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="palmtree" class="lucide lucide-palmtree w-6 h-6"><path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"></path><path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3"></path><path d="M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 2.12-2.12c-1.95-1.96-5.27-1.8-7.42.35"></path><path d="M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-12-1-14"></path></svg>
+                <span class="text-[12px] font-medium">Resorts</span>
+              </button>
+              <button data-category="cruises" class="category-btn flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 text-slate-700 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="ship" class="lucide lucide-ship w-6 h-6"><path d="M12 10.189V14"></path><path d="M12 2v3"></path><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"></path><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76"></path><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path></svg>
+                <span class="text-[12px] font-medium">Cruises</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Featured Property -->
+          <div class="px-6 mb-6" style="animation: blurIn 0.8s ease-out 0.7s both;">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[18px] font-semibold tracking-tight text-slate-900">Featured this week</h3>
+              <button id="bookmarkBtn1" class="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="bookmark" class="lucide lucide-bookmark w-4 h-4 text-slate-600"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>
+              </button>
+            </div>
+            <div class="relative overflow-hidden rounded-3xl">
+              <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?q=80&amp;w=1974&amp;auto=format&amp;fit=crop" alt="Azure Bay Residence" class="w-full h-56 object-cover">
+              <div class="absolute top-4 left-4 flex items-center gap-2">
+                <span class="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm text-[11px] font-semibold text-slate-900 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-yellow-400 text-yellow-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                  4.9
+                </span>
+                <span class="px-3 py-1.5 rounded-full bg-emerald-500/95 backdrop-blur-sm text-[11px] font-semibold text-white">
+                  Super Host
+                </span>
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 text-white">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="">
+                    <h4 class="text-[20px] font-semibold tracking-tight">Azure Bay Residence</h4>
+                    <p class="text-[13px] text-white/90 flex items-center gap-1 mt-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="map-pin" class="lucide lucide-map-pin w-3.5 h-3.5"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      Santorini, Greece
+                    </p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[12px] text-white/80">from</p>
+                    <p class="text-[19px] font-semibold tracking-tight">$850<span class="text-[12px] font-medium">/night</span></p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 mt-4">
+                  <button id="bookNowBtn" class="flex-1 px-4 py-2.5 rounded-xl bg-white hover:bg-white/90 text-slate-900 text-[13px] font-medium transition-all flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-check" class="lucide lucide-calendar-check w-4 h-4"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>
+                    Book now
+                  </button>
+                  <button id="detailsBtn" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 ring-1 ring-white/30 text-white text-[13px] font-medium backdrop-blur transition-all flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" class="lucide lucide-info w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                    Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust Indicators -->
+          <div class="px-6 mb-6" style="animation: slideUp 0.6s ease-out 0.8s both;">
+            <h4 class="text-[16px] font-semibold tracking-tight text-slate-900 mb-4">Why book with Wanderlux</h4>
+            <div class="grid grid-cols-3 gap-3">
+              <button class="trust-card p-4 rounded-2xl bg-slate-50 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" class="lucide lucide-shield-check w-5 h-5 text-emerald-600"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                </div>
+                <p class="text-[12px] font-semibold text-slate-900">Verified</p>
+                <p class="text-[11px] text-slate-600 mt-1">All properties checked</p>
+              </button>
+              <button class="trust-card p-4 rounded-2xl bg-slate-50 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="headphones" class="lucide lucide-headphones w-5 h-5 text-blue-600"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"></path></svg>
+                </div>
+                <p class="text-[12px] font-semibold text-slate-900">24/7 Support</p>
+                <p class="text-[11px] text-slate-600 mt-1">Always here to help</p>
+              </button>
+              <button class="trust-card p-4 rounded-2xl bg-slate-50 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" class="lucide lucide-zap w-5 h-5 text-purple-600"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                </div>
+                <p class="text-[12px] font-semibold text-slate-900">Instant Book</p>
+                <p class="text-[11px] text-slate-600 mt-1">Confirm in seconds</p>
+              </button>
+            </div>
+          </div>
+
+          <div class="h-8"></div>
+        </div>
+
+        <!-- Tab Bar for Screen 1 -->
+        <div class="tab-bar-shadow bg-white/95 border-slate-200 border-t pt-3 pr-6 pb-3 pl-6 absolute right-0 bottom-0 left-0 backdrop-blur-xl" style="animation: slideUp 0.6s ease-out 1.3s both;">
+          <div class="flex items-center justify-around">
+            <button class="tab-btn-2 flex flex-col items-center gap-1 py-2 px-4" data-tab="home">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" class="lucide lucide-home w-6 h-6 text-slate-900"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+              <span class="text-[10px] font-medium text-slate-900">Home</span>
+            </button>
+            <button class="tab-btn-2 flex flex-col items-center gap-1 py-2 px-4" data-tab="discover">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-6 h-6 text-slate-400"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+              <span class="text-[10px] font-medium text-slate-400">Discover</span>
+            </button>
+            <button class="tab-btn-2 flex flex-col items-center gap-1 py-2 px-4" data-tab="bookings">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-days" class="lucide lucide-calendar-days w-6 h-6 text-slate-400"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg>
+              <span class="text-[10px] font-medium text-slate-400">Bookings</span>
+            </button>
+            <button class="tab-btn-2 flex flex-col items-center gap-1 py-2 px-4" data-tab="account">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-round" class="lucide lucide-user-round w-6 h-6 text-slate-400"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+              <span class="text-[10px] font-medium text-slate-400">Account</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Middle iPhone: Hero Landing -->
+      <section class="w-[393px] h-[852px] bg-white rounded-[46px] border border-slate-200 overflow-hidden shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.02),_0_6.7px_5.3px_rgba(0,_0,_0,_0.028),_0_12.5px_10px_rgba(0,_0,_0,_0.035),_0_22.3px_17.9px_rgba(0,_0,_0,_0.042),_0_41.8px_33.4px_rgba(0,_0,_0,_0.05),_0_100px_80px_rgba(0,_0,_0,_0.07)]" style="animation: 0.8s ease-out 0.2s 1 normal both running scaleIn; scroll-behavior: smooth;">
+        <div class="h-full flex flex-col pb-20">
+          <!-- Status Bar -->
+          <div class="px-6 pt-6 pb-3 flex items-center justify-between text-slate-800" style="animation: slideDown 0.6s ease-out 0.4s both;">
+            <span class="text-sm font-medium" id="time2">23:04</span>
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="signal" class="lucide lucide-signal w-4 h-4"><path d="M2 20h.01"></path><path d="M7 20v-4"></path><path d="M12 20v-8"></path><path d="M17 20V8"></path><path d="M22 4v16"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi w-4 h-4"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="battery-charging" class="lucide lucide-battery-charging w-5 h-5"><path d="m11 7-3 5h4l-3 5"></path><path d="M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.935"></path><path d="M22 14v-4"></path><path d="M5.14 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.936"></path></svg>
+            </div>
+          </div>
+
+          <!-- Full Hero Section -->
+          <div class="relative w-full h-[480px]" style="animation: blurIn 1s ease-out 0.5s both;">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&amp;w=1974&amp;auto=format&amp;fit=crop" alt="Mountain Vista" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent"></div>
+            
+            <!-- Floating Logo -->
+            
+
+            <!-- Hero Content -->
+            <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div style="animation: slideUp 0.6s ease-out 0.8s both;" class="">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-[11px] font-medium text-white bg-white/10 ring-white/20 ring-1 rounded-full pt-1 pr-2.5 pb-1 pl-2.5 backdrop-blur-sm">Premium Collection</span>
+                  <span class="px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-sm ring-1 ring-white/20 text-[11px] font-medium text-white flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-up" class="lucide lucide-trending-up w-3 h-3"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
+                    Trending
+                  </span>
+                </div>
+                <h1 class="mt-3 text-[38px] leading-[1.05] font-semibold tracking-tight">Discover Your Perfect Escape</h1>
+                <p class="mt-3 text-[15px] leading-relaxed text-white/90">Experience handpicked luxury stays in the world's most breathtaking destinations. From mountain lodges to coastal villas.</p>
+              </div>
+              
+              <div class="mt-6 space-y-3" style="animation: slideUp 0.6s ease-out 0.9s both;">
+                <div class="flex items-center gap-3">
+                  <button id="exploreBtn" class="flex-1 px-5 py-3.5 rounded-xl bg-white hover:bg-white/95 text-slate-900 text-[14px] font-medium transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="compass" class="lucide lucide-compass w-4 h-4"><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                    Start exploring
+                  </button>
+                  <button id="watchBtn" class="px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 ring-1 ring-white/30 text-white text-[14px] font-medium backdrop-blur transition-all flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="play-circle" class="lucide lucide-play-circle w-4 h-4"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                    Watch
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Proof -->
+          <div class="px-6 py-6" style="animation: slideUp 0.6s ease-out 1s both;">
+            <button id="reviewsBtn" class="w-full flex items-center justify-between p-4 rounded-2xl bg-slate-50 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+              <div class="flex items-center gap-3">
+                <div class="flex -space-x-2">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&amp;w=100&amp;auto=format&amp;fit=crop" class="w-8 h-8 rounded-full ring-2 ring-white object-cover" alt="">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&amp;w=100&amp;auto=format&amp;fit=crop" class="w-8 h-8 rounded-full ring-2 ring-white object-cover" alt="">
+                  <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&amp;w=100&amp;auto=format&amp;fit=crop" class="w-8 h-8 rounded-full ring-2 ring-white object-cover" alt="">
+                </div>
+                <div class="text-left">
+                  <p class="text-[13px] font-semibold text-slate-900">Trusted by millions</p>
+                  <div class="flex items-center gap-1 mt-0.5">
+                    <div class="flex">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-yellow-400 text-yellow-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-yellow-400 text-yellow-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-yellow-400 text-yellow-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-yellow-400 text-yellow-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-yellow-400 text-yellow-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                    </div>
+                    <span class="text-[11px] text-slate-600 ml-1">4.9 (12.5k reviews)</span>
+                  </div>
+                </div>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right w-5 h-5 text-slate-400"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+          </div>
+
+          <!-- Quick Filters -->
+          <div class="px-6" style="animation: slideLeft 0.6s ease-out 1.1s both;">
+            <h3 class="text-[15px] font-semibold tracking-tight text-slate-900 mb-4">Plan your trip</h3>
+            <div class="grid grid-cols-3 gap-3">
+              <button id="datesBtn" class="plan-btn p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 hover:ring-slate-300 text-slate-700 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-range" class="lucide lucide-calendar-range w-5 h-5 mb-2"><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M16 2v4"></path><path d="M3 10h18"></path><path d="M8 2v4"></path><path d="M17 14h-6"></path><path d="M13 18H7"></path><path d="M7 14h.01"></path><path d="M17 18h.01"></path></svg>
+                <p class="text-[12px] font-medium">Select dates</p>
+              </button>
+              <button id="locationBtn" class="plan-btn p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 hover:ring-slate-300 text-slate-700 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="map-pinned" class="lucide lucide-map-pinned w-5 h-5 mb-2"><path d="M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0"></path><circle cx="12" cy="8" r="2"></circle><path d="M8.714 14h-3.71a1 1 0 0 0-.948.683l-2.004 6A1 1 0 0 0 3 22h18a1 1 0 0 0 .948-1.316l-2-6a1 1 0 0 0-.949-.684h-3.712"></path></svg>
+                <p class="text-[12px] font-medium">Location</p>
+              </button>
+              <button id="guestsBtn" class="plan-btn p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 hover:ring-slate-300 text-slate-700 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="users-round" class="lucide lucide-users-round w-5 h-5 mb-2"><path d="M18 21a8 8 0 0 0-16 0"></path><circle cx="10" cy="8" r="5"></circle><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"></path></svg>
+                <p class="text-[12px] font-medium">Guests</p>
+              </button>
+            </div>
+          </div>
+
+          <!-- Stats Bar -->
+          <div class="px-6 mt-6" style="animation: slideUp 0.6s ease-out 1.2s both;">
+            <div class="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-slate-50 ring-1 ring-slate-200">
+              <div class="text-center">
+                <p class="text-[20px] font-semibold tracking-tight text-slate-900" id="guestsCount">2.4M+</p>
+                <p class="text-[11px] text-slate-600 mt-0.5">Happy guests</p>
+              </div>
+              <div class="text-center border-x border-slate-200">
+                <p class="text-[20px] font-semibold tracking-tight text-slate-900">150+</p>
+                <p class="text-[11px] text-slate-600 mt-0.5">Countries</p>
+              </div>
+              <div class="text-center">
+                <p class="text-[20px] font-semibold tracking-tight text-slate-900">50k+</p>
+                <p class="text-[11px] text-slate-600 mt-0.5">Properties</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-auto py-6"></div>
+        </div>
+
+        <!-- Tab Bar for Screen 2 -->
+        <div class="tab-bar-shadow bg-white/95 border-slate-200 border-t pt-3 pr-6 pb-3 pl-6 absolute right-0 bottom-0 left-0 backdrop-blur-xl" style="animation: slideUp 0.6s ease-out 1.3s both;">
+          <div class="flex items-center justify-around">
+            <button class="tab-btn-2 flex flex-col items-center gap-1 py-2 px-4" data-tab="home">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" class="lucide lucide-home w-6 h-6 text-slate-900"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+              <span class="text-[10px] font-medium text-slate-900">Home</span>
+            </button>
+            <button class="tab-btn-2 flex flex-col items-center gap-1 py-2 px-4" data-tab="discover">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-6 h-6 text-slate-400"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+              <span class="text-[10px] font-medium text-slate-400">Discover</span>
+            </button>
+            <button class="tab-btn-2 flex flex-col items-center gap-1 py-2 px-4" data-tab="bookings">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-days" class="lucide lucide-calendar-days w-6 h-6 text-slate-400"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg>
+              <span class="text-[10px] font-medium text-slate-400">Bookings</span>
+            </button>
+            <button class="tab-btn-2 flex flex-col items-center gap-1 py-2 px-4" data-tab="account">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-round" class="lucide lucide-user-round w-6 h-6 text-slate-400"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+              <span class="text-[10px] font-medium text-slate-400">Account</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right iPhone: Booking Details -->
+      <section class="w-[393px] h-[852px] bg-white rounded-[46px] border border-slate-200 overflow-hidden shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.02),_0_6.7px_5.3px_rgba(0,_0,_0,_0.028),_0_12.5px_10px_rgba(0,_0,_0,_0.035),_0_22.3px_17.9px_rgba(0,_0,_0,_0.042),_0_41.8px_33.4px_rgba(0,_0,_0,_0.05),_0_100px_80px_rgba(0,_0,_0,_0.07)]" style="animation: 0.8s ease-out 0.4s 1 normal both running scaleIn; scroll-behavior: smooth;">
+        <div class="h-full flex flex-col overflow-y-auto pb-20">
+          <!-- Status Bar -->
+          <div class="px-6 pt-6 pb-3 flex items-center justify-between text-slate-800" style="animation: slideDown 0.6s ease-out 0.6s both;">
+            <span class="text-sm font-medium" id="time3">23:04</span>
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="signal" class="lucide lucide-signal w-4 h-4"><path d="M2 20h.01"></path><path d="M7 20v-4"></path><path d="M12 20v-8"></path><path d="M17 20V8"></path><path d="M22 4v16"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi w-4 h-4"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="battery-charging" class="lucide lucide-battery-charging w-5 h-5"><path d="m11 7-3 5h4l-3 5"></path><path d="M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.935"></path><path d="M22 14v-4"></path><path d="M5.14 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.936"></path></svg>
+            </div>
+          </div>
+
+          <!-- Header with Back Button -->
+          <div class="px-6 pb-4 flex items-center justify-between" style="animation: slideDown 0.6s ease-out 0.7s both;">
+            <div class="flex items-center gap-3">
+              <button id="backBtn" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left" class="lucide lucide-arrow-left w-5 h-5"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+              </button>
+              <h2 class="text-[22px] font-semibold tracking-tight text-slate-900">Booking details</h2>
+            </div>
+            <button id="shareBtn" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="share-2" class="lucide lucide-share-2 w-5 h-5"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+            </button>
+          </div>
+
+          <!-- Property Card -->
+          <div class="px-6 mb-5" style="animation: blurIn 0.8s ease-out 0.8s both;">
+            <div class="rounded-3xl ring-1 ring-slate-200 overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+              <div class="relative">
+                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&amp;w=1974&amp;auto=format&amp;fit=crop" alt="Mountain Peak Lodge" class="w-full h-40 object-cover">
+                <button id="heartBtn" class="heart-btn absolute top-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart w-5 h-5 text-slate-700"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path></svg>
+                </button>
+                <div class="absolute top-3 left-3">
+                  <span class="px-3 py-1.5 rounded-full bg-slate-900/90 backdrop-blur-sm text-white text-[11px] font-semibold">Featured</span>
+                </div>
+              </div>
+              <div class="p-5">
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 class="text-[17px] font-semibold tracking-tight text-slate-900">Mountain Peak Lodge</h3>
+                    <p class="text-[13px] text-slate-600 flex items-center gap-1 mt-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="map-pin" class="lucide lucide-map-pin w-3.5 h-3.5"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      Aspen, Colorado
+                    </p>
+                  </div>
+                  <div class="text-right">
+                    <div class="flex items-center gap-1 mb-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-yellow-400 text-yellow-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                      <span class="text-[14px] font-semibold text-slate-900">4.95</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">238 reviews</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="px-3 py-1.5 rounded-xl bg-slate-50 ring-1 ring-slate-200 text-[11px] font-medium text-slate-700 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="bed-double" class="lucide lucide-bed-double w-3.5 h-3.5"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><path d="M12 4v6"></path><path d="M2 18h20"></path></svg>
+                    6 bedrooms
+                  </span>
+                  <span class="px-3 py-1.5 rounded-xl bg-slate-50 ring-1 ring-slate-200 text-[11px] font-medium text-slate-700 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="bath" class="lucide lucide-bath w-3.5 h-3.5"><path d="M10 4 8 6"></path><path d="M17 19v2"></path><path d="M2 12h20"></path><path d="M7 19v2"></path><path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"></path></svg>
+                    5 baths
+                  </span>
+                  <span class="px-3 py-1.5 rounded-xl bg-slate-50 ring-1 ring-slate-200 text-[11px] font-medium text-slate-700 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users w-3.5 h-3.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    12 guests
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-4 gap-2">
+                  <button class="amenity-btn flex flex-col items-center gap-1 p-2 rounded-xl bg-slate-50 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi w-4 h-4 text-slate-700"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+                    <span class="text-[10px] text-slate-600">Wi‑Fi</span>
+                  </button>
+                  <button class="amenity-btn flex flex-col items-center gap-1 p-2 rounded-xl bg-slate-50 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="utensils" class="lucide lucide-utensils w-4 h-4 text-slate-700"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>
+                    <span class="text-[10px] text-slate-600">Kitchen</span>
+                  </button>
+                  <button class="amenity-btn flex flex-col items-center gap-1 p-2 rounded-xl bg-slate-50 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="flame" class="lucide lucide-flame w-4 h-4 text-slate-700"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg>
+                    <span class="text-[10px] text-slate-600">Fireplace</span>
+                  </button>
+                  <button class="amenity-btn flex flex-col items-center gap-1 p-2 rounded-xl bg-slate-50 ring-1 ring-slate-200 hover:ring-slate-300 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="mountain-snow" class="lucide lucide-mountain-snow w-4 h-4 text-slate-700"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19"></path></svg>
+                    <span class="text-[10px] text-slate-600">Ski-in</span>
+                  </button>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-slate-200 flex items-center justify-between">
+                  <div>
+                    <p class="text-[12px] text-slate-500">Price per night</p>
+                    <p class="text-[22px] font-semibold tracking-tight text-slate-900">$1,250<span class="text-[14px] font-medium text-slate-500">/night</span></p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" class="lucide lucide-info w-4 h-4 text-slate-400"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                    <span class="text-[11px] text-slate-500">+$150 fees</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Date Selection -->
+          <div class="px-6 mb-5" style="animation: slideUp 0.6s ease-out 0.9s both;">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="text-[15px] font-semibold tracking-tight text-slate-900">Select your dates</h4>
+              <button id="calendarBtn" class="text-[12px] text-slate-600 hover:text-slate-900 font-medium flex items-center gap-1 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" class="lucide lucide-calendar w-3.5 h-3.5"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+                View calendar
+              </button>
+            </div>
+            <div class="grid grid-cols-7 gap-2 mb-3">
+              <div class="text-center">
+                <p class="text-[10px] text-slate-500 font-medium mb-1">SUN</p>
+                <button class="date-btn w-full aspect-square rounded-xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 text-[13px] text-slate-400 transition-all" data-date="8">8</button>
+              </div>
+              <div class="text-center">
+                <p class="text-[10px] text-slate-500 font-medium mb-1">MON</p>
+                <button class="date-btn w-full aspect-square rounded-xl bg-slate-900 text-white text-[13px] font-medium shadow-sm" data-date="9" data-selected="true">9</button>
+              </div>
+              <div class="text-center">
+                <p class="text-[10px] text-slate-500 font-medium mb-1">TUE</p>
+                <button class="date-btn w-full aspect-square rounded-xl bg-slate-900 text-white text-[13px] font-medium" data-date="10" data-selected="true">10</button>
+              </div>
+              <div class="text-center">
+                <p class="text-[10px] text-slate-500 font-medium mb-1">WED</p>
+                <button class="date-btn w-full aspect-square rounded-xl bg-slate-900 text-white text-[13px] font-medium" data-date="11" data-selected="true">11</button>
+              </div>
+              <div class="text-center">
+                <p class="text-[10px] text-slate-500 font-medium mb-1">THU</p>
+                <button class="date-btn w-full aspect-square rounded-xl bg-slate-900 text-white text-[13px] font-medium shadow-sm" data-date="12" data-selected="true">12</button>
+              </div>
+              <div class="text-center">
+                <p class="text-[10px] text-slate-500 font-medium mb-1">FRI</p>
+                <button class="date-btn w-full aspect-square rounded-xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 text-[13px] text-slate-700 transition-all" data-date="13">13</button>
+              </div>
+              <div class="text-center">
+                <p class="text-[10px] text-slate-500 font-medium mb-1">SAT</p>
+                <button class="date-btn w-full aspect-square rounded-xl bg-slate-50 hover:bg-slate-100 ring-1 ring-slate-200 text-[13px] text-slate-700 transition-all" data-date="14">14</button>
+              </div>
+            </div>
+            <div id="dateInfo" class="flex items-center gap-2 p-3 rounded-xl bg-blue-50 ring-1 ring-blue-200">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" class="lucide lucide-info w-4 h-4 text-blue-600"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+              <p class="text-[12px] text-blue-900">4 nights selected (Dec 9 - Dec 12)</p>
+            </div>
+          </div>
+
+          <!-- Pricing Breakdown -->
+          <div class="px-6 mb-5" style="animation: slideUp 0.6s ease-out 1s both;">
+            <h4 class="text-[15px] font-semibold tracking-tight text-slate-900 mb-3">Price breakdown</h4>
+            <div class="rounded-2xl bg-slate-50 ring-1 ring-slate-200 p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <p class="text-[13px] text-slate-600">$1,250 × <span id="nightsCount">4</span> nights</p>
+                <p class="text-[14px] font-semibold text-slate-900" id="basePrice">$5,000</p>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-[13px] text-slate-600 flex items-center gap-1">
+                  Service fee
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" class="lucide lucide-info w-3 h-3 text-slate-400"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                </p>
+                <p class="text-[14px] font-semibold text-slate-900">$150</p>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-[13px] text-slate-600">Cleaning fee</p>
+                <p class="text-[14px] font-semibold text-slate-900">$200</p>
+              </div>
+              <div class="flex items-center justify-between text-emerald-700">
+                <p class="text-[13px] font-medium flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="tag" class="lucide lucide-tag w-3.5 h-3.5"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>
+                  Early bird discount
+                </p>
+                <p class="text-[14px] font-semibold">-$250</p>
+              </div>
+              <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+                <p class="text-[14px] font-semibold text-slate-900">Total</p>
+                <p class="text-[20px] font-semibold tracking-tight text-slate-900" id="totalPrice">$5,100</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA Section -->
+          <div class="px-6 mb-6" style="animation: slideUp 0.6s ease-out 1.1s both;">
+            <div class="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-5 text-white shadow-lg">
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <p class="text-[13px] text-white/80">Final amount</p>
+                  <p class="text-[26px] font-semibold tracking-tight mt-1" id="finalAmount">$5,100</p>
+                  <p class="text-[12px] text-white/70 mt-1">Includes all taxes and fees</p>
+                </div>
+                <div class="p-2 rounded-xl bg-white/10 backdrop-blur-sm ring-1 ring-white/20">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" class="lucide lucide-shield-check w-5 h-5"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                </div>
+              </div>
+              <button id="paymentBtn" class="w-full px-5 py-3.5 rounded-xl bg-white hover:bg-white/95 text-slate-900 text-[14px] font-medium transition-all flex items-center justify-center gap-2 shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="lock" class="lucide lucide-lock w-4 h-4"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Proceed to payment
+              </button>
+              <p class="text-[11px] text-white/60 text-center mt-3">Free cancellation within 48 hours</p>
+            </div>
+          </div>
+
+          <div class="h-8"></div>
+        </div>
+
+        <!-- Tab Bar for Screen 3 -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-slate-200 tab-bar-shadow px-6 py-3" style="animation: slideUp 0.6s ease-out 1.4s both;">
+          <div class="flex items-center justify-around">
+            <button class="tab-btn-3 flex flex-col items-center gap-1 py-2 px-4" data-tab="search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-6 h-6 text-slate-400"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+              <span class="text-[10px] font-medium text-slate-400">Search</span>
+            </button>
+            <button class="tab-btn-3 flex flex-col items-center gap-1 py-2 px-4" data-tab="booking">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="receipt" class="lucide lucide-receipt w-6 h-6 text-slate-900"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg>
+              <span class="text-[10px] font-medium text-slate-900">Booking</span>
+            </button>
+            <button class="tab-btn-3 flex flex-col items-center gap-1 py-2 px-4" data-tab="inbox">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-circle" class="lucide lucide-message-circle w-6 h-6 text-slate-400"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
+              <span class="text-[10px] font-medium text-slate-400">Inbox</span>
+            </button>
+            <button class="tab-btn-3 flex flex-col items-center gap-1 py-2 px-4" data-tab="menu">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu w-6 h-6 text-slate-400"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+              <span class="text-[10px] font-medium text-slate-400">Menu</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Lucide Icons -->
+  <script type="module">
+    import { createIcons, icons } from "https://cdn.jsdelivr.net/npm/lucide@latest/+esm";
+    createIcons({ 
+      icons,
+      attrs: {
+        'stroke-width': 1.5
+      }
+    });
+  </script>
+
+  <script>
+    // Update time every second
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const timeString = `${hours}:${minutes.toString().padStart(2, '0')}`;
+      
+      document.getElementById('time1').textContent = timeString;
+      document.getElementById('time2').textContent = timeString;
+      document.getElementById('time3').textContent = timeString;
+    }
+    
+    updateTime();
+    setInterval(updateTime, 60000);
+
+    // Tab Bar Functionality - Screen 1
+    const tabBtns1 = document.querySelectorAll('.tab-btn-1');
+    tabBtns1.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tab = this.dataset.tab;
+        
+        // Reset all tabs
+        tabBtns1.forEach(b => {
+          const icon = b.querySelector('svg');
+          const text = b.querySelector('span');
+          icon.classList.remove('text-slate-900');
+          icon.classList.add('text-slate-400');
+          text.classList.remove('text-slate-900');
+          text.classList.add('text-slate-400');
+        });
+        
+        // Activate current tab
+        const icon = this.querySelector('svg');
+        const text = this.querySelector('span');
+        icon.classList.add('text-slate-900');
+        icon.classList.remove('text-slate-400');
+        text.classList.add('text-slate-900');
+        text.classList.remove('text-slate-400');
+        
+        console.log('Screen 1 - Navigated to:', tab);
+        alert(`Screen 1: Navigating to ${tab} section`);
+      });
+    });
+
+    // Tab Bar Functionality - Screen 2
+    const tabBtns2 = document.querySelectorAll('.tab-btn-2');
+    tabBtns2.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tab = this.dataset.tab;
+        
+        // Reset all tabs
+        tabBtns2.forEach(b => {
+          const icon = b.querySelector('svg');
+          const text = b.querySelector('span');
+          icon.classList.remove('text-slate-900');
+          icon.classList.add('text-slate-400');
+          text.classList.remove('text-slate-900');
+          text.classList.add('text-slate-400');
+        });
+        
+        // Activate current tab
+        const icon = this.querySelector('svg');
+        const text = this.querySelector('span');
+        icon.classList.add('text-slate-900');
+        icon.classList.remove('text-slate-400');
+        text.classList.add('text-slate-900');
+        text.classList.remove('text-slate-400');
+        
+        console.log('Screen 2 - Navigated to:', tab);
+        alert(`Screen 2: Navigating to ${tab} section`);
+      });
+    });
+
+    // Tab Bar Functionality - Screen 3
+    const tabBtns3 = document.querySelectorAll('.tab-btn-3');
+    tabBtns3.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tab = this.dataset.tab;
+        
+        // Reset all tabs
+        tabBtns3.forEach(b => {
+          const icon = b.querySelector('svg');
+          const text = b.querySelector('span');
+          icon.classList.remove('text-slate-900');
+          icon.classList.add('text-slate-400');
+          text.classList.remove('text-slate-900');
+          text.classList.add('text-slate-400');
+        });
+        
+        // Activate current tab
+        const icon = this.querySelector('svg');
+        const text = this.querySelector('span');
+        icon.classList.add('text-slate-900');
+        icon.classList.remove('text-slate-400');
+        text.classList.add('text-slate-900');
+        text.classList.remove('text-slate-400');
+        
+        console.log('Screen 3 - Navigated to:', tab);
+        alert(`Screen 3: Navigating to ${tab} section`);
+      });
+    });
+
+    // Screen 1: Discover functionality
+    let notificationActive = true;
+    document.getElementById('notificationBtn').addEventListener('click', () => {
+      const dot = document.getElementById('notificationDot');
+      if (notificationActive) {
+        dot.style.opacity = '0';
+        notificationActive = false;
+        setTimeout(() => {
+          alert('No new notifications');
+        }, 100);
+      }
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      if (e.target.value.length > 0) {
+        e.target.parentElement.style.borderColor = '#1e293b';
+      } else {
+        e.target.parentElement.style.borderColor = '';
+      }
+    });
+
+    document.getElementById('filterBtn').addEventListener('click', () => {
+      alert('Filter menu opened');
+    });
+
+    document.getElementById('joinTravelersBtn').addEventListener('click', () => {
+      alert('Join 2.4M travelers - Sign up page');
+    });
+
+    // Category selection
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryBtns.forEach(b => {
+          b.classList.remove('bg-slate-900', 'text-white', 'shadow-lg');
+          b.classList.add('bg-slate-50', 'text-slate-700', 'ring-1', 'ring-slate-200');
+        });
+        btn.classList.add('bg-slate-900', 'text-white', 'shadow-lg');
+        btn.classList.remove('bg-slate-50', 'text-slate-700', 'ring-1', 'ring-slate-200');
+        
+        const category = btn.dataset.category;
+        console.log('Selected category:', category);
+      });
+    });
+
+    let bookmarked1 = false;
+    document.getElementById('bookmarkBtn1').addEventListener('click', function() {
+      const icon = this.querySelector('svg');
+      bookmarked1 = !bookmarked1;
+      
+      if (bookmarked1) {
+        icon.style.fill = '#1e293b';
+        icon.style.color = '#1e293b';
+      } else {
+        icon.style.fill = 'none';
+        icon.style.color = '#475569';
+      }
+    });
+
+    document.getElementById('bookNowBtn').addEventListener('click', () => {
+      alert('Booking Azure Bay Residence - Redirecting to booking page...');
+    });
+
+    document.getElementById('detailsBtn').addEventListener('click', () => {
+      alert('Showing property details for Azure Bay Residence');
+    });
+
+    document.querySelectorAll('.trust-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const title = this.querySelector('p').textContent;
+        alert(`Learn more about: ${title}`);
+      });
+    });
+
+    // Screen 2: Hero Landing functionality
+    document.getElementById('exploreBtn').addEventListener('click', () => {
+      alert('Starting exploration - Loading destinations...');
+    });
+
+    document.getElementById('watchBtn').addEventListener('click', () => {
+      alert('Playing promotional video...');
+    });
+
+    document.getElementById('reviewsBtn').addEventListener('click', () => {
+      alert('Showing all 12.5k reviews');
+    });
+
+    const planBtns = document.querySelectorAll('.plan-btn');
+    planBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const action = this.querySelector('p').textContent;
+        alert(`Opening: ${action}`);
+        
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 150);
+      });
+    });
+
+    let guestsCounter = 2400000;
+    setInterval(() => {
+      guestsCounter += Math.floor(Math.random() * 5);
+      document.getElementById('guestsCount').textContent = (guestsCounter / 1000000).toFixed(1) + 'M+';
+    }, 3000);
+
+    // Screen 3: Booking functionality
+    document.getElementById('backBtn').addEventListener('click', () => {
+      alert('Going back to search results');
+    });
+
+    document.getElementById('shareBtn').addEventListener('click', () => {
+      alert('Share options:\n• Copy link\n• Share via email\n• Share on social media');
+    });
+
+    let heartActive = false;
+    document.getElementById('heartBtn').addEventListener('click', function() {
+      const icon = this.querySelector('svg');
+      heartActive = !heartActive;
+      
+      if (heartActive) {
+        icon.classList.add('filled-heart');
+        this.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 200);
+      } else {
+        icon.classList.remove('filled-heart');
+      }
+    });
+
+    document.querySelectorAll('.amenity-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const amenity = this.querySelector('span').textContent;
+        alert(`Amenity details: ${amenity}`);
+      });
+    });
+
+    document.getElementById('calendarBtn').addEventListener('click', () => {
+      alert('Opening full calendar view');
+    });
+
+    // Date selection functionality
+    let selectedDates = [9, 10, 11, 12];
+    const dateBtns = document.querySelectorAll('.date-btn');
+    
+    dateBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const date = parseInt(this.dataset.date);
+        const isSelected = this.dataset.selected === 'true';
+        
+        if (isSelected) {
+          this.dataset.selected = 'false';
+          this.classList.remove('bg-slate-900', 'text-white', 'font-medium');
+          this.classList.add('bg-slate-50', 'hover:bg-slate-100', 'ring-1', 'ring-slate-200', 'text-slate-700');
+          selectedDates = selectedDates.filter(d => d !== date);
+        } else {
+          this.dataset.selected = 'true';
+          this.classList.add('bg-slate-900', 'text-white', 'font-medium');
+          this.classList.remove('bg-slate-50', 'hover:bg-slate-100', 'ring-1', 'ring-slate-200', 'text-slate-700');
+          selectedDates.push(date);
+          selectedDates.sort((a, b) => a - b);
+        }
+        
+        updatePricing();
+      });
+    });
+
+    function updatePricing() {
+      const nights = selectedDates.length;
+      const pricePerNight = 1250;
+      const basePrice = nights * pricePerNight;
+      const serviceFee = 150;
+      const cleaningFee = 200;
+      const discount = 250;
+      const total = basePrice + serviceFee + cleaningFee - discount;
+      
+      document.getElementById('nightsCount').textContent = nights;
+      document.getElementById('basePrice').textContent = '$' + basePrice.toLocaleString();
+      document.getElementById('totalPrice').textContent = '$' + total.toLocaleString();
+      document.getElementById('finalAmount').textContent = '$' + total.toLocaleString();
+      
+      if (nights > 0) {
+        const minDate = Math.min(...selectedDates);
+        const maxDate = Math.max(...selectedDates);
+        document.getElementById('dateInfo').innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" class="lucide lucide-info w-4 h-4 text-blue-600"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          <p class="text-[12px] text-blue-900">${nights} night${nights !== 1 ? 's' : ''} selected (Dec ${minDate} - Dec ${maxDate})</p>
+        `;
+      } else {
+        document.getElementById('dateInfo').innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" class="lucide lucide-info w-4 h-4 text-slate-400"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          <p class="text-[12px] text-slate-600">No dates selected</p>
+        `;
+      }
+      
+      // Reinitialize Lucide icons
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    }
+
+    document.getElementById('paymentBtn').addEventListener('click', () => {
+      const nights = selectedDates.length;
+      if (nights === 0) {
+        alert('Please select your dates first');
+        return;
+      }
+      
+      const total = document.getElementById('finalAmount').textContent;
+      alert(`Processing payment of ${total}\n\nPayment methods:\n• Credit/Debit Card\n• PayPal\n• Apple Pay\n• Google Pay`);
+    });
+
+    // Add smooth scroll behavior
+    document.querySelectorAll('section').forEach(section => {
+      section.style.scrollBehavior = 'smooth';
+    });
+  </script>
+
+
+
+</body></html>

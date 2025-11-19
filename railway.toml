@@ -1,0 +1,29 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+healthcheckPath = "/api/health"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[[services]]
+name = "bizcap-api"
+source = "."
+[services.variables]
+NODE_ENV = "production"
+PORT = "8080"
+
+[[services]]
+name = "bizcap-convex"
+source = "./convex"
+[services.variables]
+CONVEX_DEPLOYMENT = "${CONVEX_DEPLOYMENT}"
+CONVEX_URL = "${CONVEX_URL}"
+
+[[services]]
+name = "bizcap-ai-service"
+source = "./ai-service"
+[services.variables]
+OPENAI_API_KEY = "${OPENAI_API_KEY}"
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY}"

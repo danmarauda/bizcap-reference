@@ -1,0 +1,588 @@
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Loans — Mobile UI</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style id="aura-editor-visibility-style">
+.invisible { visibility: hidden !important; }
+</style><link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style></head>
+  <body class="antialiased flex items-center justify-center text-neutral-100 bg-neutral-950 min-h-screen" style="font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"><div class="fixed top-0 w-full -z-10 h-screen bg-cover bg-center brightness-75 hue-rotate-180" style="background-image: url(&quot;https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/6b18c9b8-d29b-416a-9c49-ea59f1d4b3b9_3840w.jpg&quot;);"></div>
+
+<!-- Background (image) added by Aura -->
+
+    <main class="flex items-center justify-center min-h-screen p-8">
+      <div class="flex items-center justify-center gap-8">
+  <!-- Screen 1: Marketing -->
+  <div class="overflow-hidden bg-neutral-900 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/a41b5399-c391-4a89-983e-b808071668e1_800w.jpg)] bg-cover border-white/10 border rounded-[2rem] relative shadow-2xl w-[393px] h-[852px]">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <img alt="3D coins" class="h-full w-full object-cover opacity-60" src="https://images.unsplash.com/photo-1621619856624-42fd193a0661?w=1080&amp;q=80" style="visibility: hidden;">
+      <div class="bg-gradient-to-b from-black/10 via-black/30 to-black/70 absolute top-0 right-0 bottom-0 left-0">
+      </div>
+    </div>
+
+    <!-- iOS Status Bar -->
+    <div class="absolute inset-x-0 top-0 z-20">
+      <div class="h-12 px-4 pt-2.5 flex items-center justify-between text-[13px]">
+        <div class="font-medium tracking-tight">9:41</div>
+        <div class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="signal" class="lucide lucide-signal size-4 opacity-90"><path d="M2 20h.01"></path><path d="M7 20v-4"></path><path d="M12 20v-8"></path><path d="M17 20V8"></path><path d="M22 4v16"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi size-4 opacity-90"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="battery" class="lucide lucide-battery size-5 opacity-90"><path d="M 22 14 L 22 10"></path><rect x="2" y="6" width="16" height="12" rx="2"></rect></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col h-full pt-[56px] pr-6 pb-[34px] pl-6 relative justify-between">
+      <div class="space-y-4">
+        <h1 class="md:text-5xl leading-tight text-4xl font-semibold tracking-tight">Secure Crypto Lending</h1>
+        <p class="text-sm text-neutral-300">Unlock instant liquidity with your digital assets. No credit checks, no
+          lengthy approvals.</p>
+      </div>
+
+      <div class="space-y-4">
+        <button class="inline-flex gap-2 hover:bg-neutral-100 transition text-sm font-medium text-neutral-900 bg-white w-full rounded-xl pt-3.5 pr-4 pb-3.5 pl-4 gap-x-2 gap-y-2 items-center justify-center">
+                  Get Started
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right size-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </button>
+
+        <div class="rounded-xl bg-neutral-900/60 ring-1 ring-white/10 p-3 flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" class="lucide lucide-shield-check size-4 text-emerald-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          <p class="text-xs text-neutral-300">Assets remain in secure custody while you borrow.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="absolute inset-x-0 bottom-0 z-20">
+      <div class="h-8 flex items-end justify-center pb-2">
+        <div class="w-[134px] h-[5px] rounded-full bg-white/80"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 2: Dashboard -->
+  <div class="overflow-hidden xl:bg-gray-950 bg-neutral-900 border-white/10 border rounded-[2rem] relative shadow-2xl w-[393px] h-[852px]">
+    <!-- iOS Status Bar -->
+    <div class="z-20 absolute top-0 right-0 left-0">
+      <div class="flex text-[13px] h-12 pt-2.5 pr-4 pl-4 items-center justify-between">
+        <div class="font-medium tracking-tight">9:41</div>
+        <div class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="signal" class="lucide lucide-signal size-4 opacity-90"><path d="M2 20h.01"></path><path d="M7 20v-4"></path><path d="M12 20v-8"></path><path d="M17 20V8"></path><path d="M22 4v16"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi size-4 opacity-90"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="battery" class="lucide lucide-battery size-5 opacity-90"><path d="M 22 14 L 22 10"></path><rect x="2" y="6" width="16" height="12" rx="2"></rect></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col overflow-y-auto h-full pt-[56px] pr-5 pb-[34px] pl-5">
+      <div class="flex items-center justify-between">
+        <div class="flex flex-col gap-x-1 gap-y-1">
+          <h2 class="text-s xl:text-sm xl:text-neutral-500 font-medium tracking-tight">Good morning</h2>
+          <h2 class="text-xl font-medium tracking-tight">Frederick Desjardin</h2>
+
+        </div>
+        <img alt="avatar" class="size-12 ring-1 ring-white/10 object-cover rounded-full" src="https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/48bfa4c0-f6a0-4932-b61a-337e47aa04e9_320w.jpg">
+      </div>
+
+      <div class="xl:bg-neutral-800/50 ring-white/20 ring-1 bg-neutral-800/50 rounded-xl mt-4 pt-4 pr-4 pb-4 pl-4">
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-medium tracking-tight">Balance</span>
+          <div class="inline-flex gap-2 bg-neutral-900/60 ring-white/10 ring-1 rounded-lg pt-1 pr-2 pb-1 pl-2 items-center">
+            <button class="text-[11px] px-2 py-1 rounded-md bg-white/5 text-neutral-200">All</button>
+            <button class="text-[11px] px-2 py-1 rounded-md text-neutral-400 hover:text-neutral-200">Available</button>
+          </div>
+        </div>
+
+        <div class="mt-2 space-y-2">
+          <div class="text-4xl font-semibold tracking-tight">
+            $56,356<span class="align-top text-base font-medium text-neutral-400">.25</span></div>
+          <div class="text-xs text-neutral-400">≈ 0.536279 BTC</div>
+        </div>
+
+
+
+        <div class="mt-4">
+          <div class="relative">
+            <div class="overflow-hidden h-36" style="">
+              <svg width="386" height="144" viewBox="0 0 386 144" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[386px] h-[144px] -translate-x-2" stroke-width="2" data-icon-replaced="true" style="width: 386px; height: 144px; color: rgb(245, 245, 245);">
+                <path d="M2.76074 10.7469V4.07068H2.6748L0.703613 5.49939V4.47888L2.76611 2.99646H3.72754V10.7469H2.76074ZM8.16152 10.9296C7.58861 10.9296 7.09805 10.7649 6.68984 10.4354C6.28522 10.106 5.9737 9.63871 5.75527 9.03357C5.53685 8.42485 5.42764 7.70512 5.42764 6.87439V6.86365C5.42764 6.03292 5.53685 5.31498 5.75527 4.70984C5.9737 4.1047 6.28522 3.63741 6.68984 3.30798C7.09805 2.97856 7.58861 2.81384 8.16152 2.81384C8.73444 2.81384 9.225 2.97856 9.6332 3.30798C10.0414 3.63741 10.3547 4.1047 10.5731 4.70984C10.7951 5.31498 10.9062 6.03292 10.9062 6.86365V6.87439C10.9062 7.70512 10.7951 8.42485 10.5731 9.03357C10.3547 9.63871 10.0414 10.106 9.6332 10.4354C9.225 10.7649 8.73444 10.9296 8.16152 10.9296ZM8.16152 10.0863C8.53392 10.0863 8.85081 9.95561 9.11221 9.69421C9.37718 9.43282 9.57949 9.06222 9.71914 8.5824C9.86237 8.10258 9.93398 7.53324 9.93398 6.87439V6.86365C9.93398 6.20479 9.86237 5.63725 9.71914 5.16101C9.57949 4.68119 9.37718 4.31238 9.11221 4.05457C8.85081 3.79317 8.53392 3.66248 8.16152 3.66248C7.79271 3.66248 7.47581 3.79317 7.21084 4.05457C6.94945 4.31238 6.74893 4.68119 6.60928 5.16101C6.46963 5.63725 6.3998 6.20479 6.3998 6.86365V6.87439C6.3998 7.53324 6.46963 8.10258 6.60928 8.5824C6.74893 9.06222 6.94945 9.43282 7.21084 9.69421C7.47581 9.95561 7.79271 10.0863 8.16152 10.0863Z" fill="currentColor" fill-opacity="0.7" class="invisible" style="visibility: hidden;"></path>
+                <path d="M3.02024 100.845C2.51687 100.845 2.0869 100.7 1.73035 100.411C1.37612 100.12 1.10346 99.6994 0.912365 99.1494C0.7236 98.5995 0.629217 97.9388 0.629217 97.1674C0.629217 96.3984 0.7236 95.74 0.912365 95.1924C1.10346 94.6424 1.37729 94.2217 1.73384 93.9304C2.09273 93.6368 2.52153 93.49 3.02024 93.49C3.51895 93.49 3.94659 93.6368 4.30315 93.9304C4.66203 94.2217 4.93586 94.6424 5.12462 95.1924C5.31572 95.74 5.41127 96.3984 5.41127 97.1674C5.41127 97.9388 5.31572 98.5995 5.12462 99.1494C4.93586 99.6994 4.6632 100.12 4.30664 100.411C3.95241 100.7 3.52362 100.845 3.02024 100.845ZM3.02024 100.258C3.57255 100.258 4.00368 99.9884 4.31363 99.4501C4.62358 98.9094 4.77855 98.1485 4.77855 97.1674C4.77855 96.5149 4.70748 95.9579 4.56532 95.4965C4.42549 95.0327 4.22391 94.6785 3.96057 94.4338C3.69956 94.1891 3.38612 94.0668 3.02024 94.0668C2.47259 94.0668 2.04262 94.3394 1.73035 94.8847C1.41807 95.4277 1.26193 96.1886 1.26193 97.1674C1.26193 97.8199 1.33184 98.3769 1.47167 98.8383C1.61383 99.2997 1.81541 99.6516 2.07642 99.894C2.33975 100.136 2.65436 100.258 3.02024 100.258Z" fill="currentColor" fill-opacity="0.7" class="invisible" style="visibility: hidden;"></path>
+                <path d="M382.363 69.7469C382.363 71.2197 381.17 72.4136 379.697 72.4136C378.224 72.4136 377.03 71.2197 377.03 69.7469C377.03 68.2742 378.224 67.0803 379.697 67.0803C381.17 67.0803 382.363 68.2742 382.363 69.7469ZM379.697 70.2469C373.079 70.2469 367.648 67.1884 362.972 62.6715C358.305 58.1623 354.353 52.1652 350.685 46.2171C347.002 40.245 343.615 34.34 340.045 29.9112C336.468 25.4733 332.818 22.6623 328.656 22.6623V21.6623C333.3 21.6623 337.209 24.7995 340.824 29.2836C344.446 33.7769 347.883 39.7682 351.536 45.6922C355.204 51.6402 359.099 57.5393 363.667 61.9522C368.227 66.3574 373.422 69.2469 379.697 69.2469V70.2469ZM328.656 22.6623C324.503 22.6623 320.899 25.5384 317.419 30.0879C313.947 34.6258 310.708 40.6798 307.237 46.7988C303.779 52.8935 300.098 59.04 295.768 63.6619C291.431 68.29 286.395 71.4418 280.23 71.4418V70.4418C286.014 70.4418 290.805 67.4962 295.038 62.9782C299.276 58.4539 302.906 52.4056 306.367 46.3054C309.814 40.2295 313.099 34.0887 316.624 29.4803C320.141 24.8837 324.005 21.6623 328.656 21.6623V22.6623ZM280.23 71.4418C272.155 71.4418 265.777 66.9276 260.5 60.2849C255.227 53.6474 250.999 44.8186 247.225 36.0419C243.438 27.2359 240.115 18.5062 236.63 11.9496C234.889 8.67499 233.127 5.98311 231.277 4.11502C229.429 2.24957 227.534 1.24694 225.515 1.24695V0.246948C227.898 0.246943 230.032 1.4379 231.987 3.41123C233.939 5.38192 235.755 8.174 237.513 11.4802C241.024 18.0851 244.383 26.9041 248.143 35.6468C251.916 44.4189 256.1 53.1388 261.283 59.6629C266.461 66.1817 272.582 70.4418 280.23 70.4418V71.4418ZM225.515 1.24695C221.434 1.24696 218.844 4.25078 216.554 9.13859C215.415 11.568 214.376 14.4089 213.272 17.4796C212.17 20.543 211.006 23.8286 209.624 27.1151C206.861 33.6872 203.207 40.3147 197.361 45.2967C191.503 50.2895 183.484 53.5957 172.057 53.5957V52.5957C183.272 52.5957 191.054 49.3582 196.713 44.5356C202.384 39.7023 205.963 33.2426 208.702 26.7275C210.072 23.4705 211.227 20.2124 212.331 17.1412C213.433 14.0773 214.487 11.1926 215.648 8.71431C217.957 3.78674 220.791 0.246958 225.515 0.246948V1.24695ZM172.057 53.5957C166.573 53.5957 162.971 56.0925 160.251 59.8931C157.505 63.7289 155.683 68.8598 153.792 74.0862C151.916 79.2754 149.973 84.5563 146.976 88.5313C143.954 92.54 139.849 95.2367 133.694 95.2367V94.2367C139.488 94.2367 143.314 91.7282 146.178 87.9293C149.067 84.0966 150.964 78.9672 152.852 73.7461C154.727 68.5624 156.595 63.283 159.437 59.3111C162.305 55.304 166.188 52.5957 172.057 52.5957V53.5957ZM133.694 95.2367C122.032 95.2367 114.043 88.7149 106.692 82.3243C99.2887 75.8881 92.5892 69.6572 83.3808 69.6572V68.6572C93.0397 68.6572 100.04 75.216 107.348 81.5696C114.708 87.9687 122.442 94.2367 133.694 94.2367V95.2367ZM83.3808 69.6572C78.8472 69.6572 73.5005 72.5317 67.9715 76.9826C62.4647 81.4156 56.8673 87.3372 51.8453 93.275C46.8256 99.21 42.3925 105.147 39.2137 109.601C37.6245 111.828 36.3495 113.684 35.472 114.982C35.0333 115.631 34.694 116.141 34.4646 116.488C34.3499 116.662 34.2626 116.795 34.2042 116.884C34.175 116.929 34.1529 116.963 34.1382 116.985C34.1309 116.996 34.1254 117.005 34.1218 117.011C34.1199 117.013 34.1186 117.015 34.1177 117.017C34.1172 117.017 34.1169 117.018 34.1167 117.018C34.1165 117.019 34.1164 117.019 33.6967 116.747C33.277 116.475 33.2772 116.475 33.2775 116.475C33.2777 116.474 33.2781 116.474 33.2786 116.473C33.2796 116.471 33.281 116.469 33.283 116.466C33.2868 116.46 33.2925 116.451 33.3 116.44C33.3152 116.417 33.3376 116.382 33.3672 116.337C33.4265 116.246 33.5146 116.112 33.6303 115.937C33.8615 115.587 34.2027 115.074 34.6435 114.422C35.525 113.118 36.8049 111.255 38.3997 109.021C41.5886 104.552 46.0388 98.5916 51.0818 92.6292C56.1223 86.6695 61.7667 80.6937 67.3445 76.2036C72.9 71.7314 78.4807 68.6572 83.3808 68.6572V69.6572Z" fill="#4089F1" class="" style=""></path>
+                <path d="M328.656 22.1623C346.266 22.1623 353.911 69.7469 379.697 69.7469V116.747H33.6967C33.6967 116.747 64.5134 69.1572 83.3808 69.1572C102.248 69.1572 110.78 94.7367 133.694 94.7367C157.592 94.7367 149.35 53.0957 172.057 53.0957C217.339 53.0957 207.905 0.746986 225.515 0.746948C243.124 0.74691 248.785 70.9418 280.23 70.9418C304.129 70.9418 311.047 22.1623 328.656 22.1623Z" fill="url(#paint0_linear_75014_23873)" class="invisible" style="visibility: hidden;"></path>
+                <path d="M374.351 10.7469C374.351 13.6925 376.738 16.0803 379.684 16.0803C382.629 16.0803 385.017 13.6925 385.017 10.7469C385.017 7.80143 382.629 5.41361 379.684 5.41361C376.738 5.41361 374.351 7.80143 374.351 10.7469ZM186.764 65.3263L186.362 66.2418L186.764 65.3263ZM224.862 62.105L224.312 61.27L224.862 62.105ZM87.2611 93.2157L86.8589 92.3002L87.2611 93.2157ZM94.9651 88.7485L94.3703 87.9447L94.9651 88.7485ZM34.099 117.662L87.6633 94.1313L86.8589 92.3002L33.2945 115.831L34.099 117.662ZM95.5599 89.5524L130.976 63.3473L129.786 61.7395L94.3703 87.9447L95.5599 89.5524ZM169.86 58.9921L186.362 66.2418L187.166 64.4107L170.664 57.161L169.86 58.9921ZM225.413 62.94L254.891 43.515L253.79 41.8449L224.312 61.27L225.413 62.94ZM276.35 37.0803H313.62V35.0803H276.35V37.0803ZM330.111 33.6176L380.086 11.6625L379.282 9.8314L329.307 31.7865L330.111 33.6176ZM313.62 37.0803C319.297 37.0803 324.913 35.9012 330.111 33.6176L329.307 31.7865C324.362 33.9587 319.021 35.0803 313.62 35.0803V37.0803ZM254.891 43.515C261.261 39.3175 268.722 37.0803 276.35 37.0803V35.0803C268.331 35.0803 260.487 37.4322 253.79 41.8449L254.891 43.515ZM186.362 66.2418C199.096 71.8365 213.798 70.5934 225.413 62.94L224.312 61.27C213.264 68.55 199.279 69.7325 187.166 64.4107L186.362 66.2418ZM130.976 63.3473C142.218 55.0283 157.055 53.3665 169.86 58.9921L170.664 57.161C157.203 51.247 141.605 52.9939 129.786 61.7395L130.976 63.3473ZM87.6633 94.1313C90.4578 92.9037 93.1064 91.3679 95.5599 89.5524L94.3703 87.9447C92.0364 89.6716 89.517 91.1325 86.8589 92.3002L87.6633 94.1313Z" fill="#EC507E" class="invisible" style="visibility: hidden;"></path>
+                <path d="M377.017 33.547C377.017 35.0197 378.211 36.2136 379.684 36.2136C381.157 36.2136 382.351 35.0197 382.351 33.547C382.351 32.0742 381.157 30.8803 379.684 30.8803C378.211 30.8803 377.017 32.0742 377.017 33.547ZM105.465 26.7469V27.2471L105.479 27.2468L105.465 26.7469ZM173.892 19.0988L173.647 18.6629L173.892 19.0988ZM191.033 9.46744L191.278 9.90334L191.033 9.46744ZM293.816 28.6116L293.58 28.1706L293.816 28.6116ZM342.676 20.7113L342.512 21.1837L342.676 20.7113ZM379.848 33.0746L342.84 20.2389L342.512 21.1837L379.52 34.0193L379.848 33.0746ZM302.499 23.4068L293.58 28.1706L294.051 29.0526L302.97 24.2888L302.499 23.4068ZM190.788 9.03154L173.647 18.6629L174.137 19.5347L191.278 9.90334L190.788 9.03154ZM150.772 24.9896L105.451 26.2471L105.479 27.2468L150.8 25.9892L150.772 24.9896ZM105.465 26.2469H33.6967V27.2469H105.465V26.2469ZM173.647 18.6629C166.648 22.5956 158.797 24.7669 150.772 24.9896L150.8 25.9892C158.987 25.762 166.996 23.5469 174.137 19.5347L173.647 18.6629ZM243.193 18.5052C230.258 3.18572 208.267 -0.789843 190.788 9.03154L191.278 9.90334C208.339 0.316966 229.804 4.1974 242.429 19.1504L243.193 18.5052ZM293.58 28.1706C276.607 37.2366 255.607 33.2083 243.193 18.5052L242.429 19.1504C255.147 34.2138 276.662 38.3409 294.051 29.0526L293.58 28.1706ZM342.84 20.2389C329.539 15.6258 314.916 16.7741 302.499 23.4068L302.97 24.2888C315.142 17.7875 329.475 16.6619 342.512 21.1837L342.84 20.2389Z" fill="#F4A14C" class="invisible" style="visibility: hidden;"></path>
+                <line y1="124.747" x2="380" y2="124.747" stroke="currentColor" stroke-opacity="0.5" stroke-width="4" stroke-dasharray="1 16" class="invisible" style="visibility: hidden;"></line>
+                <path d="M0.370605 140.747L3.22803 132.996H3.96924V134.248H3.66309L1.38574 140.747H0.370605ZM1.66504 138.529L1.96582 137.707H5.46777L5.76855 138.529H1.66504ZM6.02637 140.747L3.74902 134.248V132.996H4.18408L7.0415 140.747H6.02637ZM7.88223 142.681V134.957H8.8168V135.881H8.90273C9.0209 135.666 9.1695 135.483 9.34854 135.333C9.52757 135.179 9.73167 135.061 9.96084 134.978C10.19 134.896 10.4389 134.855 10.7074 134.855C11.198 134.855 11.6241 134.98 11.9857 135.231C12.351 135.478 12.6339 135.825 12.8344 136.273C13.0349 136.72 13.1352 137.245 13.1352 137.847V137.857C13.1352 138.462 13.0349 138.989 12.8344 139.436C12.6339 139.884 12.351 140.231 11.9857 140.478C11.6241 140.725 11.198 140.849 10.7074 140.849C10.4424 140.849 10.1918 140.808 9.95547 140.725C9.72272 140.64 9.51504 140.521 9.33242 140.371C9.15339 140.221 9.01016 140.042 8.90273 139.834H8.8168V142.681H7.88223ZM10.4926 140.022C10.8471 140.022 11.1496 139.936 11.4003 139.764C11.6509 139.589 11.8425 139.34 11.975 139.017C12.1111 138.692 12.1791 138.305 12.1791 137.857V137.847C12.1791 137.395 12.1111 137.009 11.975 136.686C11.8425 136.364 11.6509 136.117 11.4003 135.945C11.1496 135.77 10.8471 135.682 10.4926 135.682C10.1417 135.682 9.83909 135.77 9.58486 135.945C9.33063 136.121 9.13548 136.37 8.99941 136.692C8.86335 137.014 8.79531 137.399 8.79531 137.847V137.857C8.79531 138.301 8.86335 138.686 8.99941 139.012C9.13548 139.334 9.33063 139.583 9.58486 139.759C9.83909 139.934 10.1417 140.022 10.4926 140.022ZM14.1961 140.747V134.957H15.1307V135.816H15.2166C15.3276 135.512 15.5156 135.276 15.7806 135.107C16.0455 134.939 16.3732 134.855 16.7635 134.855C16.853 134.855 16.9407 134.86 17.0267 134.871C17.1162 134.878 17.1842 134.885 17.2308 134.892V135.8C17.1341 135.782 17.0392 135.77 16.9461 135.763C16.8566 135.752 16.7599 135.746 16.6561 135.746C16.3589 135.746 16.0957 135.806 15.8665 135.924C15.6373 136.042 15.4565 136.207 15.324 136.418C15.1951 136.629 15.1307 136.876 15.1307 137.159V140.747H14.1961ZM20.6739 140.747V140.081L23.295 137.245C23.6244 136.887 23.8823 136.592 24.0685 136.359C24.2547 136.122 24.3854 135.909 24.4605 135.72C24.5357 135.53 24.5733 135.322 24.5733 135.097V135.086C24.5733 134.814 24.5143 134.57 24.3961 134.355C24.2779 134.141 24.1096 133.97 23.8912 133.845C23.6728 133.72 23.4114 133.657 23.107 133.657C22.7991 133.657 22.5287 133.722 22.296 133.85C22.0632 133.976 21.8824 134.153 21.7535 134.382C21.6246 134.608 21.5602 134.873 21.5602 135.177L21.5548 135.188L20.631 135.182L20.6202 135.177C20.6238 134.719 20.7348 134.312 20.9532 133.958C21.1716 133.6 21.4724 133.321 21.8556 133.12C22.2387 132.916 22.6773 132.814 23.1715 132.814C23.6227 132.814 24.0291 132.909 24.3907 133.099C24.7524 133.285 25.037 133.541 25.2447 133.867C25.456 134.192 25.5616 134.565 25.5616 134.984V134.995C25.5616 135.288 25.5097 135.571 25.4059 135.843C25.3056 136.115 25.1266 136.418 24.8687 136.751C24.6109 137.08 24.2475 137.487 23.7784 137.97L21.775 140.038L22.0167 139.592V140.038L21.7804 139.877H25.6905V140.747H20.6739ZM29.5068 140.93C28.9339 140.93 28.4434 140.765 28.0352 140.435C27.6305 140.106 27.319 139.639 27.1006 139.034C26.8822 138.425 26.7729 137.705 26.7729 136.874V136.864C26.7729 136.033 26.8822 135.315 27.1006 134.71C27.319 134.105 27.6305 133.637 28.0352 133.308C28.4434 132.979 28.9339 132.814 29.5068 132.814C30.0798 132.814 30.5703 132.979 30.9785 133.308C31.3867 133.637 31.7 134.105 31.9185 134.71C32.1405 135.315 32.2515 136.033 32.2515 136.864V136.874C32.2515 137.705 32.1405 138.425 31.9185 139.034C31.7 139.639 31.3867 140.106 30.9785 140.435C30.5703 140.765 30.0798 140.93 29.5068 140.93ZM29.5068 140.086C29.8792 140.086 30.1961 139.956 30.4575 139.694C30.7225 139.433 30.9248 139.062 31.0645 138.582C31.2077 138.103 31.2793 137.533 31.2793 136.874V136.864C31.2793 136.205 31.2077 135.637 31.0645 135.161C30.9248 134.681 30.7225 134.312 30.4575 134.055C30.1961 133.793 29.8792 133.662 29.5068 133.662C29.138 133.662 28.8211 133.793 28.5562 134.055C28.2948 134.312 28.0942 134.681 27.9546 135.161C27.8149 135.637 27.7451 136.205 27.7451 136.864V136.874C27.7451 137.533 27.8149 138.103 27.9546 138.582C28.0942 139.062 28.2948 139.433 28.5562 139.694C28.8211 139.956 29.138 140.086 29.5068 140.086Z" fill="currentColor" fill-opacity="0.7" class="invisible" style="visibility: hidden;"></path>
+                <path d="M353.761 140.747V134.071H353.675L351.704 135.499V134.479L353.766 132.996H354.728V140.747H353.761ZM359.162 140.93C358.589 140.93 358.098 140.765 357.69 140.435C357.285 140.106 356.974 139.639 356.755 139.034C356.537 138.425 356.428 137.705 356.428 136.874V136.864C356.428 136.033 356.537 135.315 356.755 134.71C356.974 134.105 357.285 133.637 357.69 133.308C358.098 132.979 358.589 132.814 359.162 132.814C359.734 132.814 360.225 132.979 360.633 133.308C361.041 133.637 361.355 134.105 361.573 134.71C361.795 135.315 361.906 136.033 361.906 136.864V136.874C361.906 137.705 361.795 138.425 361.573 139.034C361.355 139.639 361.041 140.106 360.633 140.435C360.225 140.765 359.734 140.93 359.162 140.93ZM359.162 140.086C359.534 140.086 359.851 139.956 360.112 139.694C360.377 139.433 360.579 139.062 360.719 138.582C360.862 138.103 360.934 137.533 360.934 136.874V136.864C360.934 136.205 360.862 135.637 360.719 135.161C360.579 134.681 360.377 134.312 360.112 134.055C359.851 133.793 359.534 133.662 359.162 133.662C358.793 133.662 358.476 133.793 358.211 134.055C357.949 134.312 357.749 134.681 357.609 135.161C357.47 135.637 357.4 136.205 357.4 136.864V136.874C357.4 137.533 357.47 138.103 357.609 138.582C357.749 139.062 357.949 139.433 358.211 139.694C358.476 139.956 358.793 140.086 359.162 140.086ZM367.573 140.93C367.236 140.93 366.937 140.881 366.676 140.785C366.415 140.688 366.193 140.552 366.01 140.376C365.827 140.201 365.684 139.995 365.58 139.759C365.476 139.522 365.414 139.265 365.392 138.985L365.387 138.91H366.354L366.359 138.964C366.381 139.157 366.438 139.336 366.531 139.501C366.624 139.662 366.757 139.793 366.928 139.893C367.1 139.99 367.313 140.038 367.568 140.038C367.997 140.038 368.325 139.914 368.55 139.667C368.776 139.417 368.889 139.055 368.889 138.582V132.996H369.856V138.593C369.856 139.08 369.764 139.499 369.582 139.85C369.403 140.197 369.143 140.464 368.803 140.65C368.463 140.836 368.053 140.93 367.573 140.93ZM373.253 140.849C372.816 140.849 372.449 140.767 372.152 140.602C371.855 140.434 371.631 140.19 371.481 139.871C371.334 139.549 371.26 139.161 371.26 138.706V134.957H372.195V138.48C372.195 139 372.295 139.386 372.496 139.641C372.7 139.895 373.033 140.022 373.495 140.022C373.749 140.022 373.973 139.984 374.166 139.909C374.363 139.834 374.528 139.726 374.66 139.587C374.793 139.444 374.891 139.272 374.956 139.071C375.024 138.867 375.058 138.638 375.058 138.384V134.957H375.992V140.747H375.058V139.882H374.972C374.879 140.086 374.752 140.262 374.59 140.409C374.429 140.552 374.236 140.661 374.01 140.736C373.788 140.811 373.536 140.849 373.253 140.849ZM377.392 140.747V132.658H378.326V140.747H377.392Z" fill="currentColor" fill-opacity="0.7" class="invisible" style="visibility: hidden;"></path>
+                <defs class="invisible" style="visibility: hidden;">
+
+                </defs>
+              </svg>
+            </div>
+
+            <div class="pointer-events-none absolute top-0 right-0 bottom-0 left-0">
+              <div class="absolute" style="left: 78%; top: 36%; width: 180px; height: 180px; transform: translate(-50%,-50%); background: radial-gradient(closest-side, rgba(52,211,153,0.28), rgba(52,211,153,0.10), rgba(52,211,153,0.02) 70%, transparent 72%); filter: blur(6px);">
+              </div>
+              <div class="absolute left-[78%] top-0 bottom-0 border-l border-dashed border-white/10"></div>
+              <div class="absolute top-[36%] left-0 right-0 border-t border-dashed border-white/10"></div>
+              <div class="absolute left-[78%] top-[36%] -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20">
+              </div>
+
+              <!-- Enhanced tooltip -->
+              <div class="absolute left-[78%] top-[36%] -translate-x-1/2 -translate-y-full -mt-3 bg-neutral-900/90 backdrop-blur-sm px-3 py-2 rounded-lg text-xs text-neutral-200 ring-1 ring-white/10">
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                  <span>$23,457,543</span>
+                </div>
+                <div class="text-[10px] text-neutral-400 text-center mt-1">May 2024</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-6 text-[13px] text-neutral-400 mt-3">
+          <div class="text-left">Jan</div>
+          <div class="text-left">Feb</div>
+          <div class="text-left">Mar</div>
+          <div class="text-left">April</div>
+          <div class="text-left text-neutral-100 font-medium">May</div>
+          <div class="text-left">Jun</div>
+        </div>
+
+        <!-- Additional info section -->
+
+
+        <script class="">
+          (function () {
+      const el = document.getElementById('assetLineChart-aura-emga0wxqh');
+      if (!el || typeof Chart === 'undefined') return;
+      
+      const ctx = el.getContext('2d');
+      const gradient = ctx.createLinearGradient(0, 0, 0, el.offsetHeight || 140);
+      gradient.addColorStop(0, 'rgba(52,211,153,0.35)');
+      gradient.addColorStop(1, 'rgba(52,211,153,0.02)');
+
+      const lineGradient = ctx.createLinearGradient(0, 0, el.offsetWidth, 0);
+      lineGradient.addColorStop(0, 'rgba(34,197,94,0.8)');
+      lineGradient.addColorStop(0.5, 'rgba(52,211,153,1)');
+      lineGradient.addColorStop(1, 'rgba(16,185,129,0.8)');
+
+      new Chart(el, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            data: [18000000, 19200000, 18800000, 20800000, 23457543, 22800000],
+            borderColor: lineGradient,
+            borderWidth: 3,
+            tension: 0.4,
+            fill: true,
+            backgroundColor: gradient,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointBackgroundColor: '#34d399',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointHoverBackgroundColor: '#34d399',
+            pointHoverBorderColor: '#ffffff',
+            pointHoverBorderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { 
+            legend: { display: false }, 
+            tooltip: { enabled: false }
+          },
+          scales: { 
+            x: { display: false }, 
+            y: { display: false }
+          },
+          elements: {
+            point: {
+              hoverRadius: 6
+            }
+          }
+        }
+      });
+    })();
+        </script>
+      </div>
+      <div class="grid grid-cols-4 mt-4 gap-x-4 gap-y-4">
+        <button class="flex flex-col hover:bg-neutral-900 transition xl:bg-neutral-800/50 bg-neutral-900/60 w-30 h-30 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/09777092-f1ef-4125-b9d9-7334561f0379_1600w.png)] bg-cover ring-white/20 ring-1 rounded-lg pt-3 pb-3 gap-x-2 gap-y-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-down-to-line" class="lucide lucide-arrow-down-to-line size-4 text-neutral-200" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(229, 229, 229); visibility: hidden;"><path d="M12 17V3"></path><path d="m6 11 6 6 6-6"></path><path d="M19 21H5"></path></svg>
+                    
+                  </button>
+        <button class="flex flex-col hover:bg-neutral-900 transition xl:bg-neutral-800/50 bg-neutral-900/60 w-30 h-30 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/d15064d6-5ed3-4b61-977f-0bf125954978_1600w.png)] bg-cover ring-white/20 ring-1 rounded-lg pt-3 pb-3 gap-x-2 gap-y-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-from-line" class="lucide lucide-arrow-up-from-line size-4 text-neutral-200" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(229, 229, 229); visibility: hidden;"><path d="m18 9-6-6-6 6"></path><path d="M12 3v14"></path><path d="M5 21h14"></path></svg>
+                    
+                  </button>
+        <button class="flex flex-col hover:bg-neutral-900 transition xl:bg-neutral-800/50 bg-neutral-900/60 w-30 h-30 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/b63092f2-716b-48d3-8e40-3479df40b1b1_1600w.png)] bg-cover ring-white/20 ring-1 rounded-lg pt-3 pb-3 gap-x-2 gap-y-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wallet-2" class="lucide lucide-wallet-2 size-4 w-[24px] h-[24px] invisible" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(229, 229, 229); visibility: hidden;"><path d="M17 14h.01"></path><path d="M7 7h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14"></path></svg>
+                    
+                  </button>
+        <button class="flex flex-col hover:bg-neutral-900 transition xl:bg-neutral-800/50 ring-white/20 ring-1 bg-neutral-900/60 w-30 h-30 bg-[url(https://hoirqrkdgbmvpwutwuwj-all.supabase.co/storage/v1/object/public/assets/assets/159f488c-535e-4947-86b7-9f96c1686706_320w.png)] bg-cover rounded-lg pt-3 pb-3 gap-x-2 gap-y-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="banknote" class="lucide lucide-banknote size-4 w-[24px] h-[24px] invisible" data-icon-replaced="true" style="width: 24px; height: 24px; color: rgb(229, 229, 229); visibility: hidden;"><rect width="20" height="12" x="2" y="6" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+                    <span class="text-[11px] text-neutral-300 mt-2 translate-y-3" style="visibility: hidden;">Loan</span>
+                  </button>
+      </div><div class="grid grid-cols-4 mt-4 gap-x-4 gap-y-4">
+  <span class="text-[11px] xl:text-center -translate-y-1 text-neutral-300 mt-2 -translate-y-3">Deposit</span>
+  <span class="text-[11px] xl:text-center -translate-y-1 text-neutral-300 mt-2 -translate-y-3">Send</span>
+  <span class="text-[11px] xl:text-center -translate-y-1 text-neutral-300 mt-2 -translate-y-3">Swap</span>
+  <span class="text-[11px] xl:text-center -translate-y-1 text-neutral-300 mt-2 -translate-y-3">Loan</span>
+</div>
+
+
+
+
+      <div class="flex xl:mt-0 mt-4 mb-4 items-center justify-between">
+  <h3 class="text-lg font-semibold font-inter">Your Assets</h3>
+  <button class="text-gray-400 text-sm font-medium font-inter font-sans" style="">View All</button>
+</div>
+
+      <div class="mb-8 space-y-3">
+        <!-- Bitcoin -->
+        <div class="flex xl:bg-neutral-800/50 bg-gray-900/30 border-0 ring-white/20 ring-1 rounded-xl pt-4 pr-4 pb-4 pl-4 backdrop-blur-sm gap-x-4 gap-y-4 items-center">
+
+          <div class="flex-1">
+            <p class="font-medium font-inter" style="">Bitcoin</p>
+            <p class="text-sm text-gray-400 font-inter" style="">0.724 BTC</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium font-inter font-sans" style="">$31,425.68</p>
+            <div class="flex items-center gap-1 justify-end">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-up" class="lucide lucide-trending-up w-3 h-3 text-green-400"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
+              <span class="text-green-400 text-sm font-inter font-sans" style="">+3.2%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ethereum -->
+        <div class="flex xl:bg-neutral-800/50 bg-gray-900/30 border-0 ring-white/20 ring-1 rounded-xl pt-4 pr-4 pb-4 pl-4 backdrop-blur-sm gap-x-4 gap-y-4 items-center">
+
+          <div class="flex-1">
+            <p class="font-medium font-inter" style="">Ethereum</p>
+            <p class="text-gray-400 text-sm font-inter font-sans" style="">4.12 ETH</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium font-inter font-sans" style="">$11,730.24</p>
+            <div class="flex items-center gap-1 justify-end">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-down" class="lucide lucide-trending-down w-3 h-3 text-red-400"><path d="M16 17h6v-6"></path><path d="m22 17-8.5-8.5-5 5L2 7"></path></svg>
+              <span class="text-red-400 text-sm font-inter font-sans" style="">-0.8%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cardano -->
+        <div class="flex xl:bg-neutral-800/50 bg-gray-900/30 border-0 ring-white/20 ring-1 rounded-xl pt-4 pr-4 pb-4 pl-4 backdrop-blur-sm gap-x-4 gap-y-4 items-center">
+
+          <div class="flex-1">
+            <p class="font-medium font-inter font-sans" style="">Cardano</p>
+            <p class="text-gray-400 text-sm font-inter font-sans" style="">1,250 ADA</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium font-inter font-sans" style="">$5,171.93</p>
+            <div class="flex items-center gap-1 justify-end">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-up" class="lucide lucide-trending-up w-3 h-3 text-green-400"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
+              <span class="text-green-400 text-sm font-inter font-sans" style="">+7.4%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solana -->
+        <div class="flex xl:bg-neutral-800/50 bg-gray-900/30 border-0 ring-white/20 ring-1 rounded-xl pt-4 pr-4 pb-4 pl-4 backdrop-blur-sm gap-x-4 gap-y-4 items-center">
+
+          <div class="flex-1">
+            <p class="font-medium font-inter font-sans" style="">Solana</p>
+            <p class="text-sm text-gray-400 font-inter" style="">45.6 SOL</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium font-inter font-sans" style="">$3,420.15</p>
+            <div class="flex items-center gap-1 justify-end">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-up" class="lucide lucide-trending-up w-3 h-3 text-green-400"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
+              <span class="text-green-400 text-sm font-inter font-sans" style="">+5.1%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polygon -->
+        <div class="flex xl:bg-neutral-800/50 bg-gray-900/30 border-0 ring-white/20 ring-1 rounded-xl pt-4 pr-4 pb-4 pl-4 backdrop-blur-sm gap-x-4 gap-y-4 items-center">
+
+          <div class="flex-1">
+            <p class="font-medium font-inter font-sans" style="">Polygon</p>
+            <p class="text-gray-400 text-sm font-inter font-sans" style="">2,850 MATIC</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium font-inter font-sans" style="">$2,562.30</p>
+            <div class="flex items-center gap-1 justify-end">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-down" class="lucide lucide-trending-down w-3 h-3 text-red-400"><path d="M16 17h6v-6"></path><path d="m22 17-8.5-8.5-5 5L2 7"></path></svg>
+              <span class="text-red-400 text-sm font-inter font-sans" style="">-2.1%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chainlink -->
+        <div class="flex xl:bg-neutral-800/50 bg-gray-900/30 border-0 ring-white/20 ring-1 rounded-xl pt-4 pr-4 pb-4 pl-4 backdrop-blur-sm gap-x-4 gap-y-4 items-center">
+
+          <div class="flex-1">
+            <p class="font-medium font-inter font-sans" style="">Chainlink</p>
+            <p class="text-gray-400 text-sm font-inter font-sans" style="">125 LINK</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium font-inter font-sans" style="">$1,875.00</p>
+            <div class="flex items-center gap-1 justify-end">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="trending-up" class="lucide lucide-trending-up w-3 h-3 text-green-400"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
+              <span class="text-green-400 text-sm font-inter font-sans" style="">+1.8%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Header -->
+
+
+        <!-- Transaction 1 -->
+        <div class="flex xl:bg-neutral-800/50 bg-gray-900/30 border-0 ring-white/20 ring-1 rounded-xl pt-4 pr-4 pb-4 pl-4 backdrop-blur-sm gap-x-4 gap-y-4 items-center">
+
+          <div class="flex-1">
+            <p class="font-medium font-inter font-sans" style="">Received Bitcoin</p>
+            <p class="text-gray-400 text-sm font-inter font-sans" style="">Today, 2:15 PM</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium text-green-400 font-inter font-sans" style="">+0.125 BTC</p>
+            <p class="text-gray-400 text-sm font-inter font-sans" style="">$5,486.56</p>
+          </div>
+        </div>
+
+        <!-- Transaction 2 -->
+        <div class="flex xl:bg-neutral-800/50 bg-gray-900/30 border-0 ring-white/20 ring-1 rounded-xl pt-4 pr-4 pb-4 pl-4 backdrop-blur-sm gap-x-4 gap-y-4 items-center">
+
+          <div class="flex-1">
+            <p class="font-medium font-inter font-sans" style="">Sent Ethereum</p>
+            <p class="text-gray-400 text-sm font-inter font-sans" style="">Yesterday, 6:30 PM</p>
+          </div>
+          <div class="text-right">
+            <p class="font-medium text-red-400 font-inter font-sans" style="">-0.5 ETH</p>
+            <p class="text-gray-400 text-sm font-inter font-sans" style="">$1,425.00</p>
+          </div>
+        </div>
+
+        <!-- Transaction 3 -->
+
+      </div>
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="absolute inset-x-0 bottom-0 z-20">
+      <div class="h-8 flex items-end justify-center pb-2">
+        <div class="w-[134px] h-[5px] rounded-full bg-white/80"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 3: New Loan -->
+  <div class="overflow-hidden xl:bg-gray-950 bg-neutral-900 border-white/10 border rounded-[2rem] relative shadow-2xl w-[393px] h-[852px]">
+    <!-- iOS Status Bar -->
+    <div class="absolute inset-x-0 top-0 z-20">
+      <div class="h-12 px-4 pt-2.5 flex items-center justify-between text-[13px]">
+        <div class="font-medium tracking-tight">9:41</div>
+        <div class="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="signal" class="lucide lucide-signal size-4 opacity-90"><path d="M2 20h.01"></path><path d="M7 20v-4"></path><path d="M12 20v-8"></path><path d="M17 20V8"></path><path d="M22 4v16"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wifi" class="lucide lucide-wifi size-4 opacity-90"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="battery" class="lucide lucide-battery size-5 opacity-90"><path d="M 22 14 L 22 10"></path><rect x="2" y="6" width="16" height="12" rx="2"></rect></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col h-full pr-5 pl-5 pt-[56px] pb-[34px] overflow-y-auto">
+      <div class="flex items-center gap-2">
+        <button class="rounded-lg p-2 ring-1 ring-white/10 bg-neutral-900/60 hover:bg-neutral-800 transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left" class="lucide lucide-chevron-left size-4 text-neutral-300"><path d="m15 18-6-6 6-6"></path></svg>
+                </button>
+        <h2 class="text-xl font-medium tracking-tight">New Loan</h2>
+      </div>
+
+      <!-- Collateral -->
+      <div class="ring-white/20 ring-1 bg-neutral-800/50 rounded-xl mt-4 pt-4 pr-4 pb-4 pl-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium tracking-tight">Collateral amount</span>
+          <span class="text-[11px] text-neutral-400">Available: 0.05372 BTC</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="size-9 rounded-full bg-[#F7931A]/15 ring-1 ring-[#F7931A]/20 grid place-items-center">
+            <span class="text-[10px] font-medium text-[#F7931A]">BTC</span>
+          </div>
+          <div class="flex-1 text-3xl font-semibold tracking-tight tabular-nums">0.00503</div>
+          <div class="flex items-center gap-2">
+            <button class="rounded-lg p-2 ring-1 ring-white/10 bg-neutral-900/60 hover:bg-neutral-800 transition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="minus" class="lucide lucide-minus size-4"><path d="M5 12h14"></path></svg></button>
+            <button class="rounded-lg p-2 ring-1 ring-white/10 bg-neutral-900/60 hover:bg-neutral-800 transition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" class="lucide lucide-plus size-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loan amount -->
+      <div class="mt-3 rounded-xl bg-neutral-800/50 ring-1 ring-white/20 p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium tracking-tight">Loan amount</span>
+          <span class="text-[11px] text-neutral-400">Max Borrow: 9999 USDT</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="size-9 rounded-full bg-emerald-500/15 ring-1 ring-emerald-500/20 grid place-items-center">
+            <span class="text-[10px] font-medium text-emerald-400">USDT</span>
+          </div>
+          <div class="flex-1 text-3xl font-semibold tracking-tight tabular-nums">390.16</div>
+        </div>
+      </div>
+
+      <!-- Terms -->
+      <div class="bg-neutral-800/50 ring-white/20 ring-1 rounded-xl mt-3 pt-4 pr-4 pb-4 pl-4">
+        <div class="flex items-center gap-2 text-xs text-neutral-400">
+          <span class="xl:text-[#ffffff] text-sm font-medium tracking-tight">Term</span>
+        </div>
+        <div class="mt-2 grid grid-cols-4 gap-2">
+          <button class="rounded-lg px-3 py-2 text-xs bg-neutral-900/60 text-neutral-300 ring-1 ring-white/10 hover:bg-neutral-900 transition">3 Month</button>
+          <button class="rounded-lg px-3 py-2 text-xs bg-neutral-900/60 text-neutral-300 ring-1 ring-white/10 hover:bg-neutral-900 transition">6 Month</button>
+          <button class="rounded-lg px-3 py-2 text-xs bg-neutral-900/60 text-neutral-300 ring-1 ring-white/10 hover:bg-neutral-900 transition">1 Year</button>
+          <button class="rounded-lg px-3 py-2 text-xs bg-white text-neutral-900 font-medium">Flexible</button>
+        </div>
+
+        <div class="mt-4 space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-neutral-400">APY</span>
+            <span class="font-medium">18%</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-neutral-400">Liquidation BTC price</span>
+            <span class="tabular-nums font-medium">$79,980.16</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-neutral-400">Issue fee</span>
+            <span class="tabular-nums font-medium">0 USDT</span>
+          </div>
+
+          <div class="">
+            <div class="flex items-center justify-between text-sm mb-1">
+              <span class="text-neutral-400">LTV</span>
+              <span class="tabular-nums text-emerald-400 font-medium">74%</span>
+            </div>
+            <div class="h-2 w-full rounded-full bg-neutral-800 ring-1 ring-white/5 overflow-hidden">
+              <div class="h-full w-[74%] bg-gradient-to-r from-emerald-500 to-emerald-400"></div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-neutral-400">Loan availability</span>
+            <span class="tabular-nums font-medium">389.8805857654</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 rounded-xl bg-neutral-900/70 ring-1 ring-white/20 p-4">
+        <p class="text-[11px] text-neutral-400">
+          By clicking Get loan, I expressly agree to the
+          <a href="#" class="text-neutral-200 underline underline-offset-2">Terms of Service</a>.
+        </p>
+      </div>
+
+      <div class="mt-auto pt-3">
+        <button class="inline-flex gap-2 hover:bg-neutral-100 transition text-sm font-medium text-neutral-900 bg-white w-full rounded-xl pt-3.5 pr-4 pb-3.5 pl-4 gap-x-2 gap-y-2 items-center justify-center">
+                  Get loan
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right size-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </button>
+      </div>
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="absolute inset-x-0 bottom-0 z-20">
+      <div class="h-8 flex items-end justify-center pb-2">
+        <div class="w-[134px] h-[5px] rounded-full bg-white/80"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    </main>
+
+    <script>
+      // Lucide icons
+      window.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) {
+          lucide.createIcons();
+          // Enforce 1.5 stroke width for all icons
+          document.querySelectorAll('.lucide').forEach(el => el.setAttribute('stroke-width', '1.5'));
+        }
+      });
+
+      // Charts
+      const makeGauge = (el, value = 0.126) => {
+        const ctx = document.getElementById(el);
+        if (!ctx) return;
+        const pct = Math.max(0, Math.min(1, value));
+        const data = {
+          datasets: [
+            {
+              data: [pct, 1 - pct],
+              backgroundColor: ['#22c55e', 'rgba(255,255,255,0.08)'],
+              borderWidth: 0,
+              cutout: '70%',
+              circumference: 180,
+              rotation: 270,
+            },
+          ],
+        };
+        const plugin = {
+          id: 'centerText',
+          afterDraw(chart) {
+            const { ctx, chartArea: { width, height } } = chart;
+            ctx.save();
+            ctx.font = '600 14px Inter';
+            ctx.fillStyle = '#e5e7eb';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const meta = chart.getDatasetMeta(0).data[0];
+            if (meta) ctx.fillText(`${Math.round(pct * 100)}%`, meta.x, meta.y + 10);
+            ctx.restore();
+          },
+        };
+        new Chart(ctx, { type: 'doughnut', data, options: { responsive: true, plugins: { legend: { display: false }, tooltip: { enabled: false } } }, plugins: [plugin] });
+      };
+
+      const makeLine = (el) => {
+        const ctxWrap = document.getElementById(el);
+        if (!ctxWrap) return;
+        const gradient = ctxWrap.getContext('2d').createLinearGradient(0, 0, 0, 100);
+        gradient.addColorStop(0, 'rgba(34,197,94,0.35)');
+        gradient.addColorStop(1, 'rgba(34,197,94,0.02)');
+        new Chart(ctxWrap, {
+          type: 'line',
+          data: {
+            labels: Array.from({ length: 12 }, (_, i) => i + 1),
+            datasets: [
+              {
+                data: [10, 12, 11, 13, 14, 15, 14, 16, 18, 17, 19, 21],
+                borderColor: '#22c55e',
+                borderWidth: 2,
+                tension: 0.35,
+                fill: true,
+                backgroundColor: gradient,
+                pointRadius: 0,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: { x: { display: false }, y: { display: false } },
+            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          },
+        });
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        makeGauge('ltvGauge', 0.126);
+        makeLine('earnLine');
+      });
+    </script>
+  
+</body></html>

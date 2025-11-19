@@ -1,0 +1,15 @@
+{
+  "name": "bizcap-convex",
+  "version": "1.0.0",
+  "description": "Bizcap Convex backend for Railway deployment",
+  "scripts": {
+    "dev": "convex dev",
+    "deploy": "convex deploy"
+  },
+  "dependencies": {
+    "convex": "^1.15.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}
